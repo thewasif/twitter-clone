@@ -1,15 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import Navigator from "../components/Navigator";
 import Counter from "../components/Counter";
-import Layout from "../components/Layout";
+import "../scss/home.scss";
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
-    return <Layout />;
+    return (
+      <div className="app-container">
+        <div className="section">
+          <Navigator />
+        </div>
+        <div className="section">sec 2</div>
+        <div className="section">sec 3</div>
+      </div>
+    );
   }
 }
 

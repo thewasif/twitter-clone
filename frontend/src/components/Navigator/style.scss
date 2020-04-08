@@ -1,0 +1,57 @@
+@import "../../scss//utils.scss";
+
+.nav-container {
+  @include flex-center;
+}
+
+.logo-icon {
+  @include flex-center;
+  @include circle(40px);
+  padding: 10px;
+  transition: 0.3s;
+  &:hover {
+    background-color: $primary-color-light;
+  }
+  .title-icon {
+    font-size: xx-large;
+    color: $primary-color;
+  }
+}
+
+.nav-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 50px;
+  padding: 0px 26px;
+  margin: 2px;
+  &:hover {
+    background-color: $primary-color-light;
+    color: $primary-color;
+  }
+  .icon {
+    font-size: x-large;
+  }
+  .text {
+    font-family: $primary-font;
+    font-size: x-large;
+    margin-left: 10px;
+  }
+}
+
+.btn-tweet {
+  color: white;
+  background-color: $primary-color;
+  padding: 10px 60px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  font-size: x-large;
+  font-family: $primary-font;
+  margin-top: 24px;
+}

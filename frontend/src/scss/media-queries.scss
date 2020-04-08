@@ -1,0 +1,11 @@
+@media (max-width: 420px) {
+  .section:nth-child(1),
+  .section:nth-child(1) {
+    display: none;
+  }
+  .app-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    // repeat(auto-fill, minmax(200px, 1fr))
+  }
+}

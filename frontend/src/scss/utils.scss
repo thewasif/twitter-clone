@@ -6,8 +6,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
 
 // colors
-$primary-color: #00acee;
+$primary-color: #00abee;
 $light-color: gray;
+$primary-color-light: #00abee31;
 
 // fonts
 $primary-font: "Roboto";
@@ -18,4 +19,10 @@ $tweet-font: "Inter";
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@mixin circle($radius) {
+  border-radius: 50%;
+  width: $radius;
+  height: $radius;
 }

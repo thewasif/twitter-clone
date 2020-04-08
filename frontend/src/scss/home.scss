@@ -1,0 +1,20 @@
+@import "./utils.scss";
+
+.app-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 1;
+  // repeat(auto-fill, minmax(200px, 1fr))
+}
+
+.section {
+  height: 100vh;
+}
+.section:nth-child(1) {
+}
+
+.section:nth-child(2) {
+}
+
+.section:nth-child(3) {
+}
