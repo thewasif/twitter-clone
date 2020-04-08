@@ -2,20 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import Counter from "../components/Counter";
-
+import Layout from "../components/Layout";
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   render() {
-    return (
-      <Wrapper>
-        <Icon src="https://raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png" />
-        <Title>You're good to go!</Title>
-        <Counter />
-      </Wrapper>
-    );
+    return <Layout />;
   }
 }
 
@@ -36,16 +30,16 @@ const Icon = styled.img`
   height: auto;
 `;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    counter: state.counter
+    counter: state.counter,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     add: () => dispatch({ type: "ADD" }),
-    subtract: () => dispatch({ type: "SUBTRACT" })
+    subtract: () => dispatch({ type: "SUBTRACT" }),
   };
 };
 

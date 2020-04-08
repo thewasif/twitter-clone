@@ -1,0 +1,21 @@
+/*
+  This file contains all variables, mixins and functions etc that are to be used
+  in the whole code. These utils will be imported before using.
+*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
+
+// colors
+$primary-color: #00acee;
+$light-color: gray;
+
+// fonts
+$primary-font: "Roboto";
+$tweet-font: "Inter";
+
+// mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

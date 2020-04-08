@@ -4,11 +4,12 @@
   "private": true,
   "dependencies": {
     "framer-motion": "^1.10.2",
+    "node-sass": "^4.13.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.4.1",
     "redux": "^4.0.4",
     "styled-components": "^4.4.1"
   },

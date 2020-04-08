@@ -1,0 +1,37 @@
+@import "../../scss/vars.scss";
+
+.app-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 1;
+  // repeat(auto-fill, minmax(200px, 1fr))
+}
+
+.section:nth-child(1) {
+  background-color: red;
+  height: 100vh;
+}
+
+.section:nth-child(2) {
+  background-color: green;
+  height: 100vh;
+}
+
+.section:nth-child(3) {
+  background-color: red;
+  height: 100vh;
+}
+
+@media (max-width: 420px) {
+  .section:nth-child(1) {
+    background-color: blue;
+    height: 100vh;
+    display: none;
+  }
+  .app-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1;
+    // repeat(auto-fill, minmax(200px, 1fr))
+  }
+}
