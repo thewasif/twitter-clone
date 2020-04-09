@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import Navigator from "../components/Navigator";
-import TweetBox from "../components/TweetBox";
-import Counter from "../components/Counter";
-import "../scss/home.scss";
+import Navigator from "../../components/Navigator";
+import TweetBox from "../../components/TweetBox";
+import "./style.scss";
 
 class Home extends React.Component {
   constructor(props) {
