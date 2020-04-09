@@ -6,13 +6,13 @@ const Navigator = (props) => {
   return (
     <div className="nav-container">
       <div className="logo-icon">
-        <i className="fa fa-twitter title-icon"></i>
+        <i className="fab fa-twitter title-icon"></i>
       </div>
       <div className="nav-content">
         <NavItem text="Home" icon={<i className="fa fa-home"></i>} />
-        <NavItem text="Notifications" icon={<i className="fa fa-bell"></i>} />
-        <NavItem text="Bookmarks" icon={<i className="fa fa-bookmark"></i>} />
-        <NavItem text="Profile" icon={<i className="fa fa-user-circle"></i>} />
+        <NavItem text="Notifications" icon={<i className="far fa-bell"></i>} />
+        <NavItem text="Bookmarks" icon={<i className="far fa-bookmark"></i>} />
+        <NavItem text="Profile" icon={<i className="far fa-user-circle"></i>} />
         <NavItem text="More" icon={<i className="fa fa-ellipsis-h"></i>} />
       </div>
       <div>

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import Navigator from "../components/Navigator";
+import TweetBox from "../components/TweetBox";
 import Counter from "../components/Counter";
 import "../scss/home.scss";
 
@@ -16,7 +17,14 @@ class Home extends React.Component {
         <div className="section">
           <Navigator />
         </div>
-        <div className="section">sec 2</div>
+        <div className="section">
+          <div className="title-container">
+            <h1 className="title">Home</h1>
+          </div>
+          <div className="tweet-box-container">
+            <TweetBox profile_pic="https://pbs.twimg.com/profile_images/1233740620482695169/WQ510IvO_400x400.jpg" />
+          </div>
+        </div>
         <div className="section">sec 3</div>
       </div>
     );
