@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import "./style.scss";
+import Header from "../../../components/Header";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -10,9 +12,11 @@ class SignUp extends React.Component {
   postData() {
     console.log("executing function...!");
     axios
-      .post("http://localhost:5000/auth/signup", {
-        username: "muhammadwasif",
-        password: "123456",
+      .post({
+        method: "POST",
+        url: "http://localhost:5000/auth/signup/",
+        data: { username: "wasif", password: "pass" },
+        json: true,
       })
       .then(() => {
         console.log("posted successfully from client");
@@ -22,9 +26,40 @@ class SignUp extends React.Component {
   render() {
     return (
       <div>
-        username: <input type="text" name="username" value="m_wasif" /> <br />
-        password: <input type="text" name="password" value="123456" /> <br />
-        <button onClick={this.postData}>Sign Up</button>
+        <Header />
+        <div className="form-container">
+          <h1 className="title">Sign Up</h1>
+          <input
+            type="text"
+            name="username"
+            value="m_wasif"
+            spellCheck="false"
+            className="input-field"
+            placeholder="Username"
+          />{" "}
+          <input
+            type="email"
+            name="email"
+            value="wasif33@outlook.com"
+            spellCheck="false"
+            className="input-field"
+            placeholder="Email"
+          />{" "}
+          <input
+            type="text"
+            name="password"
+            value="123456"
+            placeholder="Password"
+            className="input-field"
+          />{" "}
+          <label className="terms">
+            <input type="checkbox" />I agrees to{" "}
+            <a href="#">terms and services</a>
+          </label>
+          <button onClick={this.postData} className="submit-btn">
+            Sign Up
+          </button>
+        </div>
       </div>
     );
   }

@@ -4,6 +4,7 @@
 */
 @import url("https://fonts.googleapis.com/css2?family=Roboto");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
 // colors
 $primary-color: #00abee;
@@ -25,4 +26,9 @@ $tweet-font: "Inter";
   border-radius: 50%;
   width: $radius;
   height: $radius;
+}
+
+@mixin link {
+  text-decoration: none;
+  color: $primary-color;
 }

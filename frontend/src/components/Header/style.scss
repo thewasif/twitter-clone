@@ -1,0 +1,23 @@
+@import "../../scss/utils.scss";
+
+.header {
+  display: flex;
+  justify-content: space-evenly;
+  .heading {
+    font-family: $primary-font;
+  }
+  .icon-container {
+    @include flex-center;
+    .icon {
+      font-size: x-large;
+      color: $primary-color;
+    }
+  }
+
+  .extra-link {
+    @include flex-center;
+    a {
+      @include link;
+    }
+  }
+}
