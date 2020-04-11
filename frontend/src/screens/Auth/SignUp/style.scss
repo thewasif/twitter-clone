@@ -6,41 +6,45 @@
   .title {
     font-family: $primary-font;
   }
-  .input-field {
-    padding: 8px 12px;
-    font-family: $tweet-font;
-    font-size: large;
-    outline: none;
-    border: none;
-    background-color: rgba($color: #333, $alpha: 0.1);
-    border-radius: 20px;
-    transition: 0.2s;
-    margin: 10px;
-    &:focus {
-      border: solid 1px $primary-color;
+  form {
+    @include flex-center;
+    flex-direction: column;
+    .input-field {
+      padding: 8px 12px;
+      font-family: $tweet-font;
+      font-size: large;
+      outline: none;
+      border: none;
+      background-color: rgba($color: #333, $alpha: 0.1);
+      border-radius: 20px;
+      transition: 0.2s;
+      margin: 10px;
+      &:focus {
+        border: solid 1px $primary-color;
+      }
     }
-  }
 
-  .terms {
-    font-family: $primary-font;
-    color: #333;
-    a {
-      @include link;
+    .terms {
+      font-family: $primary-font;
+      color: #333;
+      a {
+        @include link;
+      }
     }
-  }
 
-  .submit-btn {
-    color: white;
-    background-color: rgba($color: $primary-color, $alpha: 0.8);
-    padding: 10px 60px;
-    border: none;
-    outline: none;
-    border-radius: 50px;
-    font-size: large;
-    font-family: "Open Sans";
-    margin-top: 24px;
-    &:hover {
-      background-color: rgba($color: $primary-color, $alpha: 1);
+    .submit-btn {
+      color: white;
+      background-color: rgba($color: $primary-color, $alpha: 0.8);
+      padding: 10px 60px;
+      border: none;
+      outline: none;
+      border-radius: 50px;
+      font-size: large;
+      font-family: "Open Sans";
+      margin-top: 24px;
+      &:hover {
+        background-color: rgba($color: $primary-color, $alpha: 1);
+      }
     }
   }
 }

@@ -1,13 +1,20 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
+const passport = require("passport");
 
 router.route("/signup").post((req, res) => {
-  console.log("WOHOOOO!");
-  console.log("It Worked....!");
-  //res.header({ "Access-Control-Allow-Origin": "http://localhost:3000" });
-  //req.header({ "Access-Control-Allow-Origin": "http://localhost:3000" });
-  console.log(req.body);
-  res.send(req.body);
+  console.log(req.body, "hehe");
+  let { username, password } = req.body;
+  req.login({ username, password }, () => {
+    res.redirect("/auth/profile");
+  });
+  /*req.logIn(req.body, () => {
+    res.redirect("/auth/profile");
+  });*/
+});
+
+router.get("/profile", (req, res) => {
+  console.log("From blah blah", req.user);
+  res.send(req.user);
 });
 
 router.get("/signup", (req, res) => {

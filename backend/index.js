@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -6,8 +7,9 @@ const app = express();
 const auth = require("./routes/auth");
 
 app.use(express.json());
-app.use(session({ secret: "fjkhfasf0fsfsf" }));
+app.use(cors());
 app.use(cookieParser());
+app.use(session({ secret: "fjkhfasf0fsfsf" }));
 require("./config/passport")(app);
 
 // Routes
