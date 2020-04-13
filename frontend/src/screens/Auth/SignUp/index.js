@@ -24,7 +24,8 @@ class SignUp extends React.Component {
     axios
       .post("http://localhost:5000/auth/signup", userData)
       .then((res) => {
-        console.log(res.data, "client");
+        console.log("client code", res.status);
+        console.log("client data", res.data);
         console.log("posted successfully from client");
       })
       .catch((e) => console.log(e));
@@ -35,7 +36,7 @@ class SignUp extends React.Component {
         <Header />
         <div className="form-container">
           <h1 className="title">Sign Up</h1>
-          <form onSubmit={this.postData}>
+          <form action="http://localhost:5000/auth/signup" method="POST">
             <input
               type="text"
               name="username"
@@ -69,10 +70,14 @@ class SignUp extends React.Component {
               className="input-field"
             />{" "}
             <label className="terms">
-              <input type="checkbox" />I agrees to{" "}
+              <input type="checkbox" />I agree to{" "}
               <a href="#">terms and services</a>
             </label>
-            <button onClick={this.postData} className="submit-btn">
+            <button
+              type="submit"
+              onClick={this.postData}
+              className="submit-btn"
+            >
               Sign Up
             </button>
           </form>
