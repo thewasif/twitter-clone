@@ -3,11 +3,26 @@ const passport = require("passport");
 const User = require("../models/user");
 
 router.post("/signup", passport.authenticate("local"), (req, res) => {
-  console.log(req.body, "hehe");
-  req.login(req.body, () => {
-    console.log(req.user);
-    const newUser = new User(req.body);
-    newUser.save().then((e) => console.log("saved successfully...!"));
+  const { email } = req.body;
+  User.findOne({ email }).then((e) => {
+    if (e) {
+      res.status(400).send("Email already exists");
+      console.log("Email already exists");
+    } else {
+      req.login(req.body, () => {
+        const newUser = new User(req.body);
+        newUser
+          .save()
+          .then((e) => {
+            res.status(200).send("Success!");
+            console.log("Saved to database...!");
+          })
+          .catch((e) => {
+            res.status(400).send("Invalid data!");
+            console.log("Invalid data!");
+          });
+      });
+    }
     res.redirect("/auth/profile");
   });
 });

@@ -5,6 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 
 // colors
 $primary-color: #00abee;
@@ -14,6 +15,7 @@ $primary-color-light: #00abee31;
 // fonts
 $primary-font: "Roboto";
 $tweet-font: "Inter";
+$secondary-font: "Montserrat";
 
 // mixins
 @mixin flex-center {

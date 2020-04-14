@@ -9,6 +9,10 @@
   form {
     @include flex-center;
     flex-direction: column;
+    label {
+      color: #ff4444;
+      font-family: $secondary-font;
+    }
     .input-field {
       padding: 8px 12px;
       font-family: $tweet-font;
