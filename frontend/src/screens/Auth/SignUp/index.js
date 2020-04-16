@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 import "./style.scss";
 import Header from "../../../components/Header";
 
@@ -11,53 +13,9 @@ class SignUp extends React.Component {
       password: "",
       email: "",
       btnDisabled: false,
-      error: "none",
-      errorText: "",
     };
-    this.postData = this.postData.bind(this);
   }
-  postData(e) {
-    e.preventDefault();
-    this.setState({ btnDisabled: true });
-    let password = this.state.password,
-      username = this.state.username,
-      email = this.state.email;
-    if (password == "" || password.length < 6) {
-      this.setState({
-        errorText: "Password is too weak",
-        error: "block",
-        btnDisabled: false,
-      });
-      return;
-    } else if (email == "" || username == "") {
-      this.setState({
-        errorText: "Please fill the form",
-        error: "block",
-        btnDisabled: false,
-      });
-      return;
-    }
-    const userData = {
-      username: this.state.username,
-      password: this.state.password,
-      email: this.state.email,
-      createdAt: new Date(),
-    };
 
-    axios
-      .post("http://localhost:5000/auth/signup", userData)
-      .then((res) => {
-        console.log(`${res.status} - ${res.statusText}`);
-        this.setState({ btnDisabled: false });
-      })
-      .catch((e) => {
-        this.setState({
-          btnDisabled: false,
-          errorText: "Username or email already exists!",
-          error: "block",
-        });
-      });
-  }
   render() {
     return (
       <div>
@@ -65,13 +23,12 @@ class SignUp extends React.Component {
         <div className="form-container">
           <h1 className="title">Sign Up</h1>
           <form action="http://localhost:5000/auth/signup" method="POST">
-            <label style={{ display: this.state.error }}>
-              {this.state.errorText}
-            </label>
             <input
               type="text"
               name="username"
               required
+              minLength={3}
+              maxLength={20}
               value={this.state.username}
               onChange={(e) => {
                 this.setState({ username: e.target.value });
@@ -96,6 +53,7 @@ class SignUp extends React.Component {
               type="password"
               name="password"
               required
+              minLength={6}
               value={this.state.password}
               onChange={(e) => {
                 this.setState({ password: e.target.value });
@@ -104,12 +62,11 @@ class SignUp extends React.Component {
               className="input-field"
             />{" "}
             <label className="terms">
-              <input type="checkbox" />I agree to{" "}
+              <input type="checkbox" required />I agree to{" "}
               <a href="#">terms and services</a>
             </label>
             <button
               type="submit"
-              onClick={this.postData}
               className="submit-btn"
               disabled={this.state.btnDisabled}
             >
@@ -122,4 +79,13 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsername: (val) => dispatch({ type: "SET", text: val }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 import "./style.scss";
 import Header from "../../../components/Header";
@@ -7,8 +8,10 @@ class LogIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      password: "",
+      location: "",
+      website: "",
+      bio: "",
+      dob: "",
       btnDisabled: false,
       error: "none",
       errorText: "",
@@ -47,30 +50,50 @@ class LogIn extends React.Component {
       <div>
         <Header />
         <div className="form-container">
-          <h1 className="title">Login</h1>
+          <h1 className="title">Set up your profile</h1>
           <form action="http://localhost:5000/auth/signup" method="POST">
             <label style={{ display: this.state.error }}>
               {this.state.errorText}
             </label>
             <input
               type="text"
-              name="username"
-              value={this.state.username}
+              name="location"
+              value={this.state.location}
               onChange={(e) => {
                 this.setState({ username: e.target.value });
               }}
               spellCheck="false"
               className="input-field"
-              placeholder="Username"
+              placeholder="Location"
             />{" "}
             <input
               type="text"
-              name="password"
-              value={this.state.password}
+              name="website"
+              value={this.state.website}
               onChange={(e) => {
                 this.setState({ password: e.target.value });
               }}
-              placeholder="Password"
+              placeholder="Website"
+              className="input-field"
+            />{" "}
+            <textarea
+              name="bio"
+              rows={4}
+              value={this.state.bio}
+              onChange={(e) => {
+                this.setState({ password: e.target.value });
+              }}
+              placeholder="Bio"
+              className="input-field"
+            ></textarea>
+            <input
+              type="date"
+              name="dob"
+              value={this.state.dob}
+              onChange={(e) => {
+                this.setState({ password: e.target.value });
+              }}
+              placeholder="Date of Birth"
               className="input-field"
             />{" "}
             <button
@@ -78,7 +101,8 @@ class LogIn extends React.Component {
               onClick={this.postData}
               className="submit-btn"
             >
-              {this.state.btnDisabled ? "loading..." : "Login"}
+              {this.state.btnDisabled ? "loading..." : "Continue"}
+              <i className="fas fa-arrow-right" style={{ marginLeft: 8 }}></i>
             </button>
           </form>
         </div>
@@ -87,4 +111,8 @@ class LogIn extends React.Component {
   }
 }
 
-export default LogIn;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+export default connect(mapStateToProps)(LogIn);
