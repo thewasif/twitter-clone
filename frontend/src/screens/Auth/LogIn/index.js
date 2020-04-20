@@ -38,7 +38,7 @@ class LogIn extends React.Component {
         this.setState({
           btnDisabled: false,
           error: "block",
-          errorText: "Your password is incorrect",
+          errorText: "An error occurred",
         });
       });
   }

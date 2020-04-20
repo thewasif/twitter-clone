@@ -2,7 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const User = require("../models/user");
 
-router.post("/signup", passport.authenticate("local"), (req, res) => {
+router.post("/signup", (req, res) => {
   const { email } = req.body;
   User.findOne({ email }).then((e) => {
     if (e) {
@@ -11,11 +11,12 @@ router.post("/signup", passport.authenticate("local"), (req, res) => {
     } else {
       req.login(req.body, () => {
         const newUser = new User(req.body);
+
         newUser
           .save()
           .then((e) => {
-            res.status(200).send("Success!");
             console.log("Saved to database...!");
+            res.redirect("/auth/profile");
           })
           .catch((e) => {
             res.status(400).send("Invalid data!");
@@ -23,34 +24,44 @@ router.post("/signup", passport.authenticate("local"), (req, res) => {
           });
       });
     }
-    res.redirect("/auth/profile");
   });
 });
 
-router.post("/login", passport.authenticate("local"), (req, res) => {
+router.post("/login", (req, res) => {
   console.log(req.body, "hehe");
   const { username, password } = req.body;
-  User.findOne({ username: username }, (e, data) => {
-    if (data) {
-      console.log("User exists");
-    } else {
-      console.log("USer not found");
-    }
+  User.authenticate(username, password, (e, user) => {
+    console.log(e);
+    console.log(user);
+    req.session.userId = user._id;
+    console.log(req.session);
+    res.json(String(req.session));
   });
 
-  res.send("Hey");
+  /*User.findOne({ username }, (e, data) => {
+    if (data) {
+      let realPassword = data.password;
+      if (password == realPassword) {
+        console.log("Password matched...!");
+        res.status(200).send("Successfully loged in!");
+      } else {
+        console.log("Password did not matched...!");
+        res.status(400).send("Login failed");
+      }
+    } else {
+      res.send("User not Found");
+    }
+  });*/
 });
 
 router.get("/profile", (req, res) => {
-  console.log(req.user, "see...?");
-  User.findOne({ username: "wasif" }, (e, data) => {
-    console.log(data);
-    res.send(data);
-  });
+  console.log(req.session.userId);
+  res.send(req.session);
 });
 
-router.get("/signup", (req, res) => {
-  res.send({ text: "hello world" });
+router.post("/setup", (req, res) => {
+  console.log(req.user);
+  res.send("hey");
 });
 
 module.exports = router;

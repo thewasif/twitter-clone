@@ -24,11 +24,13 @@ class LogIn extends React.Component {
       btnDisabled: true,
     });
     const userData = {
-      username: this.state.username,
-      password: this.state.password,
+      location: this.state.location,
+      website: this.state.website,
+      bio: this.state.bio,
+      dob: this.state.dob,
     };
     axios
-      .post("http://localhost:5000/auth/login", userData)
+      .post("http://localhost:5000/auth/setup", userData)
       .then((res) => {
         console.log(`${res.status} - ${res.statusText}`);
         this.setState({
@@ -38,6 +40,7 @@ class LogIn extends React.Component {
         });
       })
       .catch((e) => {
+        console.log(e);
         this.setState({
           btnDisabled: false,
           error: "block",
@@ -51,7 +54,7 @@ class LogIn extends React.Component {
         <Header />
         <div className="form-container">
           <h1 className="title">Set up your profile</h1>
-          <form action="http://localhost:5000/auth/signup" method="POST">
+          <form>
             <label style={{ display: this.state.error }}>
               {this.state.errorText}
             </label>
@@ -60,7 +63,7 @@ class LogIn extends React.Component {
               name="location"
               value={this.state.location}
               onChange={(e) => {
-                this.setState({ username: e.target.value });
+                this.setState({ location: e.target.value });
               }}
               spellCheck="false"
               className="input-field"
@@ -71,7 +74,7 @@ class LogIn extends React.Component {
               name="website"
               value={this.state.website}
               onChange={(e) => {
-                this.setState({ password: e.target.value });
+                this.setState({ website: e.target.value });
               }}
               placeholder="Website"
               className="input-field"
@@ -81,7 +84,7 @@ class LogIn extends React.Component {
               rows={4}
               value={this.state.bio}
               onChange={(e) => {
-                this.setState({ password: e.target.value });
+                this.setState({ bio: e.target.value });
               }}
               placeholder="Bio"
               className="input-field"
@@ -91,7 +94,7 @@ class LogIn extends React.Component {
               name="dob"
               value={this.state.dob}
               onChange={(e) => {
-                this.setState({ password: e.target.value });
+                this.setState({ dob: e.target.value });
               }}
               placeholder="Date of Birth"
               className="input-field"

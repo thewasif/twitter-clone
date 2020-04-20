@@ -11,10 +11,16 @@ const keys = require("./keys");
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(session({ secret: "this_is_a_super_secrsdfaslefafft_key" }));
-require("./config/passport")(app);
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(
+  session({
+    secret: "work hard",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+require("./config/passport")(app);
 
 // Database config
 
@@ -26,7 +32,7 @@ mongoose.connect(keys.mongooseURI, () => {
 app.use("/auth", auth);
 
 app.get("/", (req, res) => {
-  res.render("home");
+  res.render("index");
 });
 
 // Start the server
