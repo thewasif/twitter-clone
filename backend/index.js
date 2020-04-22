@@ -5,6 +5,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+
 const app = express();
 const auth = require("./routes/auth");
 const keys = require("./keys");
@@ -12,7 +13,7 @@ const keys = require("./keys");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("faskfdl"));
 app.use(
   session({
     secret: "work hard",

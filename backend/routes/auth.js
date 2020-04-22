@@ -27,15 +27,12 @@ router.post("/signup", (req, res) => {
   });
 });
 
-router.post("/login", (req, res) => {
-  console.log(req.body, "hehe");
+router.post("/login", function (req, res) {
   const { username, password } = req.body;
   User.authenticate(username, password, (e, user) => {
-    console.log(e);
+    res.cookie("name", "val");
     console.log(user);
-    req.session.userId = user._id;
-    console.log(req.session);
-    res.json(String(req.session));
+    res.json("success");
   });
 
   /*User.findOne({ username }, (e, data) => {
@@ -54,9 +51,20 @@ router.post("/login", (req, res) => {
   });*/
 });
 
-router.get("/profile", (req, res) => {
-  console.log(req.session.userId);
-  res.send(req.session);
+router.get("/profile", function (req, res) {
+  console.log("userId from /profile", req.session.userId);
+  if (req.session.something) {
+    req.session.something++;
+    res.send("Something: " + req.session.something);
+  } else {
+    req.session.something = 1;
+    res.send("Something: " + req.session.something);
+  }
+});
+
+router.get("/profile2", (req, res) => {
+  console.log(req.session);
+  res.send("Something: " + req.session.something);
 });
 
 router.post("/setup", (req, res) => {
