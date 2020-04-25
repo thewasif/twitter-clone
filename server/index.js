@@ -11,10 +11,11 @@ const app = express();
 require("dotenv").config();
 app.use(express.json());
 app.use(cors());
+app.use(session({ secret: "hT5doL2wA9_fsW1Anfa" }));
 
 // Connect Database
 mongoose.connect(process.env.MONGO_URL, () => {
-  console.log("database has been connected...!");
+  console.log("database connected..!");
 });
 
 // Routes
@@ -22,7 +23,7 @@ app.use("/auth", auth);
 app.use("/tweet", tweet);
 
 app.get("/", (req, res) => {
-  res.send("Backend is ready");
+  res.send(req.session);
 });
 
 // Host

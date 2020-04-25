@@ -1,6 +1,12 @@
 const route = require("express").Router();
 const User = require("../models/user");
 
+route.get("/profile", (req, res) => {
+  User.findById(req.session.userId).then((e) => {
+    res.send(e);
+  });
+});
+
 route.post("/signup", (req, res) => {
   let { username, email, password } = req.body;
   let createdAt = new Date();
@@ -13,12 +19,9 @@ route.post("/signup", (req, res) => {
       newUser
         .save()
         .then(() => {
-          console.log("User has been saved to database");
           res.status(200).send("User saved!");
         })
         .catch((e) => {
-          console.log("an error occurred while saving to database");
-          console.log(e);
           res.status(400).send("An error occurred!");
         });
     }
@@ -27,10 +30,13 @@ route.post("/signup", (req, res) => {
 
 route.post("/login", (req, res) => {
   let { username, password } = req.body;
+  console.log(req.session);
   User.authenticate(username, password, (e, user) => {
     if (user) {
       console.log(user);
-      res.status(200).send("logged in successfully");
+      req.session.userId = user._id;
+      res.redirect("/auth/profile");
+      // /res.status(200).send("logged in successfully");
     } else {
       res.status(400).send("an error occurred");
     }
