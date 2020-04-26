@@ -48,7 +48,7 @@ class LogIn extends React.Component {
         <Header />
         <div className="form-container">
           <h1 className="title">Login</h1>
-          <form action="http://localhost:5000/auth/signup" method="POST">
+          <form>
             <label style={{ display: this.state.error }}>
               {this.state.errorText}
             </label>

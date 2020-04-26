@@ -1,5 +1,4 @@
 const route = require("express").Router();
-const mongoose = require("mongoose");
 const Tweet = require("../models/tweet");
 
 route.get("/", (req, res) => {

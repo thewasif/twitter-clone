@@ -2,9 +2,10 @@ const route = require("express").Router();
 const User = require("../models/user");
 
 route.get("/profile", (req, res) => {
-  User.findById(req.session.userId).then((e) => {
+  res.send(req.session);
+  /*User.findById(req.session.userId).then((e) => {
     res.send(e);
-  });
+  });*/
 });
 
 route.post("/signup", (req, res) => {
@@ -19,6 +20,7 @@ route.post("/signup", (req, res) => {
       newUser
         .save()
         .then(() => {
+          req.session.userId = newUser._id;
           res.status(200).send("User saved!");
         })
         .catch((e) => {
