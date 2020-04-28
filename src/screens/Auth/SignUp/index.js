@@ -54,12 +54,12 @@ class SignUp extends React.Component {
     axios
       .post("http://localhost:5000/auth/signup", data)
       .then((res) => {
+        console.log(res);
         this.setState({
-          errorText: "",
-          error: "none",
+          errorText: res.statusText,
+          error: "block",
           btnDisabled: false,
         });
-        console.log(res);
         if (res.statusText == "OK") {
           window.location.pathname = "/auth/setup";
         }

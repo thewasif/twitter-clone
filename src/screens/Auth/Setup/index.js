@@ -4,7 +4,7 @@ import axios from "axios";
 import "./style.scss";
 import Header from "../../../components/Header";
 
-class LogIn extends React.Component {
+class SetUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +28,7 @@ class LogIn extends React.Component {
       website: this.state.website,
       bio: this.state.bio,
       dob: this.state.dob,
+      username: this.props.username,
     };
     axios
       .post("http://localhost:5000/auth/setup", userData)
@@ -118,4 +119,4 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps)(LogIn);
+export default connect(mapStateToProps)(SetUp);

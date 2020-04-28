@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import axios from "axios";
+
 import "./style.scss";
 import Header from "../../../components/Header";
 
@@ -15,7 +17,7 @@ class LogIn extends React.Component {
     };
     this.postData = this.postData.bind(this);
   }
-  postData(e) {
+  async postData(e) {
     e.preventDefault();
     this.setState({
       btnDisabled: true,
@@ -24,10 +26,23 @@ class LogIn extends React.Component {
       username: this.state.username,
       password: this.state.password,
     };
-    axios
+
+    let res = await fetch("http://localhost:5000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    console.log(await res.json());
+    /*axios
       .post("http://localhost:5000/auth/login", userData)
       .then((res) => {
-        console.log(`${res.status} - ${res.statusText}`);
+        console.log(res.data);
+        localStorage.setItem("TWITTER_JWT_TOKEN", JSON.stringify(res.data));
+        //this.props.setUsername(userData.username);
+        //localStorage.setItem("username", userData.username);
+        //window.location.pathname = "/";
         this.setState({
           btnDisabled: false,
           error: "block",
@@ -40,7 +55,7 @@ class LogIn extends React.Component {
           error: "block",
           errorText: "An error occurred",
         });
-      });
+      });*/
   }
   render() {
     return (
@@ -49,9 +64,6 @@ class LogIn extends React.Component {
         <div className="form-container">
           <h1 className="title">Login</h1>
           <form>
-            <label style={{ display: this.state.error }}>
-              {this.state.errorText}
-            </label>
             <input
               type="text"
               name="username"
@@ -87,4 +99,13 @@ class LogIn extends React.Component {
   }
 }
 
-export default LogIn;
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsername: (val) => dispatch({ type: "SET", text: val }),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);

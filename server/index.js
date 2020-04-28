@@ -2,13 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const mongoose = require("mongoose");
-const auth = require("./routes/auth");
-const tweet = require("./routes/tweet");
+require("dotenv").config();
+const auth = require("./routes/auth.routes");
+const tweet = require("./routes/tweet.routes");
 
 const app = express();
 
 // Middlewares
-require("dotenv").config();
+
 app.use(express.json());
 app.use(cors());
 app.use(
