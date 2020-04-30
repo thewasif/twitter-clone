@@ -26,8 +26,8 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () => {
 });
 
 // Routes
-app.use("/auth", auth);
-app.use("/tweet", tweet);
+app.use("/api/user", auth);
+app.use("/api/tweet", tweet);
 
 app.get("/", (req, res) => {
   res.send(req.session);

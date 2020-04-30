@@ -1,5 +1,5 @@
-const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const User = require("../models/user.model");
 
 let SECRET = process.env.JWT_SECRET;
 
@@ -35,6 +35,7 @@ const login = async (req, res) => {
 
   User.authenticate(username, password, (e, user) => {
     if (user) {
+      console.log("user authenticated!");
       jwt.sign(
         {
           user: user,
@@ -54,7 +55,65 @@ const login = async (req, res) => {
   });
 };
 
+const editInfo = async (req, res) => {
+  // verify user stored in local storage and user in database
+  jwt.verify(req.token, SECRET, async (err, auth) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus("403");
+    }
+    let user = await User.findOne({ email: auth.user.email });
+
+    if (user.password !== auth.user.password) {
+      return res.sendStatus("403");
+    }
+
+    User.findOneAndUpdate(
+      { _id: user._id },
+      { $set: { additionalData: req.body } }
+    ).then((response) => {
+      return res.sendStatus("200");
+    });
+  });
+};
+
+const getUser = async (req, res) => {
+  let { username } = req.query;
+
+  let user = await User.findOne({ username });
+
+  if (!user) return res.sendStatus("404");
+
+  let dataToBeSent = {
+    username: user.username,
+    email: user.email,
+    createdAt: user.createdAt,
+    additionalData: user.additionalData,
+  };
+
+  res.json(dataToBeSent);
+};
+
+const verifyAuth = (req, res) => {
+  console.log("GET");
+  let { JWT_TOKEN } = req.query;
+
+  jwt.verify(JWT_TOKEN, process.env.JWT_SECRET, async (err, auth) => {
+    if (err) return res.sendStatus("403");
+
+    let user = await User.findById(auth.user._id);
+
+    if (user.password !== auth.user.password) return res.sendStatus("403");
+    console.log("200");
+
+    return res.json(user);
+  });
+};
+
 module.exports = {
   signup,
   login,
+  editInfo,
+  getUser,
+  verifyAuth,
 };
