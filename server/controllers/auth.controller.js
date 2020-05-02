@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const cloudinary = require("../config/cloudinary");
 const User = require("../models/user.model");
 
 let SECRET = process.env.JWT_SECRET;
@@ -110,10 +112,61 @@ const verifyAuth = (req, res) => {
   });
 };
 
+const uploadRoute = async (req, res) => {
+  console.log("POST");
+  console.log(req.token);
+  jwt.verify(req.token, SECRET, async (err, auth) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus("403");
+    }
+
+    let user = await User.findOne({ email: auth.user.email });
+
+    if (user.password !== auth.user.password) {
+      console.log("PASSWORD ERROR");
+      return res.sendStatus("403");
+    }
+
+    const uploader = async (path) => await cloudinary.uploads(path, "Images");
+    let urls = [],
+      files = req.files;
+
+    for (let file of files) {
+      const { path } = file;
+      const newPath = await uploader(path);
+
+      urls.push(newPath);
+
+      fs.unlinkSync(path);
+    }
+
+    User.findOneAndUpdate(
+      { _id: user._id },
+      {
+        $set: {
+          additionalData: {
+            ...user.additionalData,
+            profilePic: urls[0].url,
+            coverPhoto: urls[1].url,
+          },
+        },
+      }
+    ).then((response) => {
+      return res.json({
+        data: urls,
+      });
+    });
+
+    //res.send("hey");
+  });
+};
+
 module.exports = {
   signup,
   login,
   editInfo,
   getUser,
   verifyAuth,
+  uploadRoute,
 };
