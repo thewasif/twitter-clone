@@ -113,8 +113,6 @@ const verifyAuth = (req, res) => {
 };
 
 const uploadRoute = async (req, res) => {
-  console.log("POST");
-  console.log(req.token);
   jwt.verify(req.token, SECRET, async (err, auth) => {
     if (err) {
       console.log(err);
@@ -124,7 +122,6 @@ const uploadRoute = async (req, res) => {
     let user = await User.findOne({ email: auth.user.email });
 
     if (user.password !== auth.user.password) {
-      console.log("PASSWORD ERROR");
       return res.sendStatus("403");
     }
 
@@ -157,8 +154,6 @@ const uploadRoute = async (req, res) => {
         data: urls,
       });
     });
-
-    //res.send("hey");
   });
 };
 

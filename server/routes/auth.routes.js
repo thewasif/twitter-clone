@@ -25,6 +25,7 @@ route.post("/editprofile", verifyToken, editInfo);
 // verify user auth
 route.get("/verify", verifyAuth);
 
+// upload photos for a profile
 route.post("/upload", verifyToken, upload.array("image"), uploadRoute);
 
 module.exports = route;
