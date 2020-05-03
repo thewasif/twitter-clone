@@ -21,8 +21,21 @@ const signup = async (req, res) => {
     let newUser = new User({ username, email, password, createdAt });
     newUser
       .save()
-      .then(() => {
-        res.status(200).send("User saved!");
+      .then((response) => {
+        jwt.sign(
+          {
+            user: response,
+          },
+          SECRET,
+          (err, token) => {
+            if (err) {
+              return res.send("an error occurred");
+            }
+
+            res.json({ token });
+          }
+        );
+        //res.status(200).send("User saved!");
       })
       .catch((e) => {
         res.status(400).send("An error occurred!");
@@ -37,7 +50,6 @@ const login = async (req, res) => {
 
   User.authenticate(username, password, (e, user) => {
     if (user) {
-      console.log("user authenticated!");
       jwt.sign(
         {
           user: user,
@@ -97,16 +109,14 @@ const getUser = async (req, res) => {
 };
 
 const verifyAuth = (req, res) => {
-  console.log("GET");
   let { JWT_TOKEN } = req.query;
 
   jwt.verify(JWT_TOKEN, process.env.JWT_SECRET, async (err, auth) => {
     if (err) return res.sendStatus("403");
-
+    console.log(auth);
     let user = await User.findById(auth.user._id);
 
     if (user.password !== auth.user.password) return res.sendStatus("403");
-    console.log("200");
 
     return res.json(user);
   });
