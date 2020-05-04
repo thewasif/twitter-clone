@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
 import "./style.scss";
-import Header from "../../../components/Header";
+import { Loader, Header } from "../../../components";
+import store from "../../../store";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class SignUp extends React.Component {
     };
     this.postData = this.postData.bind(this);
   }
-  postData() {
+  async postData() {
     this.setState({ btnDisabled: true });
     let username = this.state.username,
       email = this.state.email,
@@ -51,23 +51,25 @@ class SignUp extends React.Component {
       email,
       password,
     };
-    axios
-      .post("http://localhost:5000/auth/signup", data)
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          errorText: res.statusText,
-          error: "block",
-          btnDisabled: false,
-        });
-        if (res.statusText == "OK") {
-          window.location.pathname = "/auth/setup";
+    fetch("http://localhost:5000/api/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then(async (res) => {
+        let token = await res.json();
+        localStorage.setItem("JWT_TOKEN", JSON.stringify(token));
+        localStorage.setItem("username", this.state.username);
+        if (res.statusText === "OK") {
+          window.location.pathname = "/flow/setup";
         }
       })
       .catch((e) => {
         console.log(e);
         this.setState({
-          errorText: "Error occurred!",
+          errorText: "Username or Email already exists!",
           error: "block",
           btnDisabled: false,
         });
@@ -131,7 +133,7 @@ class SignUp extends React.Component {
               onClick={this.postData}
               disabled={this.state.btnDisabled}
             >
-              {this.state.btnDisabled ? "loading..." : "Sign Up"}
+              {this.state.btnDisabled ? <Loader /> : "Sign Up"}
             </button>
           </form>
         </div>

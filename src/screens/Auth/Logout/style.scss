@@ -1,0 +1,16 @@
+@import "../../../scss/utils.scss";
+
+button {
+  color: white;
+  background-color: rgba($color: $primary-color, $alpha: 0.8);
+  padding: 10px 60px;
+  border: none;
+  outline: none;
+  border-radius: 50px;
+  font-size: large;
+  font-family: "Open Sans";
+  margin-top: 24px;
+  &:hover {
+    background-color: rgba($color: $primary-color, $alpha: 1);
+  }
+}

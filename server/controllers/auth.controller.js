@@ -138,7 +138,7 @@ const uploadRoute = async (req, res) => {
     const uploader = async (path) => await cloudinary.uploads(path, "Images");
     let urls = [],
       files = req.files;
-
+    console.log(files);
     for (let file of files) {
       const { path } = file;
       const newPath = await uploader(path);
@@ -147,7 +147,8 @@ const uploadRoute = async (req, res) => {
 
       fs.unlinkSync(path);
     }
-
+    console.log(urls);
+    console.log();
     User.findOneAndUpdate(
       { _id: user._id },
       {

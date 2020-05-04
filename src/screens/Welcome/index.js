@@ -1,6 +1,6 @@
 import React from "react";
 
-class Other extends React.Component {
+class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -8,11 +8,11 @@ class Other extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello, World!</h1>
+        <h1>Welcome</h1>
         <p>This is from an other screen</p>
       </div>
     );
   }
 }
 
-export default Other;
+export default Welcome;

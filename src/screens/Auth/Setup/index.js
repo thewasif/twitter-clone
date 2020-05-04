@@ -1,64 +1,126 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
+import { isAuthenticated } from "../../../helpers/api-user";
+import { redirectTo } from "../../../helpers/utils";
 import "./style.scss";
-import Header from "../../../components/Header";
+import { Loader, Header } from "../../../components/";
 
 class SetUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: "",
       location: "",
       website: "",
       bio: "",
       dob: "",
+      profilePic: "",
+      coverPhoto: "",
       btnDisabled: false,
       error: "none",
       errorText: "",
+      tokenObj: JSON.parse(localStorage.getItem("JWT_TOKEN")),
     };
     this.postData = this.postData.bind(this);
+    this.uploadPhotos = this.uploadPhotos.bind(this);
   }
-  postData(e) {
+  async componentDidMount() {
+    let auth = await isAuthenticated();
+
+    if (auth.additionalData) {
+      this.setState({
+        name: auth.additionalData.name,
+        location: auth.additionalData.location,
+        bio: auth.additionalData.bio,
+        website: auth.additionalData.website,
+        dob: auth.additionalData.dob,
+        profilePic: auth.additionalData.profilePic,
+        coverPhoto: auth.additionalData.coverPhoto,
+      });
+    } else {
+      redirectTo("/flow/welcome");
+    }
+  }
+  async postData(e) {
     e.preventDefault();
     this.setState({
       btnDisabled: true,
     });
     const userData = {
+      name: this.state.name,
       location: this.state.location,
       website: this.state.website,
       bio: this.state.bio,
       dob: this.state.dob,
-      username: this.props.username,
+      profilePic: this.state.profilePic,
+      coverPhoto: this.state.coverPhoto,
     };
-    axios
-      .post("http://localhost:5000/auth/setup", userData)
-      .then((res) => {
-        console.log(`${res.status} - ${res.statusText}`);
-        this.setState({
-          btnDisabled: false,
-          error: "block",
-          errorText: res.data,
-        });
+
+    let res = await fetch("http://localhost:5000/api/user/editprofile", {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.state.tokenObj.token,
+      }),
+      body: JSON.stringify(userData),
+    });
+
+    res
+      .json()
+      .then((data) => {
+        this.setState({ btnDisabled: false });
+        window.location.pathname = "/" + localStorage.getItem("username");
       })
       .catch((e) => {
-        console.log(e);
-        this.setState({
-          btnDisabled: false,
-          error: "block",
-          errorText: "Your password is incorrect",
-        });
+        this.setState({ btnDisabled: false });
+        window.location.pathname = "/" + localStorage.getItem("username");
       });
   }
+  uploadPhotos() {
+    this.setState({ btnDisabled: true });
+    var data = new FormData();
+    data.append("image", this.refs.file.files[0]);
+    data.append("image", this.refs.filetwo.files[0]);
+    fetch("http://localhost:5000/api/user/upload", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + this.state.tokenObj.token,
+      },
+      body: data,
+    }).then((res) => {
+      console.log(res.json());
+      this.setState({ btnDisabled: false });
+      window.location.pathname = "/" + localStorage.getItem("username");
+    });
+  }
+
   render() {
+    console.log(this.props);
     return (
       <div>
         <Header />
         <div className="form-container">
           <h1 className="title">Set up your profile</h1>
+          <input type="file" name="image" ref="file" />
+          <input type="file" name="image" ref="filetwo" />
+          <button onClick={this.uploadPhotos}>
+            {this.state.btnDisabled ? <Loader /> : "Save"}
+          </button>
           <form>
-            <label style={{ display: this.state.error }}>
+            <label style={{ display: this.state.error }} className="error">
               {this.state.errorText}
             </label>
+            <input
+              type="text"
+              name="location"
+              value={this.state.name}
+              onChange={(e) => {
+                this.setState({ name: e.target.value });
+              }}
+              spellCheck="false"
+              className="input-field"
+              placeholder="Full Name"
+            />{" "}
             <input
               type="text"
               name="location"
@@ -105,8 +167,7 @@ class SetUp extends React.Component {
               onClick={this.postData}
               className="submit-btn"
             >
-              {this.state.btnDisabled ? "loading..." : "Continue"}
-              <i className="fas fa-arrow-right" style={{ marginLeft: 8 }}></i>
+              {this.state.btnDisabled ? <Loader /> : "Continue"}
             </button>
           </form>
         </div>
@@ -119,4 +180,10 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps)(SetUp);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsername: (val) => dispatch({ type: "SET", text: val }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetUp);

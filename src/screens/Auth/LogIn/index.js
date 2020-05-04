@@ -1,7 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import axios from "axios";
-
 import "./style.scss";
 import Header from "../../../components/Header";
 
@@ -27,35 +25,19 @@ class LogIn extends React.Component {
       password: this.state.password,
     };
 
-    let res = await fetch("http://localhost:5000/auth/login", {
+    let res = await fetch("http://localhost:5000/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
     });
-    console.log(await res.json());
-    /*axios
-      .post("http://localhost:5000/auth/login", userData)
-      .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("TWITTER_JWT_TOKEN", JSON.stringify(res.data));
-        //this.props.setUsername(userData.username);
-        //localStorage.setItem("username", userData.username);
-        //window.location.pathname = "/";
-        this.setState({
-          btnDisabled: false,
-          error: "block",
-          errorText: res.data,
-        });
-      })
-      .catch((e) => {
-        this.setState({
-          btnDisabled: false,
-          error: "block",
-          errorText: "An error occurred",
-        });
-      });*/
+    console.log(res);
+    console.log(
+      await res
+        .json()
+        .then((res) => localStorage.setItem("JWT_TOKEN", JSON.stringify(res)))
+    );
   }
   render() {
     return (

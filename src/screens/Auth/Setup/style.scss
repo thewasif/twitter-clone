@@ -9,9 +9,13 @@
   form {
     @include flex-center;
     flex-direction: column;
-    label {
+    .error {
       color: #ff4444;
       font-family: $secondary-font;
+    }
+    .files-input {
+      @include flex-center;
+      flex-direction: column;
     }
     .input-field {
       padding: 8px 12px;
