@@ -8,9 +8,8 @@ const userSchema = new Schema({
   email: String,
   password: String,
   createdAt: Date,
-  additionalData: Object
+  additionalData: Object,
 });
-
 
 userSchema.pre("save", function (next) {
   var user = this;
@@ -23,10 +22,9 @@ userSchema.pre("save", function (next) {
   });
 });
 
-
 userSchema.statics.authenticate = function (username, password, callback) {
   User.findOne({ username: username }).exec(function (err, user) {
-    console.log(user)
+    console.log(user);
     if (err) {
       return callback(err);
     } else if (!user) {
@@ -35,11 +33,12 @@ userSchema.statics.authenticate = function (username, password, callback) {
       return callback(err);
     }
     bcrypt.compare(password, user.password, function (err, result) {
-      console.log("comparing passwords")
+      console.log("comparing passwords");
       if (result === true) {
+        console.log("saafe");
         return callback(null, user);
       } else {
-        console.log("false")
+        console.log("false");
         return callback();
       }
     });

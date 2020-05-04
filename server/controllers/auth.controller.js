@@ -64,7 +64,7 @@ const login = async (req, res) => {
         }
       );
     } else {
-      res.status(400).send("an error occurred");
+      res.sendStatus("403");
     }
   });
 };
