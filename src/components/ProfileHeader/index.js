@@ -52,7 +52,7 @@ const ProfileHeader = (props) => {
             ></div>
             {editable ? (
               <div className="btn-container">
-                <Link to="/auth/setup">
+                <Link to="/flow/setup">
                   <button>Edit Profile</button>
                 </Link>
               </div>

@@ -4,7 +4,7 @@
   height: 0;
   width: 0;
   padding: 8px;
-  border: 3px solid white;
+  border: 3px solid rgba($color: $primary-color, $alpha: 0.2);
   border-right-color: $primary-color;
   border-radius: 22px;
   animation: rotate 1s infinite linear;

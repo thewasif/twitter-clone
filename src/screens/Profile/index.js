@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../helpers/api-user";
-import { ProfileHeader, Navigator } from "../../components";
+import { ProfileHeader, Navigator, Loader } from "../../components";
 import "./style.scss";
 
 class Home extends React.Component {
@@ -10,11 +10,16 @@ class Home extends React.Component {
     this.state = {
       userObj: {},
       additionalData: {},
+      loading: true,
     };
   }
   async componentDidMount() {
     let user = await getUser(this.props.match.params.user);
-    this.setState({ userObj: user, additionalData: user.additionalData });
+    this.setState({
+      userObj: user,
+      additionalData: user.additionalData,
+      loading: false,
+    });
   }
   render() {
     let user = this.state.userObj,
@@ -30,19 +35,34 @@ class Home extends React.Component {
         <div className="section">
           <Navigator />
         </div>
-        <div className="section">
-          <ProfileHeader
-            username={`@${user.username}`}
-            name={additionalData.name}
-            bio={additionalData.bio}
-            location={additionalData.location}
-            dob={additionalData.dob}
-            joined={user.createdAt}
-            website={additionalData.website}
-            profilePhoto={additionalData.profilePic}
-            coverPhoto={additionalData.coverPhoto}
-            editable={editable}
-          />
+        <div
+          className="section"
+          style={
+            this.state.loading
+              ? {
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }
+              : {}
+          }
+        >
+          {this.state.loading ? (
+            <Loader />
+          ) : (
+            <ProfileHeader
+              username={`@${user.username}`}
+              name={additionalData.name}
+              bio={additionalData.bio}
+              location={additionalData.location}
+              dob={additionalData.dob}
+              joined={user.createdAt}
+              website={additionalData.website}
+              profilePhoto={additionalData.profilePic}
+              coverPhoto={additionalData.coverPhoto}
+              editable={editable}
+            />
+          )}
         </div>
         <div className="section">sec 3</div>
       </div>

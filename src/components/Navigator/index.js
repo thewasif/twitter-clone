@@ -4,7 +4,8 @@ import NavItem from "./NavItem";
 import "./style.scss";
 
 const Navigator = (props) => {
-  //let username = localStorage.getItem("username");
+  let username = localStorage.getItem("username"),
+    profileURL = `/${username}`;
   return (
     <div className="nav-container">
       <Link to="/">
@@ -13,10 +14,12 @@ const Navigator = (props) => {
         </div>
       </Link>
       <div className="nav-content">
-        <NavItem text="Home" icon={<i className="fa fa-home"></i>} />
+        <Link to="/">
+          <NavItem text="Home" icon={<i className="fa fa-home"></i>} />
+        </Link>
         <NavItem text="Notifications" icon={<i className="far fa-bell"></i>} />
         <NavItem text="Bookmarks" icon={<i className="far fa-bookmark"></i>} />
-        <Link to="/">
+        <Link to={profileURL}>
           <NavItem
             text="Profile"
             icon={<i className="far fa-user-circle"></i>}
