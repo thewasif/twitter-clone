@@ -89,8 +89,37 @@ const replyTweet = (req, res) => {
   });
 };
 
+const likeTweet = (req, res) => {
+  let { tweetID } = req.body;
+  jwt.verify(req.token, SECRET, async (err, auth) => {
+    if (err) return res.sendStatus("403");
+
+    let user = await User.findById(auth.user._id);
+
+    if (!user) return res.sendStatus("400");
+
+    if (auth.user.password === user.password) {
+      Tweet.findOneAndUpdate(
+        { _id: tweetID },
+        { $push: { hearts: auth.user.username } }
+      )
+        .then((response) => {
+          console.log(response);
+          res.send(response);
+        })
+        .catch((e) => {
+          console.log(e);
+          res.send(e);
+        });
+    } else {
+      return res.sendStatus("403");
+    }
+  });
+};
+
 module.exports = {
   postTweet,
   getTweets,
   replyTweet,
+  likeTweet,
 };
