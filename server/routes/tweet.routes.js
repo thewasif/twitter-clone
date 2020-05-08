@@ -1,27 +1,20 @@
 const route = require("express").Router();
+const jwt = require("jsonwebtoken");
 const Tweet = require("../models/tweet.model");
 const User = require("../models/user.model");
 const verifyToken = require("../helpers/verifyToken");
-const { postTweet } = require("../controllers/tweet.controller");
+const {
+  postTweet,
+  getTweets,
+  replyTweet,
+} = require("../controllers/tweet.controller");
+
+let SECRET = process.env.JWT_SECRET;
 
 route.post("/", verifyToken, postTweet);
 
-route.get("/", (req, res) => {
-  let { username } = req.query;
+route.get("/", getTweets);
 
-  if (username) {
-    User.findOne({ username })
-      .then((response) => {
-        console.log("user", response);
-        Tweet.find({ userID: response._id }).then((tweet) => {
-          console.log(tweet);
-          res.json(tweet);
-        });
-      })
-      .catch((e) => {
-        res.send(e);
-      });
-  }
-});
+route.post("/reply", verifyToken, replyTweet);
 
 module.exports = route;
