@@ -26,7 +26,9 @@ class Logout extends React.Component {
       <div>
         <Header />
         <div className="form-container">
-          <button onClick={this.logout}>Logout</button>
+          <button onClick={this.logout} className="logout">
+            Logout
+          </button>
         </div>
       </div>
     );

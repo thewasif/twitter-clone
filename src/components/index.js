@@ -3,5 +3,6 @@ import TweetBox from "./TweetBox";
 import Navigator from "./Navigator";
 import ProfileHeader from "./ProfileHeader";
 import Loader from "./Loader";
+import Tweet from "./Tweet";
 
-export { Header, Loader, TweetBox, Navigator, ProfileHeader };
+export { Header, Loader, TweetBox, Navigator, ProfileHeader, Tweet };

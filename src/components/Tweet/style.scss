@@ -1,0 +1,96 @@
+@import "../../scss/utils.scss";
+
+.tweet {
+  display: flex;
+  padding: 8px 20px 8px 20px;
+  transition: 0.2s;
+  &:hover {
+    background-color: #efefef;
+  }
+
+  .photo-container {
+    .photo {
+      @include circle(50px);
+      background-color: aliceblue;
+      background-size: cover;
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 8px;
+    .upper-layer {
+      display: flex;
+      align-items: center;
+      height: 20px;
+      font-family: "Open Sans";
+      small {
+        margin-left: 6px;
+        color: rgb(116, 110, 110);
+      }
+      h4 {
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .main-text {
+      height: fit-content;
+      font-family: $secondary-font;
+      font-size: small;
+      padding: 4px 0px 4px 0px;
+    }
+
+    .tweet-buttons {
+      display: flex;
+      justify-content: space-between;
+      span {
+        font-size: small;
+      }
+      @mixin icon-style {
+        transition: 0.2s;
+        padding: 8px;
+        border-radius: 50%;
+      }
+      .tweet-btn {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        background: none;
+        color: rgb(116, 110, 110);
+        font-size: medium;
+        @include flex-center;
+      }
+
+      .fa-comment-dots,
+      .fa-share,
+      .fa-heart,
+      .fa-retweet {
+        @include icon-style;
+      }
+      .fa-heart {
+        &:hover {
+          background-color: rgba(255, 0, 0, 0.1);
+          color: rgb(255, 0, 0);
+        }
+      }
+      .fa-retweet {
+        &:hover {
+          background-color: rgba(55, 214, 7, 0.1);
+          color: rgb(55, 214, 7);
+        }
+      }
+      .fa-comment-dots,
+      .fa-share {
+        &:hover {
+          background-color: rgba(44, 79, 235, 0.1);
+          color: rgb(44, 79, 235);
+        }
+      }
+    }
+  }
+}
