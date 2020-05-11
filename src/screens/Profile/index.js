@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getUser } from "../../helpers/api-user";
-import { ProfileHeader, Navigator, Loader } from "../../components";
+import { getTweets } from "../../helpers/api-tweet";
+import { ProfileHeader, Navigator, Loader, Tweet } from "../../components";
 import "./style.scss";
 
 class Home extends React.Component {
@@ -11,6 +12,7 @@ class Home extends React.Component {
       userObj: {},
       additionalData: {},
       loading: true,
+      tweets: [],
     };
   }
   async componentDidMount() {
@@ -20,6 +22,10 @@ class Home extends React.Component {
       additionalData: user.additionalData,
       loading: false,
     });
+
+    let tweets = await getTweets(this.props.match.params.user);
+    this.setState({ tweets });
+    console.log(this.state.tweets);
   }
   render() {
     let user = this.state.userObj,
@@ -50,18 +56,40 @@ class Home extends React.Component {
           {this.state.loading ? (
             <Loader />
           ) : (
-            <ProfileHeader
-              username={`@${user.username}`}
-              name={additionalData.name}
-              bio={additionalData.bio}
-              location={additionalData.location}
-              dob={additionalData.dob}
-              joined={user.createdAt}
-              website={additionalData.website}
-              profilePhoto={additionalData.profilePic}
-              coverPhoto={additionalData.coverPhoto}
-              editable={editable}
-            />
+            <React.Fragment>
+              <ProfileHeader
+                username={`@${user.username}`}
+                name={additionalData.name}
+                bio={additionalData.bio}
+                location={additionalData.location}
+                dob={additionalData.dob}
+                joined={user.createdAt}
+                website={additionalData.website}
+                profilePhoto={additionalData.profilePic}
+                coverPhoto={additionalData.coverPhoto}
+                editable={editable}
+              />
+              <div>
+                {this.state.tweets.map((tweet) => {
+                  let date = new Date(tweet.time);
+                  let strDate = String(date);
+                  let arr = strDate.split(" ");
+                  return (
+                    <Tweet
+                      key={tweet.text}
+                      text={tweet.text}
+                      hearts={tweet.hearts.length}
+                      replies={tweet.replies.length}
+                      retweets={tweet.retweets.length}
+                      time={`${arr[1]} ${arr[2]}, ${arr[3]}`}
+                      username={user.username}
+                      name={additionalData.name}
+                      pic={additionalData.profilePic}
+                    />
+                  );
+                })}
+              </div>
+            </React.Fragment>
           )}
         </div>
         <div className="section">sec 3</div>

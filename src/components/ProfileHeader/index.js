@@ -92,6 +92,7 @@ const ProfileHeader = (props) => {
               </div>
             </div>
           </div>
+          <hr />
         </div>
       </div>
     </React.Fragment>
