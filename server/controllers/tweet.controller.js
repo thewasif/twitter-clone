@@ -117,9 +117,22 @@ const likeTweet = (req, res) => {
   });
 };
 
+const getTweet = async (req, res) => {
+  let id = req.params.id;
+
+  let tweet = await Tweet.findById(id);
+
+  if (tweet) {
+    return res.json(tweet);
+  }
+
+  return res.sendStatus("404");
+};
+
 module.exports = {
   postTweet,
   getTweets,
   replyTweet,
   likeTweet,
+  getTweet,
 };

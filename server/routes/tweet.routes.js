@@ -8,6 +8,7 @@ const {
   getTweets,
   replyTweet,
   likeTweet,
+  getTweet,
 } = require("../controllers/tweet.controller");
 
 let SECRET = process.env.JWT_SECRET;
@@ -15,6 +16,8 @@ let SECRET = process.env.JWT_SECRET;
 route.post("/", verifyToken, postTweet);
 
 route.get("/", getTweets);
+
+route.get("/:id", getTweet);
 
 route.post("/reply", verifyToken, replyTweet);
 

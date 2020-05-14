@@ -1,8 +1,24 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import "./style.scss";
 
 function Tweet(props) {
-  let { name, username, pic, time, hearts, replies, retweets, text } = props;
+  let {
+    name,
+    username,
+    pic,
+    time,
+    hearts,
+    replies,
+    retweets,
+    text,
+    id,
+  } = props;
+  let history = useHistory();
+  let goToTweet = () => {
+    history.push(`/status/${id}`);
+  };
+
   return (
     <div className="tweet">
       <div className="photo-container">
@@ -19,7 +35,9 @@ function Tweet(props) {
           <small>@{username}</small>
           <small>• {time}</small>
         </div>
-        <div className="main-text">{text}</div>
+        <div className="main-text" onClick={goToTweet}>
+          {text}
+        </div>
         <div className="tweet-buttons">
           <button className="tweet-btn reply">
             <i className="far fa-comment-dots"></i>

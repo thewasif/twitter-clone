@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Home, Profile, Welcome } from "./screens";
+import { Home, Profile, Welcome, Status } from "./screens";
 import { SignUp, LogIn, Setup, Logout } from "./screens/Auth";
 import "./scss/media-queries.scss";
 import "./scss/global.scss";
@@ -16,6 +16,7 @@ class App extends Component {
         <Route path="/flow/logout" exact component={Logout} />
         <Route path="/:user" exact component={Profile} />
         <Route path="/flow/welcome" exact component={Welcome} />
+        <Route path="/status/:id" exact component={Status} />
       </Router>
     );
   }

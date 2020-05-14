@@ -1,11 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react";
 import { getUser } from "../../helpers/api-user";
 import { getTweets } from "../../helpers/api-tweet";
 import { ProfileHeader, Navigator, Loader, Tweet } from "../../components";
 import "./style.scss";
 
-class Home extends React.Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,16 +24,15 @@ class Home extends React.Component {
 
     let tweets = await getTweets(this.props.match.params.user);
     this.setState({ tweets });
-    console.log(this.state.tweets);
   }
+
   render() {
     let user = this.state.userObj,
-      additionalData = this.state.additionalData;
-
-    let editable =
-      localStorage.getItem("username") === this.props.match.params.user
-        ? true
-        : false;
+      additionalData = this.state.additionalData,
+      editable =
+        localStorage.getItem("username") === this.props.match.params.user
+          ? true
+          : false;
 
     return (
       <div className="app-container">
@@ -85,6 +83,7 @@ class Home extends React.Component {
                       username={user.username}
                       name={additionalData.name}
                       pic={additionalData.profilePic}
+                      id={tweet._id}
                     />
                   );
                 })}
@@ -98,17 +97,4 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    counter: state.counter,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    add: () => dispatch({ type: "ADD" }),
-    subtract: () => dispatch({ type: "SUBTRACT" }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
