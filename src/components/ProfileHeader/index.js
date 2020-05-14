@@ -91,6 +91,14 @@ const ProfileHeader = (props) => {
                 Joined {`${joinedObj.month} ${joinedObj.year}`}
               </div>
             </div>
+            <div className="follow-section">
+              <p>
+                <span>45</span> Followers
+              </p>
+              <p>
+                <span>45</span> Following
+              </p>
+            </div>
           </div>
           <hr />
         </div>

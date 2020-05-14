@@ -19,12 +19,12 @@
   }
 
   .profile-section {
+    position: relative;
+    top: -40px;
     .upper {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
-      bottom: 40px;
       .profile-photo {
         @include circle(120px);
         background-color: #333;
@@ -51,13 +51,11 @@
 
     .profile-details {
       position: relative;
-      bottom: 66px;
+      top: -10px;
       .head {
         display: flex;
         flex-direction: column;
-        position: relative;
         padding-left: 10px;
-        top: 14px;
         .name-title {
           line-height: 0px;
           font-family: $primary-font;
@@ -84,6 +82,20 @@
           font-size: 14px;
           .fa {
             margin-right: 4px;
+          }
+        }
+      }
+
+      .follow-section {
+        padding-left: 10px;
+        display: flex;
+        flex-flow: row wrap;
+        p {
+          margin-right: 6px;
+          font-family: $secondary-font;
+          font-size: 0.8em;
+          span {
+            font-weight: bold;
           }
         }
       }
