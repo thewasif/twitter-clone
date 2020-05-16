@@ -92,9 +92,12 @@ const editInfo = async (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  let { username } = req.query;
-
-  let user = await User.findOne({ username });
+  let { username, userID } = req.query;
+  let user = username
+    ? await User.findOne({ username })
+    : userID
+    ? await User.findById(userID)
+    : false;
 
   if (!user) return res.sendStatus("404");
 

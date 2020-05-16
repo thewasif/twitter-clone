@@ -51,4 +51,19 @@ const getUser = async (username) => {
   return await user.json();
 };
 
-export { isAuthenticated, getUser };
+const getUserByID = async (userID) => {
+  let user = await fetch(`http://localhost:5000/api/user?userID=${userID}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  if (user.status === 404) {
+    return 404;
+  }
+
+  return await user.json();
+};
+
+export { isAuthenticated, getUser, getUserByID };

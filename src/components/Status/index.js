@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import "./style.scss";
 
 function Status(props) {
@@ -14,10 +13,14 @@ function Status(props) {
     text,
     id,
   } = props;
-  let history = useHistory();
-  let goToTweet = () => {
-    history.push(`/status/${id}`);
-  };
+
+  let date = String(new Date(time)).split(" ");
+
+  let day = date[0],
+    month = date[1],
+    dat = date[2],
+    year = date[3],
+    clock = date[4].substring(0, 5);
 
   return (
     <div className="status">
@@ -37,12 +40,12 @@ function Status(props) {
 
       <div className="status-text">
         <p className="text">{text}</p>
-        <p className="date">{"12:45 PM • March 24, 2019 • Twitter Web App"}</p>
+        <p className="date">{`${clock} • ${month} ${dat}, ${year} • Twitter Web App`}</p>
       </div>
 
       <div className="status-details">
         <p>
-          <span>7</span> likes
+          <span>{hearts}</span> likes
         </p>
       </div>
       <div className="status-details">
