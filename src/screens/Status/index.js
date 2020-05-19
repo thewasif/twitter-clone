@@ -43,6 +43,7 @@ function Status(props) {
               time={tweetData.time}
               pic={userDate.additionalData.profilePic}
               hearts={tweetData.hearts.length}
+              id={tweetData._id}
             />
           )}
         </div>

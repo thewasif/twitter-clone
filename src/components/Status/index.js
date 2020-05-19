@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./style.scss";
+import { formattedDate } from "../../helpers/utils";
+import { getTweet } from "../../helpers/api-tweet";
 
 function Status(props) {
   let {
@@ -13,14 +15,32 @@ function Status(props) {
     text,
     id,
   } = props;
+  let date = formattedDate(time);
 
-  let date = String(new Date(time)).split(" ");
+  useEffect(() => {
+    async function getTweetData() {
+      let res = await getTweet(id);
 
-  let day = date[0],
-    month = date[1],
-    dat = date[2],
-    year = date[3],
-    clock = date[4].substring(0, 5);
+      if (res.hearts.includes(res.userID)) {
+        console.log("YOU HAVE LIKED THIS");
+      }
+    }
+
+    getTweetData();
+  }, []);
+
+  async function postLike(tweetID) {
+    let data = { tweetID: tweetID },
+      tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+    fetch("http://localhost:5000/api/tweet/like", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + tokenObj.token,
+      },
+      body: JSON.stringify(data),
+    });
+  }
 
   return (
     <div className="status">
@@ -40,7 +60,7 @@ function Status(props) {
 
       <div className="status-text">
         <p className="text">{text}</p>
-        <p className="date">{`${clock} • ${month} ${dat}, ${year} • Twitter Web App`}</p>
+        <p className="date">{`${date.time} • ${date.month} ${date.date}, ${date.year} • Twitter Web App`}</p>
       </div>
 
       <div className="status-details">

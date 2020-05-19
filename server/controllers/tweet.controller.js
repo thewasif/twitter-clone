@@ -91,8 +91,12 @@ const replyTweet = (req, res) => {
 
 const likeTweet = (req, res) => {
   let { tweetID } = req.body;
+  console.log("POST", tweetID);
+
   jwt.verify(req.token, SECRET, async (err, auth) => {
+    console.log("heee");
     if (err) return res.sendStatus("403");
+    console.log("booo");
 
     let user = await User.findById(auth.user._id);
 
@@ -101,7 +105,7 @@ const likeTweet = (req, res) => {
     if (auth.user.password === user.password) {
       Tweet.findOneAndUpdate(
         { _id: tweetID },
-        { $push: { hearts: auth.user.username } }
+        { $push: { hearts: auth.user._id } }
       )
         .then((response) => {
           console.log(response);
