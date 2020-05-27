@@ -31,4 +31,33 @@ const getTweet = async (id) => {
   return await user.json();
 };
 
-export { getTweets, getTweet };
+let actions = {
+  like: (tweetID) => {
+    console.log("LIKE");
+    let data = { tweetID: tweetID },
+      tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+    fetch("http://localhost:5000/api/tweet/like", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + tokenObj.token,
+      },
+      body: JSON.stringify(data),
+    });
+  },
+  unlike: (tweetID) => {
+    console.log("UNLIKE");
+    let data = { tweetID: tweetID },
+      tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+    fetch("http://localhost:5000/api/tweet/unlike", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + tokenObj.token,
+      },
+      body: JSON.stringify(data),
+    });
+  },
+};
+
+export { getTweets, getTweet, actions };

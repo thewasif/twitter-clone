@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.scss";
 import { formattedDate } from "../../helpers/utils";
-import { getTweet } from "../../helpers/api-tweet";
+import { getTweet, actions } from "../../helpers/api-tweet";
 
 function Status(props) {
+  let [liked, setLiked] = useState(false);
+
   let {
     name,
     username,
@@ -22,25 +24,13 @@ function Status(props) {
       let res = await getTweet(id);
 
       if (res.hearts.includes(res.userID)) {
+        setLiked(true);
         console.log("YOU HAVE LIKED THIS");
       }
     }
 
     getTweetData();
   }, []);
-
-  async function postLike(tweetID) {
-    let data = { tweetID: tweetID },
-      tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-    fetch("http://localhost:5000/api/tweet/like", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + tokenObj.token,
-      },
-      body: JSON.stringify(data),
-    });
-  }
 
   return (
     <div className="status">
@@ -73,8 +63,25 @@ function Status(props) {
           <button className="tweet-btn reply">
             <i className="far fa-comment-dots"></i>
           </button>
-          <button className="tweet-btn heart">
-            <i className="far fa-heart"></i>{" "}
+          <button
+            className="tweet-btn heart"
+            onClick={
+              liked
+                ? () => {
+                    setLiked(false);
+                    actions.unlike(id);
+                  }
+                : () => {
+                    setLiked(true);
+                    actions.like(id);
+                  }
+            }
+          >
+            {liked ? (
+              <i className="fas fa-heart" style={{ color: "red" }}></i>
+            ) : (
+              <i className="far fa-heart"></i>
+            )}
           </button>
           <button className="tweet-btn retweet">
             <i className="fa fa-retweet"></i>{" "}
