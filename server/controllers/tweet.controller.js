@@ -91,6 +91,7 @@ const replyTweet = (req, res) => {
 
 const likeTweet = (req, res) => {
   let { tweetID } = req.body;
+
   console.log("POST", tweetID);
 
   jwt.verify(req.token, SECRET, async (err, auth) => {

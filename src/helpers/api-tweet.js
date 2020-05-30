@@ -60,4 +60,18 @@ let actions = {
   },
 };
 
-export { getTweets, getTweet, actions };
+const postTweet = async (text, tokenObj) => {
+  let data = { text: text };
+  let res = await fetch("http://localhost:5000/api/tweet", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + tokenObj.token,
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res;
+};
+
+export { postTweet, getTweets, getTweet, actions };

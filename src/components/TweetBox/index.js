@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.scss";
+import Loader from "../Loader";
+import { postTweet } from "../../helpers/api-tweet";
 
 const TweetBox = (props) => {
+  // Component State
+  let [tweetText, setTweetText] = useState("");
+  let [loading, setLoading] = useState(false);
+
   let { profile_pic } = props;
+
   return (
     <div className="tweet-box">
       <div className="col-1">
@@ -22,6 +29,8 @@ const TweetBox = (props) => {
               placeholder="What's happening?"
               name="tweetText"
               className="tweet-box"
+              value={tweetText}
+              onChange={(e) => setTweetText(e.target.value)}
             />
           </form>
         </div>
@@ -37,7 +46,21 @@ const TweetBox = (props) => {
               <i className="far fa-smile"></i>
             </button>
           </div>
-          <button className="tweet-btn">Tweet</button>
+          <button
+            className="tweet-btn"
+            onClick={async () => {
+              setLoading(true);
+              postTweet(
+                tweetText,
+                JSON.parse(localStorage.getItem("JWT_TOKEN"))
+              ).then((res) => {
+                console.log(res);
+                setLoading(false);
+              });
+            }}
+          >
+            {loading ? <Loader inverted={true} /> : "Tweet"}
+          </button>
         </div>
       </div>
     </div>
