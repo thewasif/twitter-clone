@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./style.scss";
 import { formattedDate } from "../../helpers/utils";
 import { getTweet, actions } from "../../helpers/api-tweet";
+import { isAuthenticated } from "../../helpers/api-user";
 
 function Status(props) {
   let [liked, setLiked] = useState(false);
@@ -22,10 +23,10 @@ function Status(props) {
   useEffect(() => {
     async function getTweetData() {
       let res = await getTweet(id);
+      let user = await isAuthenticated();
 
-      if (res.hearts.includes(res.userID)) {
+      if (res.hearts.includes(user._id)) {
         setLiked(true);
-        console.log("YOU HAVE LIKED THIS");
       }
     }
 
