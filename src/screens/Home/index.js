@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Navigator, Tweet, TweetBox } from "../../components";
+import { Navigator, Tweet, TweetBox, TweetModel } from "../../components";
 import { isAuthenticated } from "../../helpers/api-user";
 import { redirectTo } from "../../helpers/utils";
 import "./style.scss";

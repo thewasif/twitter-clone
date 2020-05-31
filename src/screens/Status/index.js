@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { getTweet } from "../../helpers/api-tweet";
 import { getUserByID } from "../../helpers/api-user";
-import { Navigator, Status as StatusComponent, Loader } from "../../components";
+import {
+  Navigator,
+  Status as StatusComponent,
+  Loader,
+  TweetModel,
+} from "../../components";
 import "./style.scss";
 
 function Status(props) {
@@ -11,6 +16,7 @@ function Status(props) {
   let [tweetData, setTweetData] = useState({});
   let [userDate, setUserData] = useState({});
   let [loading, setLoadingState] = useState(true);
+  let [modelVisibility, setModelVisibility] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,8 +50,12 @@ function Status(props) {
               pic={userDate.additionalData.profilePic}
               hearts={tweetData.hearts.length}
               id={tweetData._id}
+              onReplyClick={() => {
+                setModelVisibility(!modelVisibility);
+              }}
             />
           )}
+          <TweetModel visible={modelVisibility} />
         </div>
       </div>
       <div className="section">sec 3</div>

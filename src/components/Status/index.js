@@ -61,7 +61,7 @@ function Status(props) {
       </div>
       <div className="status-details">
         <div className="tweet-buttons">
-          <button className="tweet-btn reply">
+          <button className="tweet-btn reply" onClick={props.onReplyClick}>
             <i className="far fa-comment-dots"></i>
           </button>
           <button

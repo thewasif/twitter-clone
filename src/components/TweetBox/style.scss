@@ -55,6 +55,11 @@
         font-weight: bold;
         margin-left: auto;
         font-family: $primary-font;
+        transition: 0.1s;
+        &:hover {
+          color: $primary-color;
+          background-color: rgba($color: $primary-color, $alpha: 0.1);
+        }
       }
     }
   }

@@ -5,5 +5,15 @@ import ProfileHeader from "./ProfileHeader";
 import Loader from "./Loader";
 import Tweet from "./Tweet";
 import Status from "./Status";
+import TweetModel from "./TweetModel";
 
-export { Header, Loader, TweetBox, Navigator, ProfileHeader, Tweet, Status };
+export {
+  Header,
+  Loader,
+  TweetBox,
+  Navigator,
+  ProfileHeader,
+  Tweet,
+  Status,
+  TweetModel,
+};

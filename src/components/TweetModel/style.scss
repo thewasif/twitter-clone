@@ -1,0 +1,95 @@
+@import "../../scss/utils.scss";
+
+.model {
+  position: fixed;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  top: 10%;
+  width: 30%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  .model-header {
+    border-bottom: solid 1px $light-color;
+    .model-btn-close {
+      border: none;
+      outline: none;
+      background-color: white;
+      padding: 2px 12px;
+      font-size: large;
+      transition: 0.1s;
+      margin: 4px;
+      &:hover {
+        color: $primary-color;
+        background-color: rgba($color: $primary-color, $alpha: 0.1);
+      }
+    }
+  }
+
+  .model-body {
+    display: flex;
+    .profile-pic {
+      background-image: url("https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk");
+      background-position: center;
+      background-size: cover;
+      margin-right: 4px;
+      @include circle(80px);
+    }
+    .modal-input-container {
+      width: 100%;
+
+      .modal-input {
+        width: 100%;
+        background-color: white;
+        border: none;
+        font-size: medium;
+        font-family: "Open Sans";
+        margin-top: 10px;
+        resize: vertical;
+      }
+    }
+  }
+
+  .model-footer {
+    border-top: solid 1px $light-color;
+
+    .options {
+      display: flex;
+      flex-direction: row;
+      padding-top: 12px;
+      .group-icons {
+        display: flex;
+        .btn-icon {
+          background: none;
+          border: none;
+          outline: none;
+          padding: 4px;
+          margin: 4px 4px;
+
+          i {
+            font-size: 22px;
+            color: $primary-color;
+          }
+        }
+      }
+      .tweet-btn {
+        color: white;
+        background-color: $primary-color;
+        padding: 2px 14px;
+        border: none;
+        outline: none;
+        border-radius: 50px;
+        font-weight: bold;
+        margin-left: auto;
+        font-family: $primary-font;
+        transition: 0.1s;
+        &:hover {
+          color: $primary-color;
+          background-color: rgba($color: $primary-color, $alpha: 0.1);
+        }
+      }
+    }
+  }
+}
