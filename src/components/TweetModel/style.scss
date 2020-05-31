@@ -1,5 +1,15 @@
 @import "../../scss/utils.scss";
 
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  @include flex-center;
+}
+
 .model {
   position: fixed;
   background-color: white;
@@ -7,12 +17,12 @@
   border-radius: 10px;
   top: 10%;
   width: 30%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: 0.3s;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
   display: flex;
   flex-direction: column;
   .model-header {
-    border-bottom: solid 1px $light-color;
+    border-bottom: solid 1px rgba($color: $light-color, $alpha: 0.4);
     .model-btn-close {
       border: none;
       outline: none;
@@ -31,11 +41,11 @@
   .model-body {
     display: flex;
     .profile-pic {
-      background-image: url("https://media-exp1.licdn.com/dms/image/C560BAQHMnA03XDdf3w/company-logo_200_200/0?e=2159024400&v=beta&t=C7KMOtnrJwGrMXmgIk2u1B8a7VRfgxMwXng9cdP9kZk");
+      @include circle(60px);
       background-position: center;
       background-size: cover;
       margin-right: 4px;
-      @include circle(80px);
+      margin-top: 10px;
     }
     .modal-input-container {
       width: 100%;
@@ -53,7 +63,7 @@
   }
 
   .model-footer {
-    border-top: solid 1px $light-color;
+    border-top: solid 1px rgba($color: $light-color, $alpha: 0.4);
 
     .options {
       display: flex;

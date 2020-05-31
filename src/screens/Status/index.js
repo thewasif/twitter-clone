@@ -42,20 +42,25 @@ function Status(props) {
           {loading ? (
             <Loader />
           ) : (
-            <StatusComponent
-              text={tweetData.text}
-              username={userDate.username}
-              name={userDate.additionalData.name}
-              time={tweetData.time}
-              pic={userDate.additionalData.profilePic}
-              hearts={tweetData.hearts.length}
-              id={tweetData._id}
-              onReplyClick={() => {
-                setModelVisibility(!modelVisibility);
-              }}
-            />
+            <React.Fragment>
+              <TweetModel
+                visible={modelVisibility}
+                image={userDate.additionalData.profilePic}
+              />
+              <StatusComponent
+                text={tweetData.text}
+                username={userDate.username}
+                name={userDate.additionalData.name}
+                time={tweetData.time}
+                pic={userDate.additionalData.profilePic}
+                hearts={tweetData.hearts.length}
+                id={tweetData._id}
+                onReplyClick={() => {
+                  setModelVisibility(!modelVisibility);
+                }}
+              />
+            </React.Fragment>
           )}
-          <TweetModel visible={modelVisibility} />
         </div>
       </div>
       <div className="section">sec 3</div>
