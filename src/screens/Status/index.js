@@ -46,6 +46,9 @@ function Status(props) {
               <TweetModel
                 visible={modelVisibility}
                 image={userDate.additionalData.profilePic}
+                onClose={() => {
+                  setModelVisibility(!modelVisibility);
+                }}
               />
               <StatusComponent
                 text={tweetData.text}

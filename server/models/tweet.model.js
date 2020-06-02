@@ -9,6 +9,7 @@ const tweetSchema = new Schema({
   replies: Array,
   time: Date,
   userID: String,
+  repliedTo: mongoose.Schema.Types.ObjectId,
 });
 
 let Tweet = mongoose.model("Tweet", tweetSchema);

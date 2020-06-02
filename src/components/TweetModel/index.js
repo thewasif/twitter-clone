@@ -6,7 +6,6 @@ function TweetModel(props) {
   let [visible, setVisibilty] = useState(props.visible);
 
   useEffect(() => {
-    console.log("props changed");
     setVisibilty(props.visible);
   }, [props.visible]);
 
@@ -20,10 +19,7 @@ function TweetModel(props) {
         style={visible ? { transform: "scale(1)" } : { transform: "scale(0)" }}
       >
         <div className="model-header">
-          <button
-            className="model-btn-close"
-            onClick={() => setVisibilty(false)}
-          >
+          <button className="model-btn-close" onClick={props.onClose}>
             <i className="fa fa-times"></i>
           </button>
         </div>
@@ -38,7 +34,7 @@ function TweetModel(props) {
             <textarea
               rows={10}
               className="modal-input"
-              placeholder="Type here..."
+              placeholder="Tweet your reply..."
             />
             <div className="model-footer">
               <div className="options">
@@ -53,7 +49,7 @@ function TweetModel(props) {
                     <i className="far fa-smile"></i>
                   </button>
                 </div>
-                <button className="tweet-btn">Tweet</button>
+                <button className="tweet-btn">Reply</button>
               </div>
             </div>
           </div>

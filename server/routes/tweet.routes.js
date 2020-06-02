@@ -1,4 +1,5 @@
 const route = require("express").Router();
+let mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const Tweet = require("../models/tweet.model");
 const User = require("../models/user.model");
@@ -10,6 +11,7 @@ const {
   likeTweet,
   getTweet,
   unlikeTweet,
+  getReplies,
 } = require("../controllers/tweet.controller");
 
 let SECRET = process.env.JWT_SECRET;
@@ -25,5 +27,7 @@ route.post("/reply", verifyToken, replyTweet);
 route.post("/like", verifyToken, likeTweet);
 
 route.post("/unlike", verifyToken, unlikeTweet);
+
+route.post("/getReplies", getReplies);
 
 module.exports = route;

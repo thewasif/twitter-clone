@@ -22,6 +22,7 @@ const postTweet = async (req, res) => {
         retweets: [],
         replies: [],
         time: new Date(),
+        repliedTo: null,
       };
 
       let newTweet = new Tweet(tweetData);
@@ -45,7 +46,7 @@ const getTweets = (req, res) => {
   if (username) {
     User.findOne({ username })
       .then((response) => {
-        Tweet.find({ userID: response._id }).then((tweet) => {
+        Tweet.find({ userID: response._id, repliedTo: null }).then((tweet) => {
           res.json(tweet);
         });
       })
@@ -74,15 +75,43 @@ const replyTweet = (req, res) => {
         retweets: [],
         replies: [],
         time: new Date(),
+        repliedTo: orgTweetID,
       };
 
-      Tweet.findOneAndUpdate(
+      let tweet = new Tweet(tweetData);
+
+      tweet
+        .save()
+        .then((resp) => {
+          console.log(resp);
+          return res.send(resp);
+        })
+        .catch((e) => {
+          console.log(e);
+          return res.send(e);
+        });
+
+      /* let tweet = Tweet.findOneAndUpdate(
         { _id: orgTweetID },
         { $push: { replies: tweetData } }
-      ).then((response) => {
-        console.log(response);
-        res.json(response);
-      });
+      );
+      if (tweet) {
+        console.log(tweet);
+        return res.json(tweet);
+      } else {
+        return res.sendStatus("404");
+      }*/
+
+      /*
+        .then((response) => {
+          console.log(response);
+          res.json(response);
+        })
+        .catch((e) => {
+          console.log("ERROR");
+          return res.sendStatus("404");
+        });
+        */
     } else {
       return res.sendStatus("403");
     }
@@ -166,6 +195,17 @@ const getTweet = async (req, res) => {
   return res.sendStatus("404");
 };
 
+const getReplies = async (req, res) => {
+  let { tweetID } = req.body;
+  let tweets = await Tweet.find({ repliedTo: tweetID });
+
+  if (tweets) {
+    return res.send(tweets);
+  } else {
+    res.sendStatus("400");
+  }
+};
+
 module.exports = {
   postTweet,
   getTweets,
@@ -173,4 +213,5 @@ module.exports = {
   likeTweet,
   unlikeTweet,
   getTweet,
+  getReplies,
 };
