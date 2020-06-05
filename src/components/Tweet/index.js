@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { formattedDate } from "../../helpers/utils";
 import { getUserByID } from "../../helpers/api-user";
 import "./style.scss";
@@ -35,6 +35,7 @@ function Tweet(props) {
     }
     setUser();
   }, []);
+  let to = `/status/${id}`;
 
   return (
     <div className="tweet">
@@ -54,8 +55,8 @@ function Tweet(props) {
             • {date.month} {date.date}
           </small>
         </div>
-        <div className="main-text" onClick={goToTweet}>
-          {text}
+        <div className="main-text" onClick={props.onClick}>
+          <Link to={to}>{text}</Link>
         </div>
         <div className="tweet-buttons">
           <button className="tweet-btn reply">

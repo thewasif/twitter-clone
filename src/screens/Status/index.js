@@ -11,14 +11,13 @@ import {
 import "./style.scss";
 
 function Status(props) {
-  let id = props.match.params.id;
-
   // Component State
   let [tweetData, setTweetData] = useState({});
   let [replies, setReplies] = useState([]);
   let [userDate, setUserData] = useState({});
   let [loading, setLoadingState] = useState(true);
   let [modelVisibility, setModelVisibility] = useState(false);
+  let [id, setID] = useState(props.match.params.id);
 
   useEffect(() => {
     async function fetchData() {
@@ -41,12 +40,7 @@ function Status(props) {
     fetchData().then(() => {
       fetchReplies();
     });
-  }, []);
-
-  async function getUserData(userID) {
-    let user = await getUserByID(userID);
-    return user;
-  }
+  }, [id]);
 
   return (
     <div className="app-container">
@@ -92,6 +86,10 @@ function Status(props) {
                     time={reply.time}
                     id={reply._id}
                     userID={reply.userID}
+                    onClick={() => {
+                      setLoadingState(true);
+                      setID(reply._id);
+                    }}
                   />
                 );
               })}
