@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { formattedDate } from "../../helpers/utils";
+import { getUserByID } from "../../helpers/api-user";
 import "./style.scss";
 
 function Tweet(props) {
+  //Component State
+  let [userData, setUserData] = useState({});
+
   let {
     name,
     username,
@@ -13,11 +18,23 @@ function Tweet(props) {
     retweets,
     text,
     id,
+    userID,
   } = props;
   let history = useHistory();
   let goToTweet = () => {
     history.push(`/status/${id}`);
   };
+  let date = formattedDate(time);
+
+  useEffect(() => {
+    async function setUser() {
+      let user = await getUserByID(userID);
+      setUserData(user.additionalData);
+
+      console.log(userData);
+    }
+    setUser();
+  }, []);
 
   return (
     <div className="tweet">
@@ -25,15 +42,17 @@ function Tweet(props) {
         <div
           className="photo"
           style={{
-            backgroundImage: `url('${pic}')`,
+            backgroundImage: `url('${userData.profilePic}')`,
           }}
         ></div>
       </div>
       <div className="details">
         <div className="upper-layer">
-          <h4>{name}</h4>
+          <h4>{userData.name}</h4>
           <small>@{username}</small>
-          <small>• {time}</small>
+          <small>
+            • {date.month} {date.date}
+          </small>
         </div>
         <div className="main-text" onClick={goToTweet}>
           {text}

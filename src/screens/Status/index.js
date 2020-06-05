@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { getTweet } from "../../helpers/api-tweet";
+import { getTweet, getReplies } from "../../helpers/api-tweet";
 import { getUserByID } from "../../helpers/api-user";
 import {
   Navigator,
   Status as StatusComponent,
   Loader,
   TweetModel,
+  Tweet,
 } from "../../components";
 import "./style.scss";
 
@@ -14,6 +15,7 @@ function Status(props) {
 
   // Component State
   let [tweetData, setTweetData] = useState({});
+  let [replies, setReplies] = useState([]);
   let [userDate, setUserData] = useState({});
   let [loading, setLoadingState] = useState(true);
   let [modelVisibility, setModelVisibility] = useState(false);
@@ -27,8 +29,25 @@ function Status(props) {
       setLoadingState(false);
     }
 
-    fetchData();
+    async function fetchReplies() {
+      let fetchedReplies = await getReplies(
+        id,
+        JSON.parse(localStorage.getItem("JWT_TOKEN"))
+      );
+      let parsedData = await fetchedReplies.json();
+      setReplies(parsedData);
+    }
+
+    fetchData().then(() => {
+      fetchReplies();
+    });
   }, []);
+
+  async function getUserData(userID) {
+    let user = await getUserByID(userID);
+    return user;
+  }
+
   return (
     <div className="app-container">
       <div className="section">
@@ -62,6 +81,20 @@ function Status(props) {
                   setModelVisibility(!modelVisibility);
                 }}
               />
+              {replies.map((reply) => {
+                return (
+                  <Tweet
+                    key={reply.text}
+                    text={reply.text}
+                    hearts={reply.hearts.length}
+                    replies={reply.replies.length}
+                    retweets={reply.retweets.length}
+                    time={reply.time}
+                    id={reply._id}
+                    userID={reply.userID}
+                  />
+                );
+              })}
             </React.Fragment>
           )}
         </div>

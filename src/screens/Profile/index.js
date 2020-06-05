@@ -69,9 +69,6 @@ class Home extends Component {
               />
               <div>
                 {this.state.tweets.map((tweet) => {
-                  let date = new Date(tweet.time);
-                  let strDate = String(date);
-                  let arr = strDate.split(" ");
                   return (
                     <Tweet
                       key={tweet.text}
@@ -79,7 +76,7 @@ class Home extends Component {
                       hearts={tweet.hearts.length}
                       replies={tweet.replies.length}
                       retweets={tweet.retweets.length}
-                      time={`${arr[1]} ${arr[2]}, ${arr[3]}`}
+                      time={tweet.time}
                       username={user.username}
                       name={additionalData.name}
                       pic={additionalData.profilePic}
