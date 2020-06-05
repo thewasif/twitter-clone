@@ -33,10 +33,20 @@ class LogIn extends React.Component {
       body: JSON.stringify(userData),
     });
     console.log(res);
+    if (res.status === 403) {
+      this.setState({
+        btnDisabled: false,
+        error: "block",
+        errorText: "Wrong password!",
+      });
+    }
     console.log(
-      await res
-        .json()
-        .then((res) => localStorage.setItem("JWT_TOKEN", JSON.stringify(res)))
+      await res.json().then((res) => {
+        console.log(res);
+        localStorage.setItem("JWT_TOKEN", JSON.stringify(res));
+        localStorage.setItem("username", this.state.username);
+        window.location.pathname = "/flow/setup";
+      })
     );
   }
   render() {
@@ -46,6 +56,9 @@ class LogIn extends React.Component {
         <div className="form-container">
           <h1 className="title">Login</h1>
           <form>
+            <label style={{ display: this.state.error }}>
+              {this.state.errorText}
+            </label>
             <input
               type="text"
               name="username"

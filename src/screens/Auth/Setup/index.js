@@ -28,8 +28,9 @@ class SetUp extends React.Component {
     let auth = await isAuthenticated();
 
     if (auth.additionalData) {
+      let name = auth.additionalData.name || "";
       this.setState({
-        name: auth.additionalData.name,
+        name,
         location: auth.additionalData.location,
         bio: auth.additionalData.bio,
         website: auth.additionalData.website,
@@ -38,7 +39,7 @@ class SetUp extends React.Component {
         coverPhoto: auth.additionalData.coverPhoto,
       });
     } else {
-      redirectTo("/flow/welcome");
+      //redirectTo("/flow/welcome");
     }
   }
   async postData(e) {
@@ -76,19 +77,20 @@ class SetUp extends React.Component {
         window.location.pathname = "/" + localStorage.getItem("username");
       });
   }
-  uploadPhotos() {
+  async uploadPhotos() {
     this.setState({ btnDisabled: true });
     var data = new FormData();
     data.append("image", this.refs.file.files[0]);
     data.append("image", this.refs.filetwo.files[0]);
-    fetch("http://localhost:5000/api/user/upload", {
+    let res = await fetch("http://localhost:5000/api/user/upload", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.tokenObj.token,
       },
       body: data,
-    }).then((res) => {
-      console.log(res.json());
+    });
+    res.json().then((e) => {
+      console.log(e);
       this.setState({ btnDisabled: false });
       window.location.pathname = "/" + localStorage.getItem("username");
     });
