@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./style.scss";
-import Header from "../../../components/Header";
+import { Header, Loader } from "../../../components";
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -37,17 +37,15 @@ class LogIn extends React.Component {
       this.setState({
         btnDisabled: false,
         error: "block",
-        errorText: "Wrong password!",
+        errorText: "Wrong username or password!",
       });
     }
-    console.log(
-      await res.json().then((res) => {
-        console.log(res);
-        localStorage.setItem("JWT_TOKEN", JSON.stringify(res));
-        localStorage.setItem("username", this.state.username);
-        window.location.pathname = "/flow/setup";
-      })
-    );
+    await res.json().then((res) => {
+      console.log(res);
+      localStorage.setItem("JWT_TOKEN", JSON.stringify(res));
+      localStorage.setItem("username", this.state.username);
+      window.location.pathname = "/";
+    });
   }
   render() {
     return (
@@ -85,7 +83,7 @@ class LogIn extends React.Component {
               onClick={this.postData}
               className="submit-btn"
             >
-              {this.state.btnDisabled ? "loading..." : "Login"}
+              {this.state.btnDisabled ? <Loader inverted={true} /> : "Login"}
             </button>
           </form>
         </div>

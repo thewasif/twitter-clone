@@ -8,22 +8,7 @@ function Tweet(props) {
   //Component State
   let [userData, setUserData] = useState({});
 
-  let {
-    name,
-    username,
-    pic,
-    time,
-    hearts,
-    replies,
-    retweets,
-    text,
-    id,
-    userID,
-  } = props;
-  let history = useHistory();
-  let goToTweet = () => {
-    history.push(`/status/${id}`);
-  };
+  let { username, time, hearts, replies, retweets, text, id, userID } = props;
   let date = formattedDate(time);
 
   useEffect(() => {

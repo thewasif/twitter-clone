@@ -81,6 +81,7 @@ class Home extends Component {
                       name={additionalData.name}
                       pic={additionalData.profilePic}
                       id={tweet._id}
+                      userID={tweet.userID}
                     />
                   );
                 })}
