@@ -8,6 +8,8 @@ const userSchema = new Schema({
   email: String,
   password: String,
   createdAt: Date,
+  following: Array,
+  followers: Array,
   additionalData: Object,
 });
 
