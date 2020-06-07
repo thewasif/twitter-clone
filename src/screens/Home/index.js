@@ -34,18 +34,6 @@ class Home extends React.Component {
           </div>
           <div className="tweet-box-container">
             <TweetBox profile_pic={this.state.additionalData.profilePic} />
-            <Tweet
-              text={"Hello, World!"}
-              hearts={21}
-              replies={3}
-              retweets={0}
-              time={"3 March, 2020"}
-              username={"wasif"}
-              name={"Muhammad Wasif"}
-              pic={
-                "http://res.cloudinary.com/ddrsfmh8b/image/upload/v1588440600/oug0xmq5bsrrf8kp6rpx.jpg"
-              }
-            />
           </div>
         </div>
         <div className="section">sec 3</div>

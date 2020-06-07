@@ -88,4 +88,19 @@ const getReplies = async (tweetID, tokenObj) => {
   return res;
 };
 
-export { postTweet, getTweets, getTweet, getReplies, actions };
+const postReply = async (text, orgTweetID) => {
+  let data = { text: text, orgTweetID: orgTweetID },
+    tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+  let res = await fetch("http://localhost:5000/api/tweet/reply", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + tokenObj.token,
+    },
+    body: JSON.stringify(data),
+  });
+
+  return res;
+};
+
+export { postTweet, getTweets, getTweet, getReplies, postReply, actions };

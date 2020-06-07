@@ -59,6 +59,7 @@ function Status(props) {
               <TweetModel
                 visible={modelVisibility}
                 image={userDate.additionalData.profilePic}
+                orgTweetID={id}
                 onClose={() => {
                   setModelVisibility(!modelVisibility);
                 }}

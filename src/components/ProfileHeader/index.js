@@ -18,6 +18,7 @@ function ProfileHeader(props) {
     coverPhoto,
     editable,
     followers,
+    following,
   } = props;
 
   // component State
@@ -139,7 +140,7 @@ function ProfileHeader(props) {
                 <span> {followers} </span> Followers
               </p>
               <p>
-                <span>45</span> Following
+                <span> {following} </span> Following
               </p>
             </div>
           </div>

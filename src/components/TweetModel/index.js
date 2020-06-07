@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { postReply } from "../../helpers/api-tweet";
+import { Loader } from "../../components";
 import "./style.scss";
 
 function TweetModel(props) {
   // Component State
   let [visible, setVisibilty] = useState(props.visible);
+  let [text, setText] = useState("");
+  let [loading, setLoading] = useState(false);
+
+  // props variables
+  let { orgTweetID } = props;
 
   useEffect(() => {
     setVisibilty(props.visible);
@@ -35,6 +42,10 @@ function TweetModel(props) {
               rows={10}
               className="modal-input"
               placeholder="Tweet your reply..."
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+              }}
             />
             <div className="model-footer">
               <div className="options">
@@ -49,7 +60,18 @@ function TweetModel(props) {
                     <i className="far fa-smile"></i>
                   </button>
                 </div>
-                <button className="tweet-btn">Reply</button>
+                <button
+                  className="tweet-btn"
+                  onClick={() => {
+                    setLoading(true);
+                    postReply(text, orgTweetID).then((e) => {
+                      console.log(e);
+                      setLoading(false);
+                    });
+                  }}
+                >
+                  {loading ? <Loader inverted={true} /> : "Reply"}
+                </button>
               </div>
             </div>
           </div>

@@ -68,6 +68,7 @@ class Home extends Component {
                 coverPhoto={additionalData.coverPhoto}
                 editable={editable}
                 followers={user.followers.length}
+                following={user.following.length}
               />
               <div>
                 {this.state.tweets.map((tweet) => {
