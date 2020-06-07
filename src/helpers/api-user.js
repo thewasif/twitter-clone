@@ -66,4 +66,42 @@ const getUserByID = async (userID) => {
   return await user.json();
 };
 
-export { isAuthenticated, getUser, getUserByID };
+let actions = {
+  follow: async (userID) => {
+    let tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+    let res = await fetch(
+      `http://localhost:5000/api/user/follow/?userToBeFollowed=${userID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + tokenObj.token,
+        },
+        body: JSON.stringify({}),
+      }
+    );
+    res.json().then((res) => {
+      console.log(res);
+    });
+  },
+
+  unfollow: async (userID) => {
+    let tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+    let res = await fetch(
+      `http://localhost:5000/api/user/unfollow/?userToBeUnFollowed=${userID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + tokenObj.token,
+        },
+        body: JSON.stringify({}),
+      }
+    );
+    res.json().then((res) => {
+      console.log(res);
+    });
+  },
+};
+
+export { isAuthenticated, getUser, getUserByID, actions };

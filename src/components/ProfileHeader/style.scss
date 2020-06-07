@@ -42,9 +42,11 @@
           border: solid 1px $primary-color;
           border-radius: 50px;
           outline: none;
-          padding: 4px 10px;
+          padding: 4px 16px;
           font-weight: bold;
+          font-family: $primary-font;
           font-size: large;
+          margin-right: 6px;
         }
       }
     }
@@ -93,9 +95,15 @@
         p {
           margin-right: 6px;
           font-family: $secondary-font;
+          color: $light-color;
           font-size: 0.8em;
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
           span {
             font-weight: bold;
+            color: black;
           }
         }
       }

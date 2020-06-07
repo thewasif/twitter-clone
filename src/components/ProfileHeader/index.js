@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { isAuthenticated } from "../../helpers/api-user";
+import { isAuthenticated, getUser, actions } from "../../helpers/api-user";
 import "./style.scss";
 
-const ProfileHeader = (props) => {
+function ProfileHeader(props) {
+  // props variables
   let {
     name,
     username,
+    userID,
     bio,
     website,
     location,
@@ -15,7 +17,28 @@ const ProfileHeader = (props) => {
     profilePhoto,
     coverPhoto,
     editable,
+    followers,
   } = props;
+
+  // component State
+  let [followed, setFollowed] = useState(false);
+
+  useEffect(() => {
+    async function user(params) {
+      console.log(String(username.split("@")[1]));
+      let user = await getUser(String(username.split("@")[1]));
+      let auth = await isAuthenticated();
+      console.log(user);
+      console.log(auth);
+      if (user.followers.includes(auth._id)) {
+        console.log("Already followed..!");
+        setFollowed(true);
+      }
+    }
+
+    user();
+  }, []);
+
   let formated_dob =
     dob !== "" ? String(new Date(String(dob))).split(" ") : null;
   let dobObj = formated_dob
@@ -31,7 +54,6 @@ const ProfileHeader = (props) => {
     month: formated_joined[1],
     year: formated_joined[3],
   };
-  let auth = isAuthenticated();
 
   return (
     <React.Fragment>
@@ -56,7 +78,28 @@ const ProfileHeader = (props) => {
                   <button>Edit Profile</button>
                 </Link>
               </div>
-            ) : null}
+            ) : (
+              <div className="btn-container">
+                <button
+                  style={
+                    followed ? { color: "white", background: "#00abee" } : {}
+                  }
+                  onClick={
+                    followed
+                      ? () => {
+                          setFollowed(false);
+                          actions.unfollow(userID);
+                        }
+                      : () => {
+                          setFollowed(true);
+                          actions.follow(userID);
+                        }
+                  }
+                >
+                  {followed ? "Following" : "Follow"}
+                </button>
+              </div>
+            )}
           </div>
           <div className="profile-details">
             <div className="head">
@@ -93,7 +136,7 @@ const ProfileHeader = (props) => {
             </div>
             <div className="follow-section">
               <p>
-                <span>45</span> Followers
+                <span> {followers} </span> Followers
               </p>
               <p>
                 <span>45</span> Following
@@ -105,6 +148,6 @@ const ProfileHeader = (props) => {
       </div>
     </React.Fragment>
   );
-};
+}
 
 export default ProfileHeader;

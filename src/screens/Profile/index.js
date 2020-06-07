@@ -57,6 +57,7 @@ class Home extends Component {
             <React.Fragment>
               <ProfileHeader
                 username={`@${user.username}`}
+                userID={user._id}
                 name={additionalData.name}
                 bio={additionalData.bio}
                 location={additionalData.location}
@@ -66,6 +67,7 @@ class Home extends Component {
                 profilePhoto={additionalData.profilePic}
                 coverPhoto={additionalData.coverPhoto}
                 editable={editable}
+                followers={user.followers.length}
               />
               <div>
                 {this.state.tweets.map((tweet) => {

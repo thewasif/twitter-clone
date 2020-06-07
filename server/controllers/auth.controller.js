@@ -105,10 +105,12 @@ const getUser = async (req, res) => {
     username: user.username,
     email: user.email,
     createdAt: user.createdAt,
+    followers: user.followers,
+    _id: user._id,
     additionalData: user.additionalData,
   };
 
-  res.json(dataToBeSent);
+  res.json(user);
 };
 
 const verifyAuth = (req, res) => {
@@ -171,6 +173,70 @@ const uploadRoute = async (req, res) => {
   });
 };
 
+const follow = (req, res) => {
+  let { userToBeFollowed } = req.query;
+
+  jwt.verify(req.token, SECRET, async (err, auth) => {
+    if (err) res.sendStatus("403");
+
+    let user = await User.findById(auth.user._id);
+
+    if (user.password === auth.user.password) {
+      User.findOneAndUpdate(
+        { _id: userToBeFollowed },
+        { $push: { followers: auth.user._id } }
+      )
+        .then((response) => {
+          User.findOneAndUpdate(
+            { _id: auth.user._id },
+            { $push: { following: userToBeFollowed } }
+          )
+            .then((response_two) => {
+              res.send(response_two);
+            })
+            .catch((e) => {
+              res.send(e);
+            });
+        })
+        .catch((e) => {
+          res.send(e);
+        });
+    }
+  });
+};
+
+const unfollow = (req, res) => {
+  let { userToBeUnFollowed } = req.query;
+
+  jwt.verify(req.token, SECRET, async (err, auth) => {
+    if (err) res.sendStatus("403");
+
+    let user = await User.findById(auth.user._id);
+
+    if (user.password === auth.user.password) {
+      User.findOneAndUpdate(
+        { _id: userToBeUnFollowed },
+        { $pull: { followers: auth.user._id } }
+      )
+        .then((response) => {
+          User.findOneAndUpdate(
+            { _id: auth.user._id },
+            { $pull: { following: userToBeUnFollowed } }
+          )
+            .then((response_two) => {
+              res.send(response_two);
+            })
+            .catch((e) => {
+              res.send(e);
+            });
+        })
+        .catch((e) => {
+          res.send(e);
+        });
+    }
+  });
+};
+
 module.exports = {
   signup,
   login,
@@ -178,4 +244,6 @@ module.exports = {
   getUser,
   verifyAuth,
   uploadRoute,
+  follow,
+  unfollow,
 };

@@ -11,6 +11,8 @@ const {
   getUser,
   verifyAuth,
   uploadRoute,
+  follow,
+  unfollow,
 } = require("../controllers/auth.controller");
 
 let SECRET = process.env.JWT_SECRET;
@@ -34,36 +36,9 @@ route.get("/verify", verifyAuth);
 route.post("/upload", verifyToken, upload.array("image"), uploadRoute);
 
 // Follow a user
-route.post("/follow", verifyToken, async (req, res) => {
-  let { userToBeFollowed } = req.query;
+route.post("/follow", verifyToken, follow);
 
-  jwt.verify(req.token, SECRET, async (err, auth) => {
-    if (err) res.sendStatus("403");
-
-    let user = await User.findById(auth.user._id);
-
-    if (user.password === auth.user.password) {
-      User.findOneAndUpdate(
-        { _id: userToBeFollowed },
-        { $push: { followers: auth.user._id } }
-      )
-        .then((response) => {
-          User.findOneAndUpdate(
-            { _id: auth.user._id },
-            { $push: { following: userToBeFollowed } }
-          )
-            .then((response_two) => {
-              res.send(response_two);
-            })
-            .catch((e) => {
-              res.send(e);
-            });
-        })
-        .catch((e) => {
-          res.send(e);
-        });
-    }
-  });
-});
+//Unfollow a user
+route.post("/unfollow", verifyToken, unfollow);
 
 module.exports = route;
