@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { formattedDate } from "../../helpers/utils";
 import { getUserByID } from "../../helpers/api-user";
+import TweetModel from "../TweetModel";
 import "./style.scss";
 
 function Tweet(props) {
@@ -44,11 +45,11 @@ function Tweet(props) {
           <Link to={to}>{text}</Link>
         </div>
         <div className="tweet-buttons">
-          <button className="tweet-btn reply">
+          <button className="tweet-btn reply" onClick={props.onReplyClick}>
             <i className="far fa-comment-dots"></i>
             <span>{replies === 0 ? null : replies}</span>
           </button>
-          <button className="tweet-btn heart">
+          <button className="tweet-btn heart" onClick={props.onHeartClick}>
             <i className="far fa-heart"></i>{" "}
             <span>{hearts === 0 ? null : hearts}</span>
           </button>

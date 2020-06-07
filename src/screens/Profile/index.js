@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { getUser } from "../../helpers/api-user";
-import { getTweets } from "../../helpers/api-tweet";
-import { ProfileHeader, Navigator, Loader, Tweet } from "../../components";
+import { getTweets, actions } from "../../helpers/api-tweet";
+import {
+  ProfileHeader,
+  Navigator,
+  Loader,
+  Tweet,
+  TweetModel,
+} from "../../components";
 import "./style.scss";
 
 class Home extends Component {
@@ -12,6 +18,8 @@ class Home extends Component {
       additionalData: {},
       loading: true,
       tweets: [],
+      visible: false,
+      orgTweetID: "",
     };
   }
   async componentDidMount() {
@@ -51,6 +59,14 @@ class Home extends Component {
               : {}
           }
         >
+          <TweetModel
+            visible={this.state.visible}
+            orgTweetID={this.state.orgTweetID}
+            onClose={() => {
+              console.log("execute");
+              this.setState({ visible: false });
+            }}
+          />
           {this.state.loading ? (
             <Loader />
           ) : (
@@ -85,6 +101,14 @@ class Home extends Component {
                       pic={additionalData.profilePic}
                       id={tweet._id}
                       userID={tweet.userID}
+                      onReplyClick={() => {
+                        this.setState({ visible: true, orgTweetID: tweet._id });
+                      }}
+                      onHeartClick={() => {
+                        console.log("HEARTED");
+                        this.setState({ orgTweetID: tweet._id });
+                        actions.like(this.state.orgTweetID);
+                      }}
                     />
                   );
                 })}

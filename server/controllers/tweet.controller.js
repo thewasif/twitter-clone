@@ -84,6 +84,11 @@ const replyTweet = (req, res) => {
         .save()
         .then((resp) => {
           console.log(resp);
+          Tweet.findByIdAndUpdate(orgTweetID, {
+            $push: { replies: auth.user._id },
+          }).then((res) => {
+            console.log(res);
+          });
           return res.send(resp);
         })
         .catch((e) => {
