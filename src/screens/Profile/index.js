@@ -10,7 +10,7 @@ import {
 } from "../../components";
 import "./style.scss";
 
-class Home extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,6 @@ class Home extends Component {
       additionalData: user.additionalData,
       loading: false,
     });
-
     let tweets = await getTweets(this.props.match.params.user);
     this.setState({ tweets });
   }
@@ -63,7 +62,6 @@ class Home extends Component {
             visible={this.state.visible}
             orgTweetID={this.state.orgTweetID}
             onClose={() => {
-              console.log("execute");
               this.setState({ visible: false });
             }}
           />
@@ -88,11 +86,12 @@ class Home extends Component {
               />
               <div>
                 {this.state.tweets.map((tweet) => {
+                  console.log("execute");
                   return (
                     <Tweet
                       key={tweet.text}
                       text={tweet.text}
-                      hearts={tweet.hearts.length}
+                      hearts={tweet.hearts}
                       replies={tweet.replies.length}
                       retweets={tweet.retweets.length}
                       time={tweet.time}
@@ -103,11 +102,6 @@ class Home extends Component {
                       userID={tweet.userID}
                       onReplyClick={() => {
                         this.setState({ visible: true, orgTweetID: tweet._id });
-                      }}
-                      onHeartClick={() => {
-                        console.log("HEARTED");
-                        this.setState({ orgTweetID: tweet._id });
-                        actions.like(this.state.orgTweetID);
                       }}
                     />
                   );
@@ -122,4 +116,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Profile;

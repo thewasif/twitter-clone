@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "./style.scss";
 import { Header, Loader } from "../../../components";
+import { isAuthenticated } from "../../../helpers/api-user";
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -40,10 +41,12 @@ class LogIn extends React.Component {
         errorText: "Wrong username or password!",
       });
     }
-    await res.json().then((res) => {
+    await res.json().then(async (res) => {
       console.log(res);
       localStorage.setItem("JWT_TOKEN", JSON.stringify(res));
       localStorage.setItem("username", this.state.username);
+      let user = await isAuthenticated();
+      localStorage.setItem("logged_in_user_id", user._id);
       window.location.pathname = "/";
     });
   }

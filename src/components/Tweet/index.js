@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { formattedDate } from "../../helpers/utils";
+import { formattedDate, USER_ID } from "../../helpers/utils";
 import { getUserByID } from "../../helpers/api-user";
-import TweetModel from "../TweetModel";
+import { actions } from "../../helpers/api-tweet";
 import "./style.scss";
 
 function Tweet(props) {
+  // props variables
+  let { username, time, hearts, replies, retweets, text, id, userID } = props;
+
   //Component State
   let [userData, setUserData] = useState({});
+  let [liked, setLiked] = useState(hearts.includes(USER_ID) ? true : false);
 
-  let { username, time, hearts, replies, retweets, text, id, userID } = props;
   let date = formattedDate(time);
 
   useEffect(() => {
     async function setUser() {
       let user = await getUserByID(userID);
       setUserData(user.additionalData);
-
       console.log(userData);
     }
     setUser();
@@ -49,9 +51,26 @@ function Tweet(props) {
             <i className="far fa-comment-dots"></i>
             <span>{replies === 0 ? null : replies}</span>
           </button>
-          <button className="tweet-btn heart" onClick={props.onHeartClick}>
-            <i className="far fa-heart"></i>{" "}
-            <span>{hearts === 0 ? null : hearts}</span>
+          <button
+            className="tweet-btn heart"
+            onClick={
+              liked
+                ? () => {
+                    setLiked(false);
+                    actions.unlike(id);
+                  }
+                : () => {
+                    setLiked(true);
+                    actions.like(id);
+                  }
+            }
+          >
+            {liked ? (
+              <i style={{ color: "red" }} className="fas fa-heart"></i>
+            ) : (
+              <i className="far fa-heart"></i>
+            )}{" "}
+            <span>{hearts.length === 0 ? null : hearts.length}</span>
           </button>
           <button className="tweet-btn retweet">
             <i className="fa fa-retweet"></i>{" "}

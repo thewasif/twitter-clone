@@ -81,7 +81,7 @@ function Status(props) {
                   <Tweet
                     key={reply.text}
                     text={reply.text}
-                    hearts={reply.hearts.length}
+                    hearts={reply.hearts}
                     replies={reply.replies.length}
                     retweets={reply.retweets.length}
                     time={reply.time}

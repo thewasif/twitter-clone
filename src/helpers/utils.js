@@ -16,3 +16,5 @@ export const formattedDate = (str) => {
     time,
   };
 };
+
+export const USER_ID = localStorage.getItem("logged_in_user_id");
