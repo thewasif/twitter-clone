@@ -95,28 +95,6 @@ const replyTweet = (req, res) => {
           console.log(e);
           return res.send(e);
         });
-
-      /* let tweet = Tweet.findOneAndUpdate(
-        { _id: orgTweetID },
-        { $push: { replies: tweetData } }
-      );
-      if (tweet) {
-        console.log(tweet);
-        return res.json(tweet);
-      } else {
-        return res.sendStatus("404");
-      }*/
-
-      /*
-        .then((response) => {
-          console.log(response);
-          res.json(response);
-        })
-        .catch((e) => {
-          console.log("ERROR");
-          return res.sendStatus("404");
-        });
-        */
     } else {
       return res.sendStatus("403");
     }
@@ -211,6 +189,37 @@ const getReplies = async (req, res) => {
   }
 };
 
+const newsfeed = (req, res) => {
+  const pageNo = parseInt(req.query.pageNo) || 1;
+  const size = parseInt(req.query.size) || 10;
+
+  const skipBy = size * (pageNo - 1);
+
+  jwt.verify(req.token, SECRET, async (err, auth) => {
+    if (err) return res.sendStatus("403");
+
+    let user = await User.findById(auth.user._id);
+
+    if (!user) return res.sendStatus("400");
+
+    if (auth.user.password === user.password) {
+      // user authenticated..!
+      let following = user.following;
+
+      let tweets = await Tweet.find({
+        userID: { $in: following },
+      })
+        .sort({ time: -1 })
+        .skip(skipBy)
+        .limit(size);
+
+      res.send(tweets);
+    } else {
+      return res.sendStatus("403");
+    }
+  });
+};
+
 module.exports = {
   postTweet,
   getTweets,
@@ -219,4 +228,5 @@ module.exports = {
   unlikeTweet,
   getTweet,
   getReplies,
+  newsfeed,
 };
