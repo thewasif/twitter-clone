@@ -1,0 +1,81 @@
+@import "../../scss/utils.scss";
+
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  @include flex-center;
+}
+
+.model {
+  position: fixed;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  top: 10%;
+  width: 30%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  .model-header {
+    border-bottom: solid 1px rgba($color: $light-color, $alpha: 0.4);
+    display: flex;
+    .model-btn-close {
+      border: none;
+      outline: none;
+      background-color: white;
+      padding: 2px 12px;
+      font-size: large;
+      transition: 0.1s;
+      margin: 4px;
+      &:hover {
+        color: $primary-color;
+        background-color: rgba($color: $primary-color, $alpha: 0.1);
+      }
+    }
+
+    .modal-title {
+      font-family: $primary-font;
+    }
+  }
+
+  .model-body {
+    display: flex;
+    border-bottom: solid 0.5px $light-color;
+    .user-media {
+      display: flex;
+      .img {
+        @include circle(60px);
+        margin: 2px;
+        background-position: center;
+        background-size: cover;
+      }
+
+      .user-media-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin-left: 4px;
+        .name {
+          font-family: $secondary-font;
+          line-height: 0;
+        }
+        .username {
+          color: $light-color;
+          line-height: 0;
+          font-family: $primary-font;
+          margin-top: -1px;
+        }
+
+        .bio {
+          font-family: $secondary-font;
+        }
+      }
+    }
+  }
+}

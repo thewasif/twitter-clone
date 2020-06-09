@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getTweet, getReplies } from "../../helpers/api-tweet";
 import { getUserByID } from "../../helpers/api-user";
+import Modal from "../../components/Modal";
 import {
   Navigator,
   Status as StatusComponent,
@@ -17,6 +18,7 @@ function Status(props) {
   let [userDate, setUserData] = useState({});
   let [loading, setLoadingState] = useState(true);
   let [modelVisibility, setModelVisibility] = useState(false);
+  let [causalModel, setCausalModel] = useState(false);
   let [id, setID] = useState(props.match.params.id);
 
   useEffect(() => {
@@ -64,6 +66,12 @@ function Status(props) {
                   setModelVisibility(!modelVisibility);
                 }}
               />
+              <Modal
+                visible={causalModel}
+                onClose={() => {
+                  setCausalModel(!causalModel);
+                }}
+              />
               <StatusComponent
                 text={tweetData.text}
                 username={userDate.username}
@@ -74,6 +82,9 @@ function Status(props) {
                 id={tweetData._id}
                 onReplyClick={() => {
                   setModelVisibility(!modelVisibility);
+                }}
+                onLikesClick={() => {
+                  setCausalModel(!causalModel);
                 }}
               />
               {replies.map((reply) => {

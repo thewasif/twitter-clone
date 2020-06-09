@@ -1,3 +1,5 @@
+import { JWT_TOKEN } from "./utils";
+
 const getTweets = async (username) => {
   let user = await fetch(
     `http://localhost:5000/api/tweet?username=${username}`,
@@ -103,4 +105,28 @@ const postReply = async (text, orgTweetID) => {
   return res;
 };
 
-export { postTweet, getTweets, getTweet, getReplies, postReply, actions };
+const getNewsFeedTweets = async (pageNo, size) => {
+  let res = await fetch(
+    `http://localhost:5000/api/tweet/newsfeed/?pageNo=${pageNo}&size=${size}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + JWT_TOKEN.token,
+      },
+      body: JSON.stringify({}),
+    }
+  );
+
+  return await res.json();
+};
+
+export {
+  postTweet,
+  getTweets,
+  getTweet,
+  getReplies,
+  postReply,
+  getNewsFeedTweets,
+  actions,
+};

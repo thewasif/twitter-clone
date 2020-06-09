@@ -7,10 +7,11 @@ import "./style.scss";
 
 function Tweet(props) {
   // props variables
-  let { username, time, hearts, replies, retweets, text, id, userID } = props;
+  let { time, hearts, replies, retweets, text, id, userID } = props;
 
   //Component State
   let [userData, setUserData] = useState({});
+  let [username, setUsername] = useState("");
   let [liked, setLiked] = useState(hearts.includes(USER_ID) ? true : false);
 
   let date = formattedDate(time);
@@ -18,11 +19,11 @@ function Tweet(props) {
   useEffect(() => {
     async function setUser() {
       let user = await getUserByID(userID);
+      setUsername(user.username);
       setUserData(user.additionalData);
-      console.log(userData);
     }
     setUser();
-  }, []);
+  }, [userID]);
   let to = `/status/${id}`;
 
   return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./style.scss";
 import { formattedDate } from "../../helpers/utils";
+import Modal from "../Modal";
 import { getTweet, actions } from "../../helpers/api-tweet";
 import { isAuthenticated } from "../../helpers/api-user";
 
@@ -55,7 +56,7 @@ function Status(props) {
       </div>
 
       <div className="status-details">
-        <p>
+        <p onClick={props.onLikesClick}>
           <span>{hearts}</span> likes
         </p>
       </div>
