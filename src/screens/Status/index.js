@@ -68,6 +68,7 @@ function Status(props) {
               />
               <Modal
                 visible={causalModel}
+                users={tweetData.hearts}
                 onClose={() => {
                   setCausalModel(!causalModel);
                 }}

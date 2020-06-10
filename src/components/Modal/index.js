@@ -5,10 +5,9 @@ import Media from "./Media";
 function Modal(props) {
   // Component State
   let [visible, setVisibilty] = useState(props.visible);
-  let [loading, setLoading] = useState(false);
 
   // props variables
-  let { orgTweetID } = props;
+  let { users } = props;
 
   useEffect(() => {
     setVisibilty(props.visible);
@@ -30,7 +29,9 @@ function Modal(props) {
           <p className="modal-title">Likes</p>
         </div>
         <div className="model-body">
-          <Media name="WASif" username="wasif" bio="hey" />
+          {users.map((user) => (
+            <Media userID={user} />
+          ))}
         </div>
       </div>
     </div>
