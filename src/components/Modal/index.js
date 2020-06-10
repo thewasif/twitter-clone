@@ -30,7 +30,7 @@ function Modal(props) {
         </div>
         <div className="model-body">
           {users.map((user) => (
-            <Media userID={user} />
+            <Media key={user} userID={user} />
           ))}
         </div>
       </div>

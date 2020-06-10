@@ -42,8 +42,10 @@
     .main-text {
       height: fit-content;
       font-family: $secondary-font;
-      font-size: small;
-      padding: 4px 0px 4px 0px;
+      font-size: medium;
+      padding: 4px 0px;
+      display: flex;
+      justify-content: flex-start;
     }
 
     .tweet-buttons {
