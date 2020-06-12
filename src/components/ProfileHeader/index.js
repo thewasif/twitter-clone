@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { isAuthenticated, getUser, actions } from "../../helpers/api-user";
+import { formattedDate } from "../../helpers/utils";
+import Modal from "../Modal";
 import "./style.scss";
 
 function ProfileHeader(props) {
@@ -23,22 +25,20 @@ function ProfileHeader(props) {
 
   // component State
   let [followed, setFollowed] = useState(false);
+  let [modal, setModal] = useState(false);
+  let [modalData, setModalData] = useState("followers");
 
   useEffect(() => {
-    async function user(params) {
-      console.log(String(username.split("@")[1]));
+    async function user() {
       let user = await getUser(String(username.split("@")[1]));
       let auth = await isAuthenticated();
-      console.log(user);
-      console.log(auth);
       if (user.followers.includes(auth._id)) {
-        console.log("Already followed..!");
         setFollowed(true);
       }
     }
 
     user();
-  }, []);
+  }, [username]);
 
   let formated_dob =
     dob !== "" ? String(new Date(String(dob))).split(" ") : null;
@@ -49,12 +49,8 @@ function ProfileHeader(props) {
         year: formated_dob[3],
       }
     : null;
-  let formated_joined = String(new Date(String(joined))).split(" ");
-  let joinedObj = {
-    date: formated_joined[2],
-    month: formated_joined[1],
-    year: formated_joined[3],
-  };
+
+  let formated_joined = formattedDate(joined);
 
   return (
     <React.Fragment>
@@ -132,21 +128,38 @@ function ProfileHeader(props) {
 
               <div className="item">
                 <i className="fa fa-calendar-day"></i>
-                Joined {`${joinedObj.month} ${joinedObj.year}`}
+                Joined {`${formated_joined.month} ${formated_joined.year}`}
               </div>
             </div>
             <div className="follow-section">
-              <p>
-                <span> {followers} </span> Followers
+              <p
+                onClick={() => {
+                  setModalData("followers");
+                  setModal(!modal);
+                }}
+              >
+                <span> {followers.length} </span> Followers
               </p>
-              <p>
-                <span> {following} </span> Following
+              <p
+                onClick={() => {
+                  setModalData("following");
+                  setModal(!modal);
+                }}
+              >
+                <span> {following.length} </span> Following
               </p>
             </div>
           </div>
           <hr />
         </div>
       </div>
+      <Modal
+        visible={modal}
+        users={modalData === "followers" ? followers : following}
+        onClose={() => {
+          setModal(!modal);
+        }}
+      />
     </React.Fragment>
   );
 }

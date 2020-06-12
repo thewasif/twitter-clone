@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getUser } from "../../helpers/api-user";
-import { getTweets, actions } from "../../helpers/api-tweet";
+import { getTweets } from "../../helpers/api-tweet";
 import {
   ProfileHeader,
   Navigator,
@@ -65,6 +65,7 @@ class Profile extends Component {
               this.setState({ visible: false });
             }}
           />
+
           {this.state.loading ? (
             <Loader />
           ) : (
@@ -81,8 +82,8 @@ class Profile extends Component {
                 profilePhoto={additionalData.profilePic}
                 coverPhoto={additionalData.coverPhoto}
                 editable={editable}
-                followers={user.followers.length}
-                following={user.following.length}
+                followers={user.followers}
+                following={user.following}
               />
               <div>
                 {this.state.tweets.map((tweet) => {

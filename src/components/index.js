@@ -6,6 +6,7 @@ import Loader from "./Loader";
 import Tweet from "./Tweet";
 import Status from "./Status";
 import TweetModel from "./TweetModel";
+import Modal from "./Modal";
 
 export {
   Header,
@@ -16,4 +17,5 @@ export {
   Tweet,
   Status,
   TweetModel,
+  Modal,
 };

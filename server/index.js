@@ -20,9 +20,13 @@ app.use(
 );
 
 // Connect Database
-mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }, () => {
-  console.log("database connected..!");
-});
+mongoose.connect(
+  "mongodb://localhost:27017/test",
+  { useUnifiedTopology: true, useNewUrlParser: true },
+  () => {
+    console.log("database connected..!");
+  }
+);
 
 // Routes
 app.use("/api/user", auth);

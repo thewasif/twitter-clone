@@ -48,7 +48,7 @@ const TweetBox = (props) => {
           </div>
           <button
             className="tweet-btn"
-            onClick={async () => {
+            onClick={() => {
               setLoading(true);
               postTweet(
                 tweetText,

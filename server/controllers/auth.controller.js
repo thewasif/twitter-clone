@@ -6,16 +6,19 @@ const User = require("../models/user.model");
 let SECRET = process.env.JWT_SECRET;
 
 const signup = async (req, res) => {
+  console.log("POST coming...!!!");
   try {
     let { username, email, password } = req.body,
       createdAt = new Date();
 
     // check if user already exists or not
-    let user = await User.findOne({ username: req.body.username });
+    console.log("here");
+    /*let user = await User.findOne({ username: req.body.username });
+    console.log("here 2");
 
     if (user) {
       return res.status(400).send("User already exists!");
-    }
+    }*/
 
     // save the user to database
     let newUser = new User({ username, email, password, createdAt });

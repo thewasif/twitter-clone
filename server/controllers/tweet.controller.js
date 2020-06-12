@@ -43,12 +43,21 @@ const postTweet = async (req, res) => {
 const getTweets = (req, res) => {
   let { username } = req.query;
 
+  const pageNo = parseInt(req.query.pageNo) || 1;
+  const size = parseInt(req.query.size) || 10;
+
+  const skipBy = size * (pageNo - 1);
+
   if (username) {
     User.findOne({ username })
       .then((response) => {
-        Tweet.find({ userID: response._id, repliedTo: null }).then((tweet) => {
-          res.json(tweet);
-        });
+        Tweet.find({ userID: response._id, repliedTo: null })
+          .sort({ time: -1 })
+          .skip(skipBy)
+          .limit(size)
+          .then((tweet) => {
+            res.json(tweet);
+          });
       })
       .catch((e) => {
         res.send(e);
@@ -208,6 +217,7 @@ const newsfeed = (req, res) => {
 
       let tweets = await Tweet.find({
         userID: { $in: following },
+        repliedTo: null,
       })
         .sort({ time: -1 })
         .skip(skipBy)

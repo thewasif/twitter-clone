@@ -17,7 +17,8 @@ class SignUp extends React.Component {
     };
     this.postData = this.postData.bind(this);
   }
-  async postData() {
+  async postData(e) {
+    e.preventDefault();
     this.setState({ btnDisabled: true });
     let username = this.state.username,
       email = this.state.email,
