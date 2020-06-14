@@ -11,6 +11,7 @@ likeEmitter.on("sendLikeNotification", (username, tweetID, client) => {
     username: username,
     link: `/status/${tweetID}`,
     client: client,
+    time: new Date(),
   });
 
   notification

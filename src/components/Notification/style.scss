@@ -1,0 +1,21 @@
+@import "../../scss/utils.scss";
+
+.notification-container {
+  display: flex;
+  align-items: center;
+  background-color: rgba($color: $primary-color, $alpha: 0.4);
+  padding: 12px 6px;
+  cursor: pointer;
+  border-bottom: solid 1px $light-color;
+  p {
+    font-family: $secondary-font;
+    margin: 0;
+    span {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+  .fa-bell {
+    margin-right: 8px;
+  }
+}

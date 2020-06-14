@@ -7,6 +7,7 @@ import Tweet from "./Tweet";
 import Status from "./Status";
 import TweetModel from "./TweetModel";
 import Modal from "./Modal";
+import Notifcation from "./Notification";
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   Status,
   TweetModel,
   Modal,
+  Notifcation,
 };

@@ -17,7 +17,12 @@ const Navigator = (props) => {
         <Link to="/">
           <NavItem text="Home" icon={<i className="fa fa-home"></i>} />
         </Link>
-        <NavItem text="Notifications" icon={<i className="far fa-bell"></i>} />
+        <Link to={`/i/notifications`}>
+          <NavItem
+            text="Notifications"
+            icon={<i className="far fa-bell"></i>}
+          />
+        </Link>
         <NavItem text="Bookmarks" icon={<i className="far fa-bookmark"></i>} />
         <Link to={profileURL}>
           <NavItem

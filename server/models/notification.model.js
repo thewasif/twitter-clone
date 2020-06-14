@@ -7,6 +7,7 @@ let notificationsSchema = new Schema({
   link: String,
   client: String,
   text: String,
+  time: Date,
 });
 
 let Notification = mongoose.model("Notification", notificationsSchema);

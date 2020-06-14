@@ -13,7 +13,9 @@ route.get("/", verifyToken, (req, res) => {
     let user = await User.findById(auth.user._id);
 
     if (user.password === auth.user.password) {
-      let notifications = await Notification.find({ client: auth.user._id });
+      let notifications = await Notification.find({
+        client: auth.user._id,
+      }).sort({ time: -1 });
 
       res.send(notifications);
     } else {
