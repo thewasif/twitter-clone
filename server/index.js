@@ -20,13 +20,19 @@ app.use(
 );
 
 // Connect Database
-mongoose.connect(
-  "mongodb://localhost:27017/test",
-  { useUnifiedTopology: true, useNewUrlParser: true },
-  () => {
-    console.log("database connected..!");
-  }
-);
+mongoose
+  .connect("mongodb://localhost:27017/test", {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("👌 Database Connected..");
+  })
+  .catch((err) => {
+    if (err) {
+      console.log("❌ ERROR WHILE CONNECTING TO DATABASE: ", err);
+    }
+  });
 
 // Routes
 app.use("/api/user", auth);

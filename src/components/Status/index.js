@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./style.scss";
 import { formattedDate } from "../../helpers/utils";
-import Modal from "../Modal";
 import { getTweet, actions } from "../../helpers/api-tweet";
 import { isAuthenticated } from "../../helpers/api-user";
 
@@ -32,7 +32,8 @@ function Status(props) {
     }
 
     getTweetData();
-  }, []);
+  }, [id]);
+  let to = `/${username}`;
 
   return (
     <div className="status">
@@ -42,7 +43,9 @@ function Status(props) {
           style={{ backgroundImage: `url("${pic}")` }}
         ></div>
         <div className="media-body">
-          <h3>{name}</h3>
+          <Link to={to}>
+            <h3>{name}</h3>
+          </Link>
           <p>@{username}</p>
         </div>
         <div className="icon-button">

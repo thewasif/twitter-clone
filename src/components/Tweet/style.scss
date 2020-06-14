@@ -11,7 +11,7 @@
   .photo-container {
     .photo {
       @include circle(50px);
-      background-color: aliceblue;
+      background-color: rgb(199, 206, 212);
       background-size: cover;
       background-position: center;
     }

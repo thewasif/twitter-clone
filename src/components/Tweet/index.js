@@ -38,7 +38,9 @@ function Tweet(props) {
       </div>
       <div className="details">
         <div className="upper-layer">
-          <h4>{userData.name}</h4>
+          <Link to={`/${username}`}>
+            <h4>{userData.name}</h4>
+          </Link>
           <small>@{username}</small>
           <small>
             • {date.month} {date.date}

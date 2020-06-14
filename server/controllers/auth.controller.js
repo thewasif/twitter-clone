@@ -12,13 +12,13 @@ const signup = async (req, res) => {
       createdAt = new Date();
 
     // check if user already exists or not
-    console.log("here");
-    /*let user = await User.findOne({ username: req.body.username });
-    console.log("here 2");
+    let user = await User.findOne({
+      $or: [{ username: req.body.username }, { email: req.body.email }],
+    });
 
     if (user) {
       return res.status(400).send("User already exists!");
-    }*/
+    }
 
     // save the user to database
     let newUser = new User({ username, email, password, createdAt });
