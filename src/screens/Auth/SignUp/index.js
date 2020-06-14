@@ -52,7 +52,7 @@ class SignUp extends React.Component {
       email,
       password,
     };
-    fetch("http://localhost:5000/api/user/signup", {
+    fetch("/api/user/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

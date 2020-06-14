@@ -41,6 +41,7 @@
 
   .model-body {
     display: flex;
+    flex-direction: row;
     .profile-pic {
       @include circle(60px);
       background-position: center;

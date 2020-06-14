@@ -4,11 +4,12 @@ import Loader from "../Loader";
 import { postTweet } from "../../helpers/api-tweet";
 
 const TweetBox = (props) => {
+  // props variables
+  let { profile_pic } = props;
+
   // Component State
   let [tweetText, setTweetText] = useState("");
   let [loading, setLoading] = useState(false);
-
-  let { profile_pic } = props;
 
   return (
     <div className="tweet-box">
@@ -54,7 +55,6 @@ const TweetBox = (props) => {
                 tweetText,
                 JSON.parse(localStorage.getItem("JWT_TOKEN"))
               ).then((res) => {
-                console.log(res);
                 setLoading(false);
               });
             }}

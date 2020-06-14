@@ -26,7 +26,7 @@ class LogIn extends React.Component {
       password: this.state.password,
     };
 
-    let res = await fetch("http://localhost:5000/api/user/login", {
+    let res = await fetch("/api/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

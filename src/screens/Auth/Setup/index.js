@@ -57,7 +57,7 @@ class SetUp extends React.Component {
       coverPhoto: this.state.coverPhoto,
     };
 
-    let res = await fetch("http://localhost:5000/api/user/editprofile", {
+    let res = await fetch("/api/user/editprofile", {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -82,7 +82,7 @@ class SetUp extends React.Component {
     var data = new FormData();
     data.append("image", this.refs.file.files[0]);
     data.append("image", this.refs.filetwo.files[0]);
-    let res = await fetch("http://localhost:5000/api/user/upload", {
+    let res = await fetch("/api/user/upload", {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.tokenObj.token,

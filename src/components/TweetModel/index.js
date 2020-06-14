@@ -65,7 +65,6 @@ function TweetModel(props) {
                   onClick={() => {
                     setLoading(true);
                     postReply(text, orgTweetID).then((e) => {
-                      console.log(e);
                       setLoading(false);
                     });
                   }}

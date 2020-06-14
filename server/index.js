@@ -21,7 +21,7 @@ app.use(
 
 // Connect Database
 mongoose
-  .connect("mongodb://localhost:27017/test", {
+  .connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })
