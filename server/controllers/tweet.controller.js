@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const Tweet = require("../models/tweet.model");
 const User = require("../models/user.model");
+const likeEmitter = require("../events/like.event");
 
 let SECRET = process.env.JWT_SECRET;
 
@@ -113,12 +114,8 @@ const replyTweet = (req, res) => {
 const likeTweet = (req, res) => {
   let { tweetID } = req.body;
 
-  console.log("POST", tweetID);
-
   jwt.verify(req.token, SECRET, async (err, auth) => {
-    console.log("heee");
     if (err) return res.sendStatus("403");
-    console.log("booo");
 
     let user = await User.findById(auth.user._id);
 
@@ -130,7 +127,12 @@ const likeTweet = (req, res) => {
         { $push: { hearts: auth.user._id } }
       )
         .then((response) => {
-          console.log(response);
+          likeEmitter.emit(
+            "sendLikeNotification",
+            auth.user.username,
+            tweetID,
+            response.userID
+          );
           res.send(response);
         })
         .catch((e) => {

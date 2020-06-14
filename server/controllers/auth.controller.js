@@ -104,15 +104,6 @@ const getUser = async (req, res) => {
 
   if (!user) return res.sendStatus("404");
 
-  let dataToBeSent = {
-    username: user.username,
-    email: user.email,
-    createdAt: user.createdAt,
-    followers: user.followers,
-    _id: user._id,
-    additionalData: user.additionalData,
-  };
-
   res.json(user);
 };
 
@@ -121,7 +112,6 @@ const verifyAuth = (req, res) => {
 
   jwt.verify(JWT_TOKEN, process.env.JWT_SECRET, async (err, auth) => {
     if (err) return res.sendStatus("403");
-    console.log(auth);
     let user = await User.findById(auth.user._id);
 
     if (user.password !== auth.user.password) return res.sendStatus("403");

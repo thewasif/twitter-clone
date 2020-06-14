@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const auth = require("./routes/auth.routes");
 const tweet = require("./routes/tweet.routes");
+const notifications = require("./routes/notification.routes");
 
 const app = express();
 
@@ -37,6 +38,7 @@ mongoose
 // Routes
 app.use("/api/user", auth);
 app.use("/api/tweet", tweet);
+app.use("/api/notifications", notifications);
 
 app.get("/", (req, res) => {
   res.send(req.session);
