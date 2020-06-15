@@ -47,45 +47,8 @@
   .model-body {
     display: flex;
     flex-direction: column;
-    padding: 2px 16px;
+    padding: 6px 16px;
     max-height: 400px;
     overflow: hidden;
-    .user-media {
-      display: flex;
-      width: 100%;
-      border-bottom: solid 0.1em $light-color;
-      .img-container {
-        @include flex-center;
-        .img {
-          @include circle(60px);
-          margin: 2px;
-          background-position: center;
-          background-size: cover;
-        }
-      }
-      .user-media-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        margin-left: 4px;
-        .name {
-          font-family: $secondary-font;
-          line-height: 0;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-        .username {
-          color: $light-color;
-          line-height: 0;
-          font-family: $primary-font;
-          margin-top: -1px;
-        }
-
-        .bio {
-          font-family: $secondary-font;
-        }
-      }
-    }
   }
 }

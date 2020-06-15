@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getUserByID } from "../../helpers/api-user";
+import "./style.scss";
 
 function Media(props) {
   let { userID } = props;

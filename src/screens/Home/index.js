@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigator, Tweet, TweetBox } from "../../components";
+import { Navigator, Tweet, TweetBox, SearchBox } from "../../components";
 import { isAuthenticated } from "../../helpers/api-user";
 import { getNewsFeedTweets } from "../../helpers/api-tweet";
 import { redirectTo } from "../../helpers/utils";
@@ -58,7 +58,9 @@ class Home extends React.Component {
             })}
           </div>
         </div>
-        <div className="section">sec 3</div>
+        <div className="section">
+          <SearchBox />
+        </div>
       </div>
     );
   }

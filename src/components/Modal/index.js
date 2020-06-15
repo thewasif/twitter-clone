@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
-import Media from "./Media";
+import Media from "../Media";
 
 function Modal(props) {
   // Component State

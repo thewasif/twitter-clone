@@ -41,4 +41,9 @@ route.post("/follow", verifyToken, follow);
 //Unfollow a user
 route.post("/unfollow", verifyToken, unfollow);
 
+route.get("/randomuser", async (req, res) => {
+  let users = await User.aggregate([{ $sample: { size: 2 } }]);
+  res.send(users);
+});
+
 module.exports = route;

@@ -1,0 +1,40 @@
+@import "../../scss/utils.scss";
+.user-media {
+  display: flex;
+  border-bottom: solid 1px $light-color;
+  padding: 6px;
+  .img-container {
+    @include flex-center;
+    .img {
+      @include circle(60px);
+      margin: 2px;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  .user-media-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 4px;
+    .name {
+      font-family: $secondary-font;
+      margin: 0;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .username {
+      color: $light-color;
+      font-family: $primary-font;
+      margin-top: -1px;
+    }
+
+    .bio {
+      font-family: $secondary-font;
+      p {
+        margin: 0;
+      }
+    }
+  }
+}
