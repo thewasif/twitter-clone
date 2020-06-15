@@ -3,17 +3,21 @@
 .notification-container {
   display: flex;
   align-items: center;
-  background-color: rgba($color: $primary-color, $alpha: 0.4);
   padding: 12px 6px;
   cursor: pointer;
   border-bottom: solid 1px $light-color;
-  p {
+  .text {
     font-family: $secondary-font;
     margin: 0;
     span {
       font-weight: bold;
       text-decoration: underline;
     }
+  }
+
+  .time {
+    margin: 0 0 0 auto;
+    font-size: small;
   }
   .fa-bell {
     margin-right: 8px;

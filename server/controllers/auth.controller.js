@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const cloudinary = require("../config/cloudinary");
 const User = require("../models/user.model");
+const emitter = require("../events");
 
 let SECRET = process.env.JWT_SECRET;
 
@@ -185,6 +186,7 @@ const follow = (req, res) => {
             { $push: { following: userToBeFollowed } }
           )
             .then((response_two) => {
+              emitter.emit("follow", user.username, userToBeFollowed);
               res.send(response_two);
             })
             .catch((e) => {

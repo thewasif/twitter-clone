@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const Tweet = require("../models/tweet.model");
 const User = require("../models/user.model");
-const likeEmitter = require("../events/like.event");
+const emitter = require("../events");
 
 let SECRET = process.env.JWT_SECRET;
 
@@ -93,10 +93,10 @@ const replyTweet = (req, res) => {
       tweet
         .save()
         .then((resp) => {
-          console.log(resp);
           Tweet.findByIdAndUpdate(orgTweetID, {
             $push: { replies: auth.user._id },
           }).then((res) => {
+            emitter.emit("reply", user.username, orgTweetID, res.userID);
             console.log(res);
           });
           return res.send(resp);
@@ -127,12 +127,9 @@ const likeTweet = (req, res) => {
         { $push: { hearts: auth.user._id } }
       )
         .then((response) => {
-          likeEmitter.emit(
-            "sendLikeNotification",
-            auth.user.username,
-            tweetID,
-            response.userID
-          );
+          if (response.userID !== auth.user._id) {
+            emitter.emit("like", auth.user.username, tweetID, response.userID);
+          }
           res.send(response);
         })
         .catch((e) => {
