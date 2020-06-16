@@ -33,6 +33,7 @@ function SearchBox(props) {
   ) : searchedUsers ? (
     searchedUsers.map((user) => <Media key={user._id} userID={user._id} />)
   ) : null;
+  console.log(searchedUsersJSX);
   return (
     <div className="search-container">
       <div className="input-container">
@@ -68,7 +69,11 @@ function SearchBox(props) {
                 : {}
             }
           >
-            {!searchedUsers ? suggestedUsers : searchedUsersJSX}
+            {!searchedUsers
+              ? suggestedUsers
+              : searchedUsersJSX.length === 0
+              ? "No Result Found"
+              : searchedUsersJSX}
           </div>
         </div>
       </div>
