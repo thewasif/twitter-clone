@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { getUser } from "../../helpers/api-user";
-import { getTweets } from "../../helpers/api-tweet";
+import { getUser } from "../helpers/api-user";
+import { getTweets } from "../helpers/api-tweet";
 import {
   ProfileHeader,
-  Navigator,
   Loader,
   Tweet,
   TweetModel,
-} from "../../components";
-import "./style.scss";
+  Layout,
+} from "../components";
 
 class Profile extends Component {
   constructor(props) {
@@ -42,10 +41,7 @@ class Profile extends Component {
           : false;
 
     return (
-      <div className="app-container">
-        <div className="section">
-          <Navigator />
-        </div>
+      <Layout title={additionalData.name}>
         <div
           className="section"
           style={
@@ -102,7 +98,10 @@ class Profile extends Component {
                       id={tweet._id}
                       userID={tweet.userID}
                       onReplyClick={() => {
-                        this.setState({ visible: true, orgTweetID: tweet._id });
+                        this.setState({
+                          visible: true,
+                          orgTweetID: tweet._id,
+                        });
                       }}
                     />
                   );
@@ -111,8 +110,7 @@ class Profile extends Component {
             </React.Fragment>
           )}
         </div>
-        <div className="section">sec 3</div>
-      </div>
+      </Layout>
     );
   }
 }

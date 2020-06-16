@@ -9,6 +9,7 @@ import TweetModel from "./TweetModel";
 import Modal from "./Modal";
 import Notifcation from "./Notification";
 import SearchBox from "./SearchBox";
+import Layout from "./Layout";
 
 export {
   Header,
@@ -22,4 +23,5 @@ export {
   Modal,
   Notifcation,
   SearchBox,
+  Layout,
 };

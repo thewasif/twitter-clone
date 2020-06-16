@@ -6,6 +6,7 @@ import { formattedDate, JWT_TOKEN } from "../../helpers/utils";
 function Notification(props) {
   // prop variables
   let { text, username, link, time, read, id } = props;
+
   useEffect(() => {
     async function setRead(notificationID) {
       let data = { notificationID: notificationID };

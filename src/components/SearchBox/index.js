@@ -3,8 +3,10 @@ import "./style.scss";
 import Media from "../Media";
 import Loader from "../Loader";
 import { search } from "../../helpers/api-tweet";
+import { flexCenter } from "../../helpers/utils";
 
 function SearchBox(props) {
+  // Component State
   let [loading, setLoading] = useState(true);
   let [users, setUsers] = useState([]);
   let [value, setValue] = useState([]);
@@ -22,6 +24,7 @@ function SearchBox(props) {
 
     fillUsers();
   }, []);
+
   let suggestedUsers = loading ? (
     <Loader />
   ) : (
@@ -33,7 +36,7 @@ function SearchBox(props) {
   ) : searchedUsers ? (
     searchedUsers.map((user) => <Media key={user._id} userID={user._id} />)
   ) : null;
-  console.log(searchedUsersJSX);
+
   return (
     <div className="search-container">
       <div className="input-container">
@@ -57,22 +60,11 @@ function SearchBox(props) {
           <div className="header">
             <h3>{searchedUsers ? "Search Results" : "Who to Follow"}</h3>
           </div>
-          <div
-            className="media-container"
-            style={
-              loading
-                ? {
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }
-                : {}
-            }
-          >
+          <div className="media-container" style={loading ? flexCenter : {}}>
             {!searchedUsers
               ? suggestedUsers
               : searchedUsersJSX.length === 0
-              ? "No Result Found"
+              ? "No User Found"
               : searchedUsersJSX}
           </div>
         </div>

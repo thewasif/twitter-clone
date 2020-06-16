@@ -32,9 +32,6 @@ const Navigator = (props) => {
         </Link>
         <NavItem text="More" icon={<i className="fa fa-ellipsis-h"></i>} />
       </div>
-      <div>
-        <button className="btn-tweet">Tweet</button>
-      </div>
     </div>
   );
 };

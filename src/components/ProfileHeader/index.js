@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { isAuthenticated, getUser, actions } from "../../helpers/api-user";
-import { formattedDate } from "../../helpers/utils";
+import { getUser, actions } from "../../helpers/api-user";
+import { formattedDate, USER_ID } from "../../helpers/utils";
 import Modal from "../Modal";
 import "./style.scss";
 
@@ -27,12 +27,15 @@ function ProfileHeader(props) {
   let [followed, setFollowed] = useState(false);
   let [modal, setModal] = useState(false);
   let [modalData, setModalData] = useState("followers");
+  let [followCount, setFollowCount] = useState({
+    followers: followers.length,
+    following: following.length,
+  });
 
   useEffect(() => {
     async function user() {
       let user = await getUser(String(username.split("@")[1]));
-      let auth = await isAuthenticated();
-      if (user.followers.includes(auth._id)) {
+      if (user.followers.includes(USER_ID)) {
         setFollowed(true);
       }
     }
@@ -54,10 +57,6 @@ function ProfileHeader(props) {
 
   return (
     <React.Fragment>
-      <div className="title-bar">
-        <i className="fa fa-arrow-left"></i>
-        <h3>{name}</h3>
-      </div>
       <div className="profile-header">
         <div
           className="cover-photo"
@@ -85,10 +84,18 @@ function ProfileHeader(props) {
                     followed
                       ? () => {
                           setFollowed(false);
+                          setFollowCount({
+                            followers: followCount.followers - 1,
+                            following: following.length,
+                          });
                           actions.unfollow(userID);
                         }
                       : () => {
                           setFollowed(true);
+                          setFollowCount({
+                            followers: followCount.followers + 1,
+                            following: following.length,
+                          });
                           actions.follow(userID);
                         }
                   }
@@ -138,7 +145,7 @@ function ProfileHeader(props) {
                   setModal(!modal);
                 }}
               >
-                <span> {followers.length} </span> Followers
+                <span> {followCount.followers} </span> Followers
               </p>
               <p
                 onClick={() => {
@@ -146,7 +153,7 @@ function ProfileHeader(props) {
                   setModal(!modal);
                 }}
               >
-                <span> {following.length} </span> Following
+                <span> {followCount.following} </span> Following
               </p>
             </div>
           </div>

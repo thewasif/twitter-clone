@@ -13,6 +13,7 @@ function Tweet(props) {
   let [userData, setUserData] = useState({});
   let [username, setUsername] = useState("");
   let [liked, setLiked] = useState(hearts.includes(USER_ID) ? true : false);
+  let [likesCount, setLikesCount] = useState(hearts.length);
 
   let date = formattedDate(time);
 
@@ -24,17 +25,20 @@ function Tweet(props) {
     }
     setUser();
   }, [userID]);
+
   let to = `/status/${id}`;
 
   return (
     <div className="tweet">
       <div className="photo-container">
-        <div
-          className="photo"
-          style={{
-            backgroundImage: `url('${userData.profilePic}')`,
-          }}
-        ></div>
+        <Link to={`/${username}`}>
+          <div
+            className="photo"
+            style={{
+              backgroundImage: `url('${userData.profilePic}')`,
+            }}
+          ></div>
+        </Link>
       </div>
       <div className="details">
         <div className="upper-layer">
@@ -60,10 +64,13 @@ function Tweet(props) {
               liked
                 ? () => {
                     setLiked(false);
+                    setLikesCount(likesCount - 1);
+
                     actions.unlike(id);
                   }
                 : () => {
                     setLiked(true);
+                    setLikesCount(likesCount + 1);
                     actions.like(id);
                   }
             }
@@ -73,7 +80,7 @@ function Tweet(props) {
             ) : (
               <i className="far fa-heart"></i>
             )}{" "}
-            <span>{hearts.length === 0 ? null : hearts.length}</span>
+            <span>{likesCount === 0 ? null : likesCount}</span>
           </button>
           <button className="tweet-btn retweet">
             <i className="fa fa-retweet"></i>{" "}

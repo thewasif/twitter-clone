@@ -1,4 +1,5 @@
 import React from "react";
+import Layout from "../components/Layout";
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -7,10 +8,11 @@ class Welcome extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>Welcome</h1>
-        <p>This is from an other screen</p>
-      </div>
+      <Layout>
+        <div>
+          <p>This is from an other screen</p>
+        </div>
+      </Layout>
     );
   }
 }

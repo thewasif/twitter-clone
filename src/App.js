@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Home, Profile, Welcome, Status, Notifications } from "./screens";
+import Home from "./screens/Home";
+import Profile from "./screens/Profile";
+import Welcome from "./screens/Welcome";
+import Status from "./screens/Status";
+import Notifications from "./screens/Notifications";
 import { SignUp, LogIn, Setup, Logout } from "./screens/Auth";
 import "./scss/media-queries.scss";
 import "./scss/global.scss";

@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { getUserByID } from "../../helpers/api-user";
 import "./style.scss";
 
-function Media(props) {
-  let { userID } = props;
-
+function Media({ userID }) {
+  // Component State
   let [user, setUser] = useState({});
   let [username, setUsername] = useState("");
 
@@ -19,10 +18,10 @@ function Media(props) {
       setUsername(res.username);
     });
   }, [userID]);
-  let to = `/${username}`;
+
   return (
     <div className="user-media">
-      <Link to={to}>
+      <Link to={`/${username}`}>
         <div className="img-container">
           <div
             className="img"
@@ -34,7 +33,7 @@ function Media(props) {
       </Link>
 
       <div className="user-media-body">
-        <Link to={to}>
+        <Link to={`/${username}`}>
           <h4 className="name"> {user.name} </h4>
         </Link>
         <small className="username">@{username}</small>

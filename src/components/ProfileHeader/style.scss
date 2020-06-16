@@ -1,12 +1,4 @@
 @import "../../scss/utils.scss";
-.title-bar {
-  display: flex;
-  align-items: center;
-  h3 {
-    margin-left: 6px;
-    font-family: $primary-font;
-  }
-}
 
 .profile-header {
   height: fit-content;
@@ -46,7 +38,7 @@
           font-weight: bold;
           font-family: $primary-font;
           font-size: large;
-          margin-right: 6px;
+          margin-right: 16px;
         }
       }
     }
@@ -59,12 +51,12 @@
         flex-direction: column;
         padding-left: 10px;
         .name-title {
-          line-height: 0px;
           font-family: $primary-font;
+          margin: 0;
         }
         .username-title {
-          line-height: 0px;
           font-family: $primary-font;
+          margin: 0;
           color: gray;
         }
         .bio {
@@ -93,7 +85,7 @@
         display: flex;
         flex-flow: row wrap;
         p {
-          margin-right: 6px;
+          margin-right: 8px;
           font-family: $secondary-font;
           color: $light-color;
           font-size: 0.8em;

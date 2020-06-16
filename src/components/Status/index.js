@@ -1,47 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./style.scss";
-import { formattedDate } from "../../helpers/utils";
-import { getTweet, actions } from "../../helpers/api-tweet";
+import Modal from "../Modal";
+import { actions } from "../../helpers/api-tweet";
 import { isAuthenticated } from "../../helpers/api-user";
+import { USER_ID, formattedDate } from "../../helpers/utils";
 
 function Status(props) {
-  let [liked, setLiked] = useState(false);
+  // props variables
+  let { name, username, pic, time, hearts, text, id } = props;
 
-  let {
-    name,
-    username,
-    pic,
-    time,
-    hearts,
-    replies,
-    retweets,
-    text,
-    id,
-  } = props;
+  // component state
+  let [liked, setLiked] = useState(false);
+  let [likesCount, setLikesCount] = useState(hearts.length);
+  let [modal, setModal] = useState(false);
+
   let date = formattedDate(time);
 
   useEffect(() => {
     async function getTweetData() {
-      let res = await getTweet(id);
       let user = await isAuthenticated();
-
-      if (res.hearts.includes(user._id)) {
+      if (hearts.includes(user._id)) {
         setLiked(true);
       }
     }
 
     getTweetData();
-  }, [id]);
+  }, [hearts]);
+
   let to = `/${username}`;
 
   return (
     <div className="status">
+      <Modal
+        visible={modal}
+        users={hearts}
+        onClose={() => {
+          setModal(!modal);
+        }}
+      />
       <div className="media">
-        <div
-          className="media-photo"
-          style={{ backgroundImage: `url("${pic}")` }}
-        ></div>
+        <Link to={to}>
+          <div
+            className="media-photo"
+            style={{ backgroundImage: `url("${pic}")` }}
+          ></div>
+        </Link>
         <div className="media-body">
           <Link to={to}>
             <h3>{name}</h3>
@@ -59,8 +63,8 @@ function Status(props) {
       </div>
 
       <div className="status-details">
-        <p onClick={props.onLikesClick}>
-          <span>{hearts}</span> likes
+        <p onClick={() => setModal(!modal)}>
+          <span>{likesCount}</span> likes
         </p>
       </div>
       <div className="status-details">
@@ -74,10 +78,14 @@ function Status(props) {
               liked
                 ? () => {
                     setLiked(false);
+                    setLikesCount(likesCount - 1);
+                    hearts.pop(USER_ID);
                     actions.unlike(id);
                   }
                 : () => {
                     setLiked(true);
+                    setLikesCount(likesCount + 1);
+                    hearts.push(USER_ID);
                     actions.like(id);
                   }
             }

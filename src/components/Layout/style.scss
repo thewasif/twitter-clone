@@ -1,0 +1,16 @@
+@import "../../scss/utils.scss";
+
+.layout-container {
+  display: flex;
+
+  .nav-wraper {
+    flex-grow: 0;
+  }
+  .main-content {
+    flex-grow: 2;
+  }
+
+  .search-wraper {
+    flex-grow: 0;
+  }
+}

@@ -1,23 +1,26 @@
 @import "../../scss/utils.scss";
 
-.loading {
+@mixin loading($inverted) {
   height: 0;
   width: 0;
   padding: 8px;
-  border: 3px solid rgba($color: $primary-color, $alpha: 0.2);
-  border-right-color: $primary-color;
   border-radius: 22px;
   animation: rotate 1s infinite linear;
+  @if $inverted {
+    border: 3px solid white;
+    border-right-color: rgba($color: $primary-color, $alpha: 0.2);
+  } @else {
+    border: 3px solid rgba($color: $primary-color, $alpha: 0.2);
+    border-right-color: $primary-color;
+  }
+}
+
+.loading {
+  @include loading(false);
 }
 
 .loading-inverted {
-  height: 0;
-  width: 0;
-  padding: 8px;
-  border: 3px solid white;
-  border-right-color: rgba($color: $primary-color, $alpha: 0.2);
-  border-radius: 22px;
-  animation: rotate 1s infinite linear;
+  @include loading(true);
 }
 
 @keyframes rotate {

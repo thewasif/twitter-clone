@@ -3,11 +3,11 @@ import "./style.scss";
 import Media from "../Media";
 
 function Modal(props) {
-  // Component State
-  let [visible, setVisibilty] = useState(props.visible);
-
   // props variables
   let { users } = props;
+
+  // Component State
+  let [visible, setVisibilty] = useState(props.visible);
 
   useEffect(() => {
     setVisibilty(props.visible);

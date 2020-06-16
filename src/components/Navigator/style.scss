@@ -2,12 +2,15 @@
 
 .nav-container {
   @include flex-center;
+  flex-direction: column;
+  padding: 0px 10px;
 }
 
 .logo-icon {
   @include flex-center;
   @include circle(40px);
-  padding: 10px;
+  padding: 6px;
+  margin: 4px;
   transition: 0.3s;
   &:hover {
     background-color: $primary-color-light;
@@ -18,18 +21,12 @@
   }
 }
 
-.nav-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .nav-item {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 90px;
   padding: 0px 26px;
-  margin: 2px;
   &:hover {
     background-color: $primary-color-light;
     color: $primary-color;
@@ -42,16 +39,4 @@
     font-size: 24px;
     margin-left: 10px;
   }
-}
-
-.btn-tweet {
-  color: white;
-  background-color: $primary-color;
-  padding: 10px 60px;
-  border: none;
-  outline: none;
-  border-radius: 50px;
-  font-size: x-large;
-  font-family: $primary-font;
-  margin-top: 24px;
 }

@@ -51,12 +51,6 @@ function TweetModel(props) {
               <div className="options">
                 <div className="group-icons">
                   <button className="btn-icon">
-                    <i className="far fa-image"></i>
-                  </button>
-                  <button className="btn-icon">
-                    <i className="fa fa-poll"></i>
-                  </button>
-                  <button className="btn-icon">
                     <i className="far fa-smile"></i>
                   </button>
                 </div>
@@ -66,6 +60,7 @@ function TweetModel(props) {
                     setLoading(true);
                     postReply(text, orgTweetID).then((e) => {
                       setLoading(false);
+                      setText("");
                     });
                   }}
                 >
