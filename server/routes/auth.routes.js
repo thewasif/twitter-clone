@@ -46,4 +46,10 @@ route.get("/randomuser", async (req, res) => {
   res.send(users);
 });
 
+route.get("/search", async (req, res) => {
+  let query = req.query.q;
+  let users = await User.find({ $text: { $search: query } });
+  res.send(users);
+});
+
 module.exports = route;

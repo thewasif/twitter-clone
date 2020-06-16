@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./style.scss";
 import Media from "../Media";
 import Loader from "../Loader";
+import { search } from "../../helpers/api-tweet";
 
 function SearchBox(props) {
   let [loading, setLoading] = useState(true);
   let [users, setUsers] = useState([]);
+  let [value, setValue] = useState([]);
+  let [searchedUsers, setSearchedUsers] = useState(null);
 
   useEffect(() => {
     async function fillUsers() {
@@ -19,17 +22,39 @@ function SearchBox(props) {
 
     fillUsers();
   }, []);
+  let suggestedUsers = loading ? (
+    <Loader />
+  ) : (
+    users.map((user) => <Media key={user._id} userID={user._id} />)
+  );
 
+  let searchedUsersJSX = loading ? (
+    <Loader />
+  ) : searchedUsers ? (
+    searchedUsers.map((user) => <Media key={user._id} userID={user._id} />)
+  ) : null;
   return (
     <div className="search-container">
       <div className="input-container">
         <i className="fa fa-search"></i>
-        <input type="text" className="input" placeholder="Search Twitter..." />
+        <input
+          type="text"
+          className="input"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyPress={async (e) => {
+            if (e.key === "Enter") {
+              let result = await search(value);
+              setSearchedUsers(result);
+            }
+          }}
+          placeholder="Search Twitter..."
+        />
       </div>
       <div className="card-container">
         <div className="who-to-follow-card">
           <div className="header">
-            <h3>Who to Follow</h3>
+            <h3>{searchedUsers ? "Search Results" : "Who to Follow"}</h3>
           </div>
           <div
             className="media-container"
@@ -43,11 +68,7 @@ function SearchBox(props) {
                 : {}
             }
           >
-            {loading ? (
-              <Loader />
-            ) : (
-              users.map((user) => <Media userID={user._id} />)
-            )}
+            {!searchedUsers ? suggestedUsers : searchedUsersJSX}
           </div>
         </div>
       </div>

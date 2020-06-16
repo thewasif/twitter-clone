@@ -115,6 +115,13 @@ const getNewsFeedTweets = async (pageNo, size) => {
   return await res.json();
 };
 
+const search = async (query) => {
+  let res = await fetch(`/api/user/search/?q=${query}`);
+
+  let data = await res.json();
+  return data;
+};
+
 export {
   postTweet,
   getTweets,
@@ -123,4 +130,5 @@ export {
   postReply,
   getNewsFeedTweets,
   actions,
+  search,
 };

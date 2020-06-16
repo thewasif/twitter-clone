@@ -24,25 +24,28 @@
 
   .card-container {
     margin-top: 30px;
-    border: solid 1px #333;
-    border-radius: 10px;
+    border: solid 1px $light-color;
+    border-radius: 20px;
     .who-to-follow-card {
       display: flex;
       flex-direction: column;
+
       .header {
-        padding: 4px 8px;
-        border-bottom: solid 1px #333;
+        padding: 8px 8px;
+        border-bottom: solid 1px $light-color;
+        display: flex;
+        justify-content: flex-start;
+
         h3 {
           margin: 0;
-          text-align: left;
           font-family: "Montserrat";
         }
       }
 
       .media-container {
         display: flex;
+        padding: 8px;
         flex-direction: column;
-        padding: 6px;
       }
     }
   }

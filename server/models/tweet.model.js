@@ -12,6 +12,7 @@ const tweetSchema = new Schema({
   repliedTo: mongoose.Schema.Types.ObjectId,
 });
 
+tweetSchema.index({ text: "text" });
 let Tweet = mongoose.model("Tweet", tweetSchema);
 
 // let stream = Tweet.watch();
