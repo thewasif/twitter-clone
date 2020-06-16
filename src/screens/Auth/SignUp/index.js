@@ -1,8 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
 import "./style.scss";
 import { Loader, Header } from "../../../components";
-import store from "../../../store";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -143,13 +141,4 @@ class SignUp extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUsername: (val) => dispatch({ type: "SET", text: val }),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;

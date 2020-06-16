@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import "./style.scss";
 import { Header, Loader } from "../../../components";
 import { isAuthenticated } from "../../../helpers/api-user";
@@ -95,13 +94,4 @@ class LogIn extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUsername: (val) => dispatch({ type: "SET", text: val }),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
+export default LogIn;

@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { isAuthenticated } from "../../../helpers/api-user";
 import { redirectTo } from "../../../helpers/utils";
 import "./style.scss";
@@ -178,14 +177,4 @@ class SetUp extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state;
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setUsername: (val) => dispatch({ type: "SET", text: val }),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SetUp);
+export default SetUp;
