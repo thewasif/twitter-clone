@@ -55,33 +55,6 @@ app.get("/", (req, res) => {
   res.send(req.session);
 });
 
-/*
-let interval;
-io.on("connection", (socket) => {
-  console.log("New client connected");
-  if (interval) {
-    clearInterval(interval);
-  }
-  //socket.emit("FromAPI", "hello");
-  socket.on("updateLikes", async (id) => {
-    console.log("Give me reacts of ", id);
-    let tweets = await Tweet.find({ replidTo: id });
-    console.log(tweets);
-
-    //socket.emit("getLikes", tweet.hearts.length + 1);
-  });
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
-    clearInterval(interval);
-  });
-});
-*/
-
-// const getApiAndEmit = (socket) => {
-//   const response = new Date();
-//   // Emitting a new message. Will be consumed by the client
-//   socket.emit("FromAPI", response);
-// };
 // Host
 let PORT = process.env.PORT || 5000;
 
