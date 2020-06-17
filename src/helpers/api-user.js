@@ -1,13 +1,14 @@
+import { JWT_TOKEN } from "./utils";
+
 const isAuthenticated = async () => {
-  let tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
   try {
     let isAuthenticated = await fetch(
-      `/api/user/verify?JWT_TOKEN=${tokenObj.token}`,
+      `/api/user/verify?JWT_TOKEN=${JWT_TOKEN.token}`,
       {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: "Bearer " + tokenObj.token,
+          Authorization: "Bearer " + JWT_TOKEN.token,
         }),
       }
     );
@@ -18,6 +19,8 @@ const isAuthenticated = async () => {
       return false;
     }
   } catch (error) {
+    console.log("from here");
+    console.log(error);
     return false;
   }
 };

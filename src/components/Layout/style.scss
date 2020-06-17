@@ -4,10 +4,28 @@
   display: flex;
 
   .nav-wraper {
-    flex-grow: 0;
+    flex-grow: 1;
   }
   .main-content {
     flex-grow: 2;
+    .title {
+      display: flex;
+      h1 {
+        font-family: $primary-font;
+        font-size: 26px;
+      }
+      button {
+        background: none;
+        outline: none;
+        padding: 0;
+        border: none;
+        font-size: large;
+        margin-right: 6px;
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
   }
 
   .search-wraper {

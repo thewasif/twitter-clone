@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./style.scss";
 import Loader from "../Loader";
 import { postTweet } from "../../helpers/api-tweet";
+import notify from "../Notify";
 
 const TweetBox = (props) => {
   // props variables
@@ -51,6 +52,7 @@ const TweetBox = (props) => {
               ).then((res) => {
                 setLoading(false);
                 setTweetText("");
+                notify("Tweet posted successfully..!");
               });
             }}
           >

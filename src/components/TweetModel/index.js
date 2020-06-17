@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { postReply } from "../../helpers/api-tweet";
 import { Loader } from "../../components";
+import notify from "../Notify";
 import "./style.scss";
 
 function TweetModel(props) {
@@ -61,6 +62,7 @@ function TweetModel(props) {
                     postReply(text, orgTweetID).then((e) => {
                       setLoading(false);
                       setText("");
+                      notify("Reply posted successfully..!  ");
                     });
                   }}
                 >
