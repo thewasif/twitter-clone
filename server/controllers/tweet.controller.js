@@ -88,10 +88,15 @@ const replyTweet = (req, res) => {
         .then((resp) => {
           Tweet.findByIdAndUpdate(orgTweetID, {
             $push: { replies: auth.user._id },
-          }).then((res) => {
-            emitter.emit("reply", user.username, orgTweetID, res.userID);
-            console.log(res);
-          });
+          })
+            .sort({ time: -1 })
+            .then((res) => {
+              console.log(user);
+              console.log("res", res);
+              if (user._id != res.userID) {
+                emitter.emit("reply", user.username, orgTweetID, res.userID);
+              }
+            });
           return res.send(resp);
         })
         .catch((e) => {
