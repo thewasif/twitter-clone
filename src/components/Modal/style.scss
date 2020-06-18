@@ -11,7 +11,7 @@
   @include flex-center;
 }
 
-.model {
+.modal {
   background-color: white;
   padding: 0px 10px;
   border-radius: 10px;
@@ -19,10 +19,10 @@
   transition: 0.2s;
   display: flex;
   flex-direction: column;
-  .model-header {
+  .modal-header {
     border-bottom: solid 1px rgba($color: $light-color, $alpha: 0.4);
     display: flex;
-    .model-btn-close {
+    .modal-btn-close {
       border: none;
       outline: none;
       background-color: white;
@@ -41,7 +41,7 @@
     }
   }
 
-  .model-body {
+  .modal-body-a {
     display: flex;
     flex-direction: column;
     padding: 6px 16px;

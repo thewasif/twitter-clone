@@ -11,7 +11,7 @@ const Header = (props) => {
         <h1>Twitter - Discover What's Happening!</h1>
       </div>
       <div className="extra-link">
-        <a href="#">Another Link</a>
+        <a href="https://google.com">Another Link</a>
       </div>
     </div>
   );

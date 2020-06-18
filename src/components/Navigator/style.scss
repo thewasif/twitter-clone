@@ -4,6 +4,19 @@
   @include flex-center;
   flex-direction: column;
   padding: 0px 10px;
+  background-color: white;
+  transition: 1s;
+  .top-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    .times {
+      margin-left: auto;
+      font-size: large;
+      padding: 14px;
+    }
+  }
 }
 
 .logo-icon {
@@ -27,6 +40,7 @@
   align-items: center;
   border-radius: 90px;
   padding: 0px 26px;
+
   &:hover {
     background-color: $primary-color-light;
     color: $primary-color;
@@ -39,4 +53,12 @@
     font-size: 24px;
     margin-left: 10px;
   }
+}
+
+.badge {
+  @include circle(12px);
+  background-color: $primary-color;
+  position: relative;
+  left: -160px;
+  top: -10px;
 }

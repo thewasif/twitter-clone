@@ -65,7 +65,6 @@ function Tweet(props) {
                 ? () => {
                     setLiked(false);
                     setLikesCount(likesCount - 1);
-
                     actions.unlike(id);
                   }
                 : () => {

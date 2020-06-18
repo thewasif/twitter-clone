@@ -21,6 +21,20 @@ class Profile extends Component {
       orgTweetID: "",
     };
   }
+  async componentWillReceiveProps(props) {
+    if (this.state.userObj.username !== props.match.params.user) {
+      this.setState({ loading: true });
+      let user = await getUser(this.props.match.params.user);
+      console.log(user);
+      this.setState({
+        userObj: user,
+        additionalData: user.additionalData,
+        loading: false,
+      });
+      let tweets = await getTweets(this.props.match.params.user);
+      this.setState({ tweets });
+    }
+  }
   async componentDidMount() {
     let user = await getUser(this.props.match.params.user);
     this.setState({

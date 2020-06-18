@@ -7,22 +7,26 @@ import Status from "./screens/Status";
 import Notifications from "./screens/Notifications";
 import { SignUp, LogIn, Setup, Logout } from "./screens/Auth";
 import "./scss/media-queries.scss";
+import "react-toastify/dist/ReactToastify.css";
 import "./scss/global.scss";
+import { Provider } from "./context/GlobalContext";
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <Route path="/" exact component={Home} />
-        <Route path="/flow/signup" exact component={SignUp} />
-        <Route path="/flow/login" exact component={LogIn} />
-        <Route path="/flow/setup" exact component={Setup} />
-        <Route path="/flow/logout" exact component={Logout} />
-        <Route path="/:user" exact component={Profile} />
-        <Route path="/flow/welcome" exact component={Welcome} />
-        <Route path="/status/:id" exact component={Status} />
-        <Route path="/i/notifications" exact component={Notifications} />
-      </Router>
+      <Provider>
+        <Router>
+          <Route path="/" exact component={Home} />
+          <Route path="/flow/signup" exact component={SignUp} />
+          <Route path="/flow/login" exact component={LogIn} />
+          <Route path="/flow/setup" exact component={Setup} />
+          <Route path="/flow/logout" exact component={Logout} />
+          <Route path="/:user" exact component={Profile} />
+          <Route path="/flow/welcome" exact component={Welcome} />
+          <Route path="/status/:id" exact component={Status} />
+          <Route path="/i/notifications" exact component={Notifications} />
+        </Router>
+      </Provider>
     );
   }
 }

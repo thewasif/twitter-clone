@@ -1,6 +1,5 @@
 import React from "react";
 import { isAuthenticated } from "../../../helpers/api-user";
-import { redirectTo } from "../../../helpers/utils";
 import "./style.scss";
 import { Loader, Header } from "../../../components/";
 

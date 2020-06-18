@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getTweet, getReplies } from "../helpers/api-tweet";
+import { ToastContainer } from "react-toastify";
 import { getUserByID } from "../helpers/api-user";
 import { flexCenter } from "../helpers/utils";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Status as StatusComponent,
   Loader,
@@ -29,12 +31,14 @@ function Status(props) {
     }
 
     async function fetchReplies() {
+      setLoadingState(true);
       let fetchedReplies = await getReplies(
         id,
         JSON.parse(localStorage.getItem("JWT_TOKEN"))
       );
       let parsedData = await fetchedReplies.json();
       setReplies(parsedData);
+      setLoadingState(false);
     }
 
     fetchData().then(() => {
@@ -42,29 +46,28 @@ function Status(props) {
     });
   }, [id]);
 
-  let repliesJSX =
-    replies.length !== 0 ? (
-      replies.map((reply) => {
-        return (
-          <Tweet
-            key={reply.text}
-            text={reply.text}
-            hearts={reply.hearts}
-            replies={reply.replies.length}
-            retweets={reply.retweets.length}
-            time={reply.time}
-            id={reply._id}
-            userID={reply.userID}
-            onClick={() => {
-              setLoadingState(true);
-              setID(reply._id);
-            }}
-          />
-        );
-      })
-    ) : (
-      <Loader />
+  let repliesJSX = replies.map((reply) => {
+    return (
+      <Tweet
+        key={reply.text}
+        text={reply.text}
+        hearts={reply.hearts}
+        replies={reply.replies.length}
+        retweets={reply.retweets.length}
+        time={reply.time}
+        id={reply._id}
+        userID={reply.userID}
+        onClick={() => {
+          setLoadingState(true);
+          setID(reply._id);
+        }}
+        onReplyClick={() => {
+          setID(reply._id);
+          setModelVisibility(!modelVisibility);
+        }}
+      />
     );
+  });
 
   return (
     <Layout title="Tweet">
@@ -94,10 +97,28 @@ function Status(props) {
                 setModelVisibility(!modelVisibility);
               }}
             />
-            {repliesJSX}
+            {repliesJSX.length === 0 ? (
+              loading ? (
+                <Loader />
+              ) : (
+                <h3 style={{ textAlign: "center", fontFamily: "Open Sans" }}>
+                  No replies
+                </h3>
+              )
+            ) : (
+              repliesJSX
+            )}
           </React.Fragment>
         )}
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={1000}
+        hideProgressBar
+        closeOnClick
+        draggable
+        pauseOnHover={false}
+      />
     </Layout>
   );
 }

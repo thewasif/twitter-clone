@@ -23,32 +23,32 @@ function TweetModel(props) {
       style={visible ? { transform: "scale(1)" } : { transform: "scale(0)" }}
     >
       <div
-        className="model"
+        className="modal-tweet"
         style={visible ? { transform: "scale(1)" } : { transform: "scale(0)" }}
       >
-        <div className="model-header">
-          <button className="model-btn-close" onClick={props.onClose}>
+        <div className="modal-tweet-header">
+          <button className="modal-tweet-btn-close" onClick={props.onClose}>
             <i className="fa fa-times"></i>
           </button>
         </div>
-        <div className="model-body">
+        <div className="modal-tweet-body">
           <div>
             <div
               className="profile-pic"
               style={{ backgroundImage: `url("${props.image}")` }}
             ></div>
           </div>
-          <div className="modal-input-container">
+          <div className="modal-tweet-input-container">
             <textarea
               rows={10}
-              className="modal-input"
+              className="modal-tweet-input"
               placeholder="Tweet your reply..."
               value={text}
               onChange={(e) => {
                 setText(e.target.value);
               }}
             />
-            <div className="model-footer">
+            <div className="modal-footer">
               <div className="options">
                 <div className="group-icons">
                   <button className="btn-icon">

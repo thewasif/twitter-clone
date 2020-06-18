@@ -24,7 +24,7 @@ function Notification(props) {
       });
     }
     if (!read) setRead(id);
-  }, [id]);
+  }, [id, read]);
 
   let date = formattedDate(time);
 

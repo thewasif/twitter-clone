@@ -44,9 +44,10 @@ class LogIn extends React.Component {
       console.log(res);
       localStorage.setItem("JWT_TOKEN", JSON.stringify(res));
       localStorage.setItem("username", this.state.username);
-      let user = await isAuthenticated();
-      localStorage.setItem("logged_in_user_id", user._id);
-      window.location.pathname = "/";
+      isAuthenticated().then((res) => {
+        localStorage.setItem("logged_in_user_id", res._id);
+        window.location.pathname = "/";
+      });
     });
   }
   render() {

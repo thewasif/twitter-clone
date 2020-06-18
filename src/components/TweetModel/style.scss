@@ -1,27 +1,16 @@
 @import "../../scss/utils.scss";
 
-.modal-background {
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  @include flex-center;
-}
-
-.model {
+.modal-tweet {
   background-color: white;
-  padding: 0;
+  padding: 10px;
   border-radius: 10px;
   width: 30%;
   transition: 0.2s;
   display: flex;
   flex-direction: column;
-  .model-header {
+  .modal-tweet-header {
     border-bottom: solid 1px rgba($color: $light-color, $alpha: 0.4);
-    .model-btn-close {
+    .modal-tweet-btn-close {
       border: none;
       outline: none;
       background-color: white;
@@ -36,7 +25,7 @@
     }
   }
 
-  .model-body {
+  .modal-tweet-body {
     display: flex;
     flex-direction: row;
     .profile-pic {
@@ -46,11 +35,11 @@
       margin-right: 4px;
       margin-top: 10px;
     }
-    .modal-input-container {
+    .modal-tweet-input-container {
       width: 100%;
 
-      .modal-input {
-        width: 100%;
+      .modal-tweet-input {
+        width: 90%;
         background-color: white;
         border: none;
         font-size: medium;
@@ -61,7 +50,7 @@
     }
   }
 
-  .model-footer {
+  .modal-footer {
     border-top: solid 1px rgba($color: $light-color, $alpha: 0.4);
 
     .options {

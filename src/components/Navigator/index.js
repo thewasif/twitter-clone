@@ -1,25 +1,55 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { getNotifications } from "../../helpers/api-notifications";
 import NavItem from "./NavItem";
 import "./style.scss";
+import { GlobalContext } from "../../context/GlobalContext";
 
-const Navigator = (props) => {
+function Navigator(props) {
   let username = localStorage.getItem("username"),
     profileURL = `/${username}`;
+
+  let { state, changeStyles } = useContext(GlobalContext);
+  let [newNot, setNewNot] = useState(false);
+
+  useEffect(() => {
+    (async function () {
+      let data = await getNotifications();
+      for (let notification of data) {
+        if (!notification.read) {
+          setNewNot(true);
+          break;
+        }
+      }
+    })();
+  });
+
   return (
-    <div className="nav-container">
-      <Link to="/">
-        <div className="logo-icon">
-          <i className="fab fa-twitter title-icon"></i>
+    <div className="nav-container" style={state.styles}>
+      <div className="top-header">
+        <Link to="/">
+          <div className="logo-icon">
+            <i className="fab fa-twitter title-icon"></i>
+          </div>
+        </Link>
+        <div
+          className="times"
+          onClick={() => {
+            changeStyles({ left: -300 });
+          }}
+          hidden={!(window.innerWidth < 420)}
+        >
+          <i className="fa fa-times"></i>
         </div>
-      </Link>
+      </div>
       <div className="nav-content">
         <Link to="/">
           <NavItem text="Home" icon={<i className="fa fa-home"></i>} />
         </Link>
         <Link to={`/i/notifications`}>
           <NavItem
-            text="Notifications"
+            badge={newNot}
+            text={"Notifications"}
             icon={<i className="far fa-bell"></i>}
           />
         </Link>
@@ -34,6 +64,6 @@ const Navigator = (props) => {
       </div>
     </div>
   );
-};
+}
 
 export default Navigator;
