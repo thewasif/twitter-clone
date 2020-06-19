@@ -25,10 +25,13 @@ app.use(
 
 // Connect Database
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
+  .connect(
+    "mongodb+srv://m_wasif:say_my_name@sandbox-18w4u.mongodb.net/test?retryWrites=true&w=majority",
+    {
+      useUnifiedTopology: true,
+      useNewUrlParser: true,
+    }
+  )
   .then(() => {
     console.log("👌 Database Connected..");
   })
