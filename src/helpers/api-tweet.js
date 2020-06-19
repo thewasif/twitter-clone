@@ -1,4 +1,4 @@
-import { JWT_TOKEN } from "./utils";
+import { JWT_TOKEN, USER_ID } from "./utils";
 
 const getTweets = async (username) => {
   let user = await fetch(`/api/tweet?username=${username}`, {
@@ -103,16 +103,21 @@ const postReply = async (text, orgTweetID) => {
 };
 
 const getNewsFeedTweets = async (pageNo, size) => {
-  let res = await fetch(`/api/tweet/newsfeed/?pageNo=${pageNo}&size=${size}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + JWT_TOKEN.token,
-    },
-    body: JSON.stringify({}),
-  });
+  if (USER_ID) {
+    let res = await fetch(
+      `/api/tweet/newsfeed/?pageNo=${pageNo}&size=${size}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + JWT_TOKEN.token,
+        },
+        body: JSON.stringify({}),
+      }
+    );
 
-  return await res.json();
+    return await res.json();
+  }
 };
 
 const search = async (query) => {

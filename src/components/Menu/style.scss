@@ -1,0 +1,23 @@
+@import "../../scss/utils.scss";
+
+.menu {
+  background-color: white;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  width: fit-content;
+  @include flex-center;
+  flex-direction: column;
+  transition: 0.3s;
+  div {
+    font-family: $primary-font;
+    padding: 10px 18px;
+
+    &:hover {
+      background-color: #efefef;
+      cursor: pointer;
+      color: $primary-color;
+    }
+    p {
+      margin: 0;
+    }
+  }
+}

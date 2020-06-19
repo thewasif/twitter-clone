@@ -1,0 +1,32 @@
+@import "../../scss/utils.scss";
+
+.welcome-msg {
+  @include flex-center;
+  flex-direction: column;
+  .img-welcome {
+    height: 300px;
+    align-self: center;
+    width: auto;
+  }
+  h3 {
+    margin: 0;
+    font-family: "Open Sans";
+    text-align: center;
+  }
+
+  .btn-group {
+    @include flex-center;
+    flex-direction: column;
+    .btn {
+      padding: 6px 38px;
+      margin: 4px 0px;
+      width: 100%;
+      background-color: white;
+      color: $primary-color;
+      border: solid 1px $primary-color;
+      border-radius: 60px;
+      font-size: large;
+      font-family: "Montserrat";
+    }
+  }
+}

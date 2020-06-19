@@ -76,32 +76,34 @@ function ProfileHeader(props) {
               </div>
             ) : (
               <div className="btn-container">
-                <button
-                  style={
-                    followed ? { color: "white", background: "#00abee" } : {}
-                  }
-                  onClick={
-                    followed
-                      ? () => {
-                          setFollowed(false);
-                          setFollowCount({
-                            followers: followCount.followers - 1,
-                            following: following.length,
-                          });
-                          actions.unfollow(userID);
-                        }
-                      : () => {
-                          setFollowed(true);
-                          setFollowCount({
-                            followers: followCount.followers + 1,
-                            following: following.length,
-                          });
-                          actions.follow(userID);
-                        }
-                  }
-                >
-                  {followed ? "Following" : "Follow"}
-                </button>
+                {USER_ID ? (
+                  <button
+                    style={
+                      followed ? { color: "white", background: "#00abee" } : {}
+                    }
+                    onClick={
+                      followed
+                        ? () => {
+                            setFollowed(false);
+                            setFollowCount({
+                              followers: followCount.followers - 1,
+                              following: following.length,
+                            });
+                            actions.unfollow(userID);
+                          }
+                        : () => {
+                            setFollowed(true);
+                            setFollowCount({
+                              followers: followCount.followers + 1,
+                              following: following.length,
+                            });
+                            actions.follow(userID);
+                          }
+                    }
+                  >
+                    {followed ? "Following" : "Follow"}
+                  </button>
+                ) : null}
               </div>
             )}
           </div>

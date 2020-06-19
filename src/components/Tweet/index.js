@@ -54,7 +54,12 @@ function Tweet(props) {
           <Link to={to}>{text}</Link>
         </div>
         <div className="tweet-buttons">
-          <button className="tweet-btn reply" onClick={props.onReplyClick}>
+          <button
+            className="tweet-btn reply"
+            onClick={
+              USER_ID ? props.onReplyClick : () => alert("Please login first!")
+            }
+          >
             <i className="far fa-comment-dots"></i>
             <span>{replies === 0 ? null : replies}</span>
           </button>
@@ -68,9 +73,13 @@ function Tweet(props) {
                     actions.unlike(id);
                   }
                 : () => {
-                    setLiked(true);
-                    setLikesCount(likesCount + 1);
-                    actions.like(id);
+                    if (USER_ID) {
+                      setLiked(true);
+                      setLikesCount(likesCount + 1);
+                      actions.like(id);
+                    } else {
+                      alert("Please login first");
+                    }
                   }
             }
           >

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getTweet, getReplies } from "../helpers/api-tweet";
 import { ToastContainer } from "react-toastify";
 import { getUserByID } from "../helpers/api-user";
-import { flexCenter } from "../helpers/utils";
+import { flexCenter, USER_ID } from "../helpers/utils";
 import "react-toastify/dist/ReactToastify.css";
 import {
   Status as StatusComponent,
@@ -31,14 +31,17 @@ function Status(props) {
     }
 
     async function fetchReplies() {
-      setLoadingState(true);
-      let fetchedReplies = await getReplies(
-        id,
-        JSON.parse(localStorage.getItem("JWT_TOKEN"))
-      );
-      let parsedData = await fetchedReplies.json();
-      setReplies(parsedData);
-      setLoadingState(false);
+      if (USER_ID) {
+        setLoadingState(true);
+        let fetchedReplies = await getReplies(
+          id,
+          JSON.parse(localStorage.getItem("JWT_TOKEN"))
+        );
+        let parsedData = await fetchedReplies.json();
+        console.log(parsedData);
+        setReplies(parsedData);
+        setLoadingState(false);
+      }
     }
 
     fetchData().then(() => {
@@ -94,7 +97,11 @@ function Status(props) {
               hearts={tweetData.hearts}
               id={tweetData._id}
               onReplyClick={() => {
-                setModelVisibility(!modelVisibility);
+                if (USER_ID) {
+                  setModelVisibility(!modelVisibility);
+                } else {
+                  alert("Please login first!");
+                }
               }}
             />
             {repliesJSX.length === 0 ? (

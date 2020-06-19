@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.scss";
 
 const Header = (props) => {
@@ -11,7 +12,7 @@ const Header = (props) => {
         <h1>Twitter - Discover What's Happening!</h1>
       </div>
       <div className="extra-link">
-        <a href="https://google.com">Another Link</a>
+        <Link to="/flow/signup">Register!</Link>
       </div>
     </div>
   );

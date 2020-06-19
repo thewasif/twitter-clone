@@ -124,7 +124,14 @@ class SignUp extends React.Component {
             />{" "}
             <label className="terms">
               <input type="checkbox" required />I agree to{" "}
-              <a href="http://google.com">terms and services</a>
+              <a
+                href="#welcome"
+                onClick={() =>
+                  alert("There are no terms and servcies. Just check this box")
+                }
+              >
+                terms and services
+              </a>
             </label>
             <button
               type="submit"

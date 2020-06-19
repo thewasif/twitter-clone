@@ -83,10 +83,14 @@ function Status(props) {
                     actions.unlike(id);
                   }
                 : () => {
-                    setLiked(true);
-                    setLikesCount(likesCount + 1);
-                    hearts.push(USER_ID);
-                    actions.like(id);
+                    if (USER_ID) {
+                      setLiked(true);
+                      setLikesCount(likesCount + 1);
+                      hearts.push(USER_ID);
+                      actions.like(id);
+                    } else {
+                      alert("Please login first!");
+                    }
                   }
             }
           >
