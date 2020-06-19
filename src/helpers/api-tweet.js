@@ -84,6 +84,7 @@ const getReplies = async (tweetID, tokenObj) => {
     body: JSON.stringify(data),
   });
 
+  console.log(res);
   return res;
 };
 

@@ -32,7 +32,6 @@ function Status(props) {
 
     async function fetchReplies() {
       if (USER_ID) {
-        setLoadingState(true);
         let fetchedReplies = await getReplies(
           id,
           JSON.parse(localStorage.getItem("JWT_TOKEN"))
@@ -40,7 +39,6 @@ function Status(props) {
         let parsedData = await fetchedReplies.json();
         console.log(parsedData);
         setReplies(parsedData);
-        setLoadingState(false);
       }
     }
 

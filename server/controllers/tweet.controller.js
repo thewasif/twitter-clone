@@ -187,7 +187,7 @@ const getTweet = async (req, res) => {
 const getReplies = async (req, res) => {
   let { tweetID } = req.body;
   let tweets = await Tweet.find({ repliedTo: tweetID });
-
+  console.log(tweets);
   if (tweets) {
     return res.send(tweets);
   } else {

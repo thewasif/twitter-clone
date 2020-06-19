@@ -29,7 +29,7 @@ route.post("/like", verifyToken, likeTweet);
 
 route.post("/unlike", verifyToken, unlikeTweet);
 
-route.get("/getReplies", getReplies);
+route.post("/getReplies", getReplies);
 
 route.post("/newsfeed", verifyToken, newsfeed);
 

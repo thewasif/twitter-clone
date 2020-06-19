@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.scss";
 import { Loader, Header } from "../../../components";
+import { isAuthenticated } from "../../../helpers/api-user";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -61,9 +62,12 @@ class SignUp extends React.Component {
         let token = await res.json();
         localStorage.setItem("JWT_TOKEN", JSON.stringify(token));
         localStorage.setItem("username", this.state.username);
-        if (res.statusText === "OK") {
-          window.location.pathname = "/flow/setup";
-        }
+        isAuthenticated().then((resp) => {
+          localStorage.setItem("logged_in_user_id", resp._id);
+          if (res.statusText === "OK") {
+            window.location.pathname = "/flow/setup";
+          }
+        });
       })
       .catch((e) => {
         console.log(e);

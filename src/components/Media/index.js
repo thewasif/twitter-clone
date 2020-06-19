@@ -14,6 +14,7 @@ function Media({ userID }) {
     }
 
     getUserData(userID).then((res) => {
+      console.log(res.additionalData);
       setUser(res.additionalData);
       setUsername(res.username);
     });
