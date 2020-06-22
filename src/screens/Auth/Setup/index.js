@@ -1,5 +1,6 @@
 import React from "react";
 import { isAuthenticated } from "../../../helpers/api-user";
+import { SERVER } from "../../../helpers/utils";
 import "./style.scss";
 import { Loader, Header } from "../../../components/";
 
@@ -55,7 +56,7 @@ class SetUp extends React.Component {
       coverPhoto: this.state.coverPhoto,
     };
 
-    let res = await fetch("/api/user/editprofile", {
+    let res = await fetch(`${SERVER}/api/user/editprofile`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -80,7 +81,7 @@ class SetUp extends React.Component {
     var data = new FormData();
     data.append("image", this.refs.file.files[0]);
     data.append("image", this.refs.filetwo.files[0]);
-    let res = await fetch("/api/user/upload", {
+    let res = await fetch(`${SERVER}/api/user/upload`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.tokenObj.token,

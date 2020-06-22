@@ -37,7 +37,6 @@ function Status(props) {
           JSON.parse(localStorage.getItem("JWT_TOKEN"))
         );
         let parsedData = await fetchedReplies.json();
-        console.log(parsedData);
         setReplies(parsedData);
       }
     }

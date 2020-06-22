@@ -19,6 +19,7 @@ export const formattedDate = (str) => {
 
 export const USER_ID = localStorage.getItem("logged_in_user_id");
 export const JWT_TOKEN = JSON.parse(localStorage.getItem("JWT_TOKEN"));
+export const SERVER = "https://thawing-sierra-82906.herokuapp.com";
 
 export const flexCenter = {
   display: "flex",

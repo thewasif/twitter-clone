@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss";
 import { Header, Loader } from "../../../components";
 import { isAuthenticated } from "../../../helpers/api-user";
+import { SERVER } from "../../../helpers/utils";
 
 class LogIn extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class LogIn extends React.Component {
       password: this.state.password,
     };
 
-    let res = await fetch("/api/user/login", {
+    let res = await fetch(`${SERVER}/api/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

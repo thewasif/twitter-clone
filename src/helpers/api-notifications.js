@@ -1,7 +1,7 @@
-import { JWT_TOKEN } from "./utils";
+import { JWT_TOKEN, SERVER } from "./utils";
 
 const getNotifications = async () => {
-  let res = await fetch("/api/notifications", {
+  let res = await fetch(`${SERVER}/api/notifications`, {
     headers: {
       Authorization: `Beared ${JWT_TOKEN.token}`,
     },

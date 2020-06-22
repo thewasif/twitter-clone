@@ -1,7 +1,8 @@
 function reducer(action, state) {
   switch (action.type) {
-    case "CHANGE":
+    case "CHANGE_STYLES":
       return action.styles;
+
     default:
       return state;
   }

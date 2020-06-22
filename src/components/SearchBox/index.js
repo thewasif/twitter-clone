@@ -3,7 +3,7 @@ import "./style.scss";
 import Media from "../Media";
 import Loader from "../Loader";
 import { search } from "../../helpers/api-tweet";
-import { flexCenter } from "../../helpers/utils";
+import { flexCenter, SERVER } from "../../helpers/utils";
 
 function SearchBox(props) {
   // Component State
@@ -14,12 +14,21 @@ function SearchBox(props) {
 
   useEffect(() => {
     async function fillUsers() {
-      fetch("/api/user/randomuser").then((res) => {
-        res.json().then((e) => {
-          setUsers(e);
-          setLoading(false);
+      let random_users = JSON.parse(sessionStorage.getItem("random_users"));
+      if (random_users) {
+        setUsers(random_users);
+        setLoading(false);
+        console.log(random_users);
+      } else {
+        console.log("fetching...!");
+        fetch(`${SERVER}/api/user/randomuser`).then((res) => {
+          res.json().then((e) => {
+            setUsers(e);
+            setLoading(false);
+            sessionStorage.setItem("random_users", JSON.stringify(e));
+          });
         });
-      });
+      }
     }
 
     fillUsers();

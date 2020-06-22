@@ -1,7 +1,7 @@
-import { JWT_TOKEN, USER_ID } from "./utils";
+import { JWT_TOKEN, USER_ID, SERVER } from "./utils";
 
 const getTweets = async (username) => {
-  let user = await fetch(`/api/tweet?username=${username}`, {
+  let user = await fetch(`${SERVER}/api/tweet?username=${username}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -16,7 +16,7 @@ const getTweets = async (username) => {
 };
 
 const getTweet = async (id) => {
-  let user = await fetch(`/api/tweet/${id}`, {
+  let user = await fetch(`${SERVER}/api/tweet/${id}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -35,7 +35,7 @@ let actions = {
     console.log("LIKE");
     let data = { tweetID: tweetID },
       tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-    fetch("/api/tweet/like", {
+    fetch(`${SERVER}/api/tweet/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ let actions = {
     console.log("UNLIKE");
     let data = { tweetID: tweetID },
       tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-    fetch("/api/tweet/unlike", {
+    fetch(`${SERVER}/api/tweet/unlike`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const postTweet = async (text, tokenObj) => {
 
 const getReplies = async (tweetID, tokenObj) => {
   let data = { tweetID: tweetID };
-  let res = await fetch("/api/tweet/getReplies", {
+  let res = await fetch(`${SERVER}/api/tweet/getReplies`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const getReplies = async (tweetID, tokenObj) => {
 const postReply = async (text, orgTweetID) => {
   let data = { text: text, orgTweetID: orgTweetID },
     tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-  let res = await fetch("/api/tweet/reply", {
+  let res = await fetch(`${SERVER}/api/tweet/reply`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -103,26 +103,23 @@ const postReply = async (text, orgTweetID) => {
   return res;
 };
 
-const getNewsFeedTweets = async (pageNo, size) => {
+const getNewsFeedTweets = async () => {
   if (USER_ID) {
-    let res = await fetch(
-      `/api/tweet/newsfeed/?pageNo=${pageNo}&size=${size}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + JWT_TOKEN.token,
-        },
-        body: JSON.stringify({}),
-      }
-    );
+    let res = await fetch(`${SERVER}/api/tweet/newsfeed/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + JWT_TOKEN.token,
+      },
+      body: JSON.stringify({}),
+    });
 
     return await res.json();
   }
 };
 
 const search = async (query) => {
-  let res = await fetch(`/api/user/search/?q=${query}`);
+  let res = await fetch(`${SERVER}/api/user/search/?q=${query}`);
 
   let data = await res.json();
   return data;

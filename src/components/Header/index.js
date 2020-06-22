@@ -6,8 +6,11 @@ const Header = (props) => {
   return (
     <div className="header">
       <div className="icon-container">
-        <i className="fab fa-twitter icon"></i>
+        <Link to="/">
+          <i className="fab fa-twitter icon"></i>
+        </Link>
       </div>
+
       <div className="heading">
         <h1>Twitter - Discover What's Happening!</h1>
       </div>

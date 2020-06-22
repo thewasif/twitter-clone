@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { formattedDate, USER_ID } from "../../helpers/utils";
 import { getUserByID } from "../../helpers/api-user";
 import { actions } from "../../helpers/api-tweet";
+import notify from "../Notify";
 import "./style.scss";
 
 function Tweet(props) {
   // props variables
-  let { time, hearts, replies, retweets, text, id, userID } = props;
+  let { time, hearts, replies, text, id, userID } = props;
 
   //Component State
   let [userData, setUserData] = useState({});
@@ -19,9 +20,24 @@ function Tweet(props) {
 
   useEffect(() => {
     async function setUser() {
-      let user = await getUserByID(userID);
-      setUsername(user.username);
-      setUserData(user.additionalData);
+      let previousUser = JSON.parse(sessionStorage.getItem("previous_user"));
+
+      if (previousUser) {
+        if (previousUser._id === userID) {
+          setUsername(previousUser.username);
+          setUserData(previousUser.additionalData);
+        } else {
+          let user = await getUserByID(userID);
+          setUsername(user.username);
+          setUserData(user.additionalData);
+          sessionStorage.setItem("previous_user", JSON.stringify(user));
+        }
+      } else {
+        let user = await getUserByID(userID);
+        setUsername(user.username);
+        setUserData(user.additionalData);
+        sessionStorage.setItem("previous_user", JSON.stringify(user));
+      }
     }
     setUser();
   }, [userID]);
@@ -90,11 +106,17 @@ function Tweet(props) {
             )}{" "}
             <span>{likesCount === 0 ? null : likesCount}</span>
           </button>
-          <button className="tweet-btn retweet">
-            <i className="fa fa-retweet"></i>{" "}
-            <span>{retweets === 0 ? null : retweets}</span>
-          </button>
-          <button className="tweet-btn share">
+
+          <button
+            className="tweet-btn share"
+            onClick={() => {
+              navigator.clipboard
+                .writeText(`${window.location}status/${id}`)
+                .then(() => {
+                  notify("Link copied..!");
+                });
+            }}
+          >
             <i className="fa fa-share"></i>
           </button>
         </div>

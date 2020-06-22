@@ -11,7 +11,7 @@ function Menu({ visibility }) {
         </Link>
       </div>
       <div>
-        <Link to="/flow/account">
+        <Link to="/i/account">
           <p>Account</p>
         </Link>
       </div>

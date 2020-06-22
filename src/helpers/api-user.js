@@ -1,15 +1,14 @@
+import { SERVER } from "./utils";
 const isAuthenticated = async () => {
   try {
     let isAuthenticated = await fetch(
-      `/api/user/verify?JWT_TOKEN=${
+      `${SERVER}/api/user/verify?JWT_TOKEN=${
         JSON.parse(localStorage.getItem("JWT_TOKEN")).token
       }`,
       {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer " + JSON.parse(localStorage.getItem("JWT_TOKEN")).token,
         }),
       }
     );
@@ -20,14 +19,12 @@ const isAuthenticated = async () => {
       return false;
     }
   } catch (error) {
-    console.log("from here");
-    console.log(error);
     return false;
   }
 };
 
 const getUser = async (username) => {
-  let user = await fetch(`/api/user?username=${username}`, {
+  let user = await fetch(`${SERVER}/api/user?username=${username}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -42,7 +39,7 @@ const getUser = async (username) => {
 };
 
 const getUserByID = async (userID) => {
-  let user = await fetch(`/api/user?userID=${userID}`, {
+  let user = await fetch(`${SERVER}/api/user?userID=${userID}`, {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -59,14 +56,17 @@ const getUserByID = async (userID) => {
 let actions = {
   follow: async (userID) => {
     let tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-    let res = await fetch(`/api/user/follow/?userToBeFollowed=${userID}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + tokenObj.token,
-      },
-      body: JSON.stringify({}),
-    });
+    let res = await fetch(
+      `${SERVER}/api/user/follow/?userToBeFollowed=${userID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + tokenObj.token,
+        },
+        body: JSON.stringify({}),
+      }
+    );
     res.json().then((res) => {
       console.log(res);
     });
@@ -74,14 +74,17 @@ let actions = {
 
   unfollow: async (userID) => {
     let tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-    let res = await fetch(`/api/user/unfollow/?userToBeUnFollowed=${userID}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + tokenObj.token,
-      },
-      body: JSON.stringify({}),
-    });
+    let res = await fetch(
+      `${SERVER}/api/user/unfollow/?userToBeUnFollowed=${userID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + tokenObj.token,
+        },
+        body: JSON.stringify({}),
+      }
+    );
     res.json().then((res) => {
       console.log(res);
     });

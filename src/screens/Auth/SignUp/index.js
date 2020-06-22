@@ -2,6 +2,7 @@ import React from "react";
 import "./style.scss";
 import { Loader, Header } from "../../../components";
 import { isAuthenticated } from "../../../helpers/api-user";
+import { SERVER } from "../../../helpers/utils";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class SignUp extends React.Component {
       email,
       password,
     };
-    fetch("/api/user/signup", {
+    fetch(`${SERVER}/api/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

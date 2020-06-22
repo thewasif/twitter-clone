@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
-import { formattedDate, JWT_TOKEN } from "../../helpers/utils";
+import { formattedDate, JWT_TOKEN, SERVER } from "../../helpers/utils";
 
 function Notification(props) {
   // prop variables
@@ -10,7 +10,7 @@ function Notification(props) {
   useEffect(() => {
     async function setRead(notificationID) {
       let data = { notificationID: notificationID };
-      fetch("/api/notifications/setread", {
+      fetch(`${SERVER}/api/notifications/setread`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

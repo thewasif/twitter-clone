@@ -61,7 +61,6 @@ function Navigator(props) {
             icon={<i className="far fa-bell"></i>}
           />
         </Link>
-        <NavItem text="Bookmarks" icon={<i className="far fa-bookmark"></i>} />
         <Link to={profileURL}>
           <NavItem
             text="Profile"
