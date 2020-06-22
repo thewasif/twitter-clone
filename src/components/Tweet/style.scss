@@ -2,7 +2,7 @@
 
 .tweet {
   display: flex;
-  padding: 8px 20px 8px 20px;
+  padding: 8px 20px 8px 10px;
   transition: 0.2s;
   border-bottom: solid 1px #efefef;
   &:hover {
@@ -26,13 +26,16 @@
     .upper-layer {
       display: flex;
       align-items: center;
-      height: 20px;
       font-family: "Open Sans";
+      white-space: nowrap;
+
       small {
         margin-left: 6px;
         color: rgb(116, 110, 110);
       }
       h4 {
+        margin: 0;
+
         &:hover {
           text-decoration: underline;
           cursor: pointer;
@@ -47,6 +50,7 @@
       padding: 4px 0px;
       display: flex;
       justify-content: flex-start;
+      white-space: pre-wrap;
     }
 
     .tweet-buttons {

@@ -44,6 +44,7 @@ const TweetBox = (props) => {
           </div>
           <button
             className="tweet-btn"
+            disabled={tweetText === ""}
             onClick={() => {
               setLoading(true);
               postTweet(

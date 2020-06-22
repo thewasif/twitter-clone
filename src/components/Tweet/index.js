@@ -41,7 +41,7 @@ function Tweet(props) {
     }
     setUser();
   }, [userID]);
-
+  console.log(String(text));
   let to = `/status/${id}`;
 
   return (
