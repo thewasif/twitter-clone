@@ -81,7 +81,15 @@ class SetUp extends React.Component {
     var data = new FormData();
     data.append("image", this.refs.file.files[0]);
     data.append("image", this.refs.filetwo.files[0]);
-    let res = await fetch(`${SERVER}/api/user/upload`, {
+    let type;
+    if (this.refs.file.files[0] && this.refs.filetwo.files[0]) {
+      type = "Both";
+    } else if (this.refs.file.files[0]) {
+      type = "Profile";
+    } else if (this.refs.filetwo.files[0]) {
+      type = "Cover";
+    }
+    let res = await fetch(`${SERVER}/api/user/upload/?type=${type}`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + this.state.tokenObj.token,
@@ -102,7 +110,9 @@ class SetUp extends React.Component {
         <Header />
         <div className="form-container">
           <h1 className="title">Set up your profile</h1>
+          <label>Profile Photo</label>
           <input type="file" name="image" ref="file" />
+          <label>Cover Photo</label>
           <input type="file" name="image" ref="filetwo" />
           <button onClick={this.uploadPhotos}>
             {this.state.btnDisabled ? <Loader /> : "Save"}

@@ -12,11 +12,15 @@ function Media({ userID }) {
     async function getUserData(userID) {
       return await getUserByID(userID);
     }
-
-    getUserData(userID).then((res) => {
+    (async function () {
+      let res = await getUserData(userID);
+      if (res === 404) {
+        sessionStorage.removeItem("random_users");
+        return;
+      }
       setUser(res.additionalData);
       setUsername(res.username);
-    });
+    })();
   }, [userID]);
 
   return (

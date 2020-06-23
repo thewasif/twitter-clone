@@ -46,6 +46,7 @@ const getUserByID = async (userID) => {
       "Content-Type": "application/json",
     },
   });
+  console.log(user);
   if (user.status === 404) {
     return 404;
   }

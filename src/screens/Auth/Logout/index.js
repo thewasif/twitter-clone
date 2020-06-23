@@ -17,10 +17,8 @@ class Logout extends React.Component {
     }
   }
   logout() {
-    console.log("execute");
-    localStorage.removeItem("username");
-    localStorage.removeItem("JWT_TOKEN");
-    localStorage.removeItem("logged_in_user_id");
+    sessionStorage.clear();
+    localStorage.clear();
   }
   render() {
     return (

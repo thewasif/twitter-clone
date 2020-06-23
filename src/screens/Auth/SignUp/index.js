@@ -94,10 +94,10 @@ class SignUp extends React.Component {
               name="username"
               required
               minLength={3}
-              maxLength={20}
+              maxLength={15}
               value={this.state.username}
               onChange={(e) => {
-                this.setState({ username: e.target.value });
+                this.setState({ username: e.target.value.replace(" ", "") });
               }}
               spellCheck="false"
               className="input-field"

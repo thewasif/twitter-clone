@@ -20,28 +20,30 @@ function Home(props) {
       history.push("/flow/welcome");
     }
     (async function () {
-      let userData = JSON.parse(sessionStorage.getItem("user_data"));
-      if (userData) {
-        setUser(userData);
-        setAdditionalData(userData.additionalData);
-      } else {
-        let userData = await isAuthenticated();
-        sessionStorage.setItem("user_data", JSON.stringify(userData));
-        setUser(userData);
-        setAdditionalData(userData.additionalData);
-      }
+      if (USER_ID) {
+        let userData = JSON.parse(sessionStorage.getItem("user_data"));
+        if (userData) {
+          setUser(userData);
+          setAdditionalData(userData.additionalData);
+        } else {
+          let userData = await isAuthenticated();
+          sessionStorage.setItem("user_data", JSON.stringify(userData));
+          setUser(userData);
+          setAdditionalData(userData.additionalData);
+        }
 
-      let tweets_from_storage = JSON.parse(
-        sessionStorage.getItem("feed_tweets")
-      );
-      if (tweets_from_storage) {
-        setTweets(tweets_from_storage);
-        setLoading(false);
-      } else {
-        let newTweets = await getNewsFeedTweets();
-        setTweets(newTweets);
-        setLoading(false);
-        sessionStorage.setItem("feed_tweets", JSON.stringify(newTweets));
+        let tweets_from_storage = JSON.parse(
+          sessionStorage.getItem("feed_tweets")
+        );
+        if (tweets_from_storage) {
+          setTweets(tweets_from_storage);
+          setLoading(false);
+        } else {
+          let newTweets = await getNewsFeedTweets();
+          setTweets(newTweets);
+          setLoading(false);
+          sessionStorage.setItem("feed_tweets", JSON.stringify(newTweets));
+        }
       }
     })();
   }, []);

@@ -90,6 +90,7 @@ function ProfileHeader(props) {
                               following: following.length,
                             });
                             actions.unfollow(userID);
+                            sessionStorage.removeItem("feed_tweets");
                           }
                         : () => {
                             setFollowed(true);
@@ -97,6 +98,8 @@ function ProfileHeader(props) {
                               followers: followCount.followers + 1,
                               following: following.length,
                             });
+                            sessionStorage.removeItem("feed_tweets");
+
                             actions.follow(userID);
                           }
                     }
