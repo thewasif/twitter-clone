@@ -51,9 +51,14 @@ const TweetBox = (props) => {
                 tweetText,
                 JSON.parse(localStorage.getItem("JWT_TOKEN"))
               ).then((res) => {
-                setLoading(false);
-                setTweetText("");
-                notify("Tweet posted successfully..!");
+                if (res.status === 200) {
+                  setLoading(false);
+                  setTweetText("");
+                  notify("Tweet posted successfully..!");
+                } else {
+                  setLoading(false);
+                  notify("An error occurred..!");
+                }
               });
             }}
           >

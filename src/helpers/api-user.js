@@ -1,4 +1,5 @@
 import { SERVER } from "./utils";
+
 const isAuthenticated = async () => {
   try {
     let isAuthenticated = await fetch(
@@ -46,7 +47,6 @@ const getUserByID = async (userID) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(user);
   if (user.status === 404) {
     return 404;
   }
@@ -68,9 +68,7 @@ let actions = {
         body: JSON.stringify({}),
       }
     );
-    res.json().then((res) => {
-      console.log(res);
-    });
+    res.json().then((res) => {});
   },
 
   unfollow: async (userID) => {
@@ -86,9 +84,7 @@ let actions = {
         body: JSON.stringify({}),
       }
     );
-    res.json().then((res) => {
-      console.log(res);
-    });
+    res.json().then((res) => {});
   },
 };
 

@@ -10,11 +10,6 @@ function Menu({ visibility }) {
           <p>Logout</p>
         </Link>
       </div>
-      <div>
-        <Link to="/i/account">
-          <p>Account</p>
-        </Link>
-      </div>
     </div>
   );
 }

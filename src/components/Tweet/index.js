@@ -21,13 +21,13 @@ function Tweet(props) {
   useEffect(() => {
     async function setUser() {
       let previousUser = JSON.parse(sessionStorage.getItem("previous_user"));
-
       if (previousUser) {
         if (previousUser._id === userID) {
           setUsername(previousUser.username);
           setUserData(previousUser.additionalData);
         } else {
           let user = await getUserByID(userID);
+
           setUsername(user.username);
           setUserData(user.additionalData);
           sessionStorage.setItem("previous_user", JSON.stringify(user));
@@ -41,7 +41,6 @@ function Tweet(props) {
     }
     setUser();
   }, [userID]);
-  console.log(String(text));
   let to = `/status/${id}`;
 
   return (
@@ -111,7 +110,7 @@ function Tweet(props) {
             className="tweet-btn share"
             onClick={() => {
               navigator.clipboard
-                .writeText(`${window.location}status/${id}`)
+                .writeText(`${window.location.hostname}/status/${id}`)
                 .then(() => {
                   notify("Link copied..!");
                 });

@@ -5,6 +5,7 @@ import Modal from "../Modal";
 import { actions } from "../../helpers/api-tweet";
 import { isAuthenticated } from "../../helpers/api-user";
 import { USER_ID, formattedDate } from "../../helpers/utils";
+import notify from "../Notify";
 
 function Status(props) {
   // props variables
@@ -100,10 +101,17 @@ function Status(props) {
               <i className="far fa-heart"></i>
             )}
           </button>
-          <button className="tweet-btn retweet">
-            <i className="fa fa-retweet"></i>{" "}
-          </button>
-          <button className="tweet-btn share">
+
+          <button
+            className="tweet-btn share"
+            onClick={() => {
+              navigator.clipboard
+                .writeText(`${window.location.hostname}/status/${id}`)
+                .then(() => {
+                  notify("Link copied..!");
+                });
+            }}
+          >
             <i className="fa fa-share"></i>
           </button>
         </div>

@@ -71,7 +71,6 @@ class SignUp extends React.Component {
         });
       })
       .catch((e) => {
-        console.log(e);
         this.setState({
           errorText: "Username or Email already exists!",
           error: "block",

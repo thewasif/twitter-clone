@@ -18,16 +18,18 @@ function SearchBox(props) {
       if (random_users) {
         setUsers(random_users);
         setLoading(false);
-        console.log(random_users);
       } else {
-        console.log("fetching...!");
-        fetch(`${SERVER}/api/user/randomuser`).then((res) => {
-          res.json().then((e) => {
-            setUsers(e);
-            setLoading(false);
-            sessionStorage.setItem("random_users", JSON.stringify(e));
+        try {
+          fetch(`${SERVER}/api/user/randomuser`).then((res) => {
+            res.json().then((e) => {
+              setUsers(e);
+              setLoading(false);
+              sessionStorage.setItem("random_users", JSON.stringify(e));
+            });
           });
-        });
+        } catch (error) {
+          console.error(error);
+        }
       }
     }
 

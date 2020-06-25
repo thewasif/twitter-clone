@@ -32,7 +32,6 @@ const getTweet = async (id) => {
 
 let actions = {
   like: (tweetID) => {
-    console.log("LIKE");
     let data = { tweetID: tweetID },
       tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
     fetch(`${SERVER}/api/tweet/like`, {
@@ -45,7 +44,6 @@ let actions = {
     });
   },
   unlike: (tweetID) => {
-    console.log("UNLIKE");
     let data = { tweetID: tweetID },
       tokenObj = JSON.parse(localStorage.getItem("JWT_TOKEN"));
     fetch(`${SERVER}/api/tweet/unlike`, {
@@ -61,7 +59,7 @@ let actions = {
 
 const postTweet = async (text, tokenObj) => {
   let data = { text: text };
-  let res = await fetch("/api/tweet", {
+  let res = await fetch(`${SERVER}/api/tweet`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +82,6 @@ const getReplies = async (tweetID, tokenObj) => {
     body: JSON.stringify(data),
   });
 
-  console.log(res);
   return res;
 };
 

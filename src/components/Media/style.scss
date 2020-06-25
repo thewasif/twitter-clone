@@ -8,6 +8,7 @@
     .img {
       @include circle(60px);
       margin: 2px;
+      background-color: $light-color;
       background-position: center;
       background-size: cover;
     }

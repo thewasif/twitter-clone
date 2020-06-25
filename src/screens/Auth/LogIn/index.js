@@ -33,7 +33,6 @@ class LogIn extends React.Component {
       },
       body: JSON.stringify(userData),
     });
-    console.log(res);
     if (res.status === 403) {
       this.setState({
         btnDisabled: false,
@@ -42,7 +41,6 @@ class LogIn extends React.Component {
       });
     }
     await res.json().then(async (res) => {
-      console.log(res);
       localStorage.setItem("JWT_TOKEN", JSON.stringify(res));
       localStorage.setItem("username", this.state.username);
       isAuthenticated().then((res) => {
@@ -73,7 +71,7 @@ class LogIn extends React.Component {
               placeholder="Username"
             />{" "}
             <input
-              type="text"
+              type="password"
               name="password"
               value={this.state.password}
               onChange={(e) => {

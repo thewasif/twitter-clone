@@ -42,6 +42,7 @@
     .text {
       font-family: $tweet-font;
       font-size: x-large;
+      white-space: pre-wrap;
     }
 
     .date {

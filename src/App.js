@@ -6,7 +6,6 @@ import Welcome from "./screens/Welcome/index";
 import Status from "./screens/Status";
 import Search from "./screens/Search";
 import Notifications from "./screens/Notifications";
-import Account from "./screens/Account/index";
 import { SignUp, LogIn, Setup, Logout } from "./screens/Auth";
 import "./scss/media-queries.scss";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +27,6 @@ class App extends Component {
           <Route path="/status/:id" exact component={Status} />
           <Route path="/i/notifications" exact component={Notifications} />
           <Route path="/i/search" exact component={Search} />
-          <Route path="/i/account" exact component={Account} />
         </Router>
       </Provider>
     );

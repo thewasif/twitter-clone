@@ -1,8 +1,10 @@
 import React from "react";
+import { ToastContainer } from "react-toastify";
 import { isAuthenticated } from "../../../helpers/api-user";
 import { SERVER } from "../../../helpers/utils";
 import "./style.scss";
 import { Loader, Header } from "../../../components/";
+import notify from "../../../components/Notify";
 
 class SetUp extends React.Component {
   constructor(props) {
@@ -77,7 +79,7 @@ class SetUp extends React.Component {
       });
   }
   async uploadPhotos() {
-    this.setState({ btnDisabled: true });
+    notify("Uploading photo...");
     var data = new FormData();
     data.append("image", this.refs.file.files[0]);
     data.append("image", this.refs.filetwo.files[0]);
@@ -97,26 +99,31 @@ class SetUp extends React.Component {
       body: data,
     });
     res.json().then((e) => {
-      console.log(e);
-      this.setState({ btnDisabled: false });
-      window.location.pathname = "/" + localStorage.getItem("username");
+      notify("Photo uploaded...!");
     });
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <Header />
         <div className="form-container">
           <h1 className="title">Set up your profile</h1>
           <label>Profile Photo</label>
-          <input type="file" name="image" ref="file" />
+          <input
+            type="file"
+            name="image"
+            ref="file"
+            onChange={this.uploadPhotos}
+          />
           <label>Cover Photo</label>
-          <input type="file" name="image" ref="filetwo" />
-          <button onClick={this.uploadPhotos}>
-            {this.state.btnDisabled ? <Loader /> : "Save"}
-          </button>
+          <input
+            type="file"
+            name="image"
+            ref="filetwo"
+            onChange={this.uploadPhotos}
+          />
+
           <form>
             <label style={{ display: this.state.error }} className="error">
               {this.state.errorText}
@@ -182,6 +189,14 @@ class SetUp extends React.Component {
             </button>
           </form>
         </div>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={1000}
+          hideProgressBar
+          closeOnClick
+          draggable
+          pauseOnHover={false}
+        />
       </div>
     );
   }

@@ -18,9 +18,7 @@ function Notification(props) {
         },
         body: JSON.stringify(data),
       }).then((res) => {
-        res.json().then((e) => {
-          console.log(e);
-        });
+        res.json().then((e) => {});
       });
     }
     if (!read) setRead(id);

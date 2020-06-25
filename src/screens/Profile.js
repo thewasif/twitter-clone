@@ -25,7 +25,6 @@ class Profile extends Component {
     if (this.state.userObj.username !== props.match.params.user) {
       this.setState({ loading: true });
       let user = await getUser(this.props.match.params.user);
-      console.log(user);
       this.setState({
         userObj: user,
         additionalData: user.additionalData,
@@ -97,7 +96,6 @@ class Profile extends Component {
               />
               <div>
                 {this.state.tweets.map((tweet) => {
-                  console.log("execute");
                   return (
                     <Tweet
                       key={tweet.text}
