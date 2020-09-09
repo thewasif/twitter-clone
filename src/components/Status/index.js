@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import "./style.scss";
-import Modal from "../Modal";
-import { actions } from "../../helpers/api-tweet";
-import { isAuthenticated } from "../../helpers/api-user";
-import { USER_ID, formattedDate } from "../../helpers/utils";
-import notify from "../Notify";
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { BiShare } from 'react-icons/bi';
+import './style.scss';
+import Modal from '../Modal';
+import { actions } from '../../helpers/api-tweet';
+import { isAuthenticated } from '../../helpers/api-user';
+import { USER_ID, formattedDate } from '../../helpers/utils';
+import notify from '../Notify';
 
 function Status(props) {
   // props variables
@@ -32,7 +33,7 @@ function Status(props) {
   let to = `/${username}`;
 
   return (
-    <div className="status">
+    <div className='status'>
       <Modal
         visible={modal}
         users={hearts}
@@ -40,41 +41,41 @@ function Status(props) {
           setModal(!modal);
         }}
       />
-      <div className="media">
+      <div className='media'>
         <Link to={to}>
           <div
-            className="media-photo"
+            className='media-photo'
             style={{ backgroundImage: `url("${pic}")` }}
           ></div>
         </Link>
-        <div className="media-body">
+        <div className='media-body'>
           <Link to={to}>
             <h3>{name}</h3>
           </Link>
           <p>@{username}</p>
         </div>
-        <div className="icon-button">
-          <i className="fa fa-ellipsis-h"></i>
+        <div className='icon-button'>
+          <i className='fa fa-ellipsis-h'></i>
         </div>
       </div>
 
-      <div className="status-text">
-        <p className="text">{text}</p>
-        <p className="date">{`${date.time} • ${date.month} ${date.date}, ${date.year} • Twitter Web App`}</p>
+      <div className='status-text'>
+        <p className='text'>{text}</p>
+        <p className='date'>{`${date.time} • ${date.month} ${date.date}, ${date.year} • Twitter Web App`}</p>
       </div>
 
-      <div className="status-details">
+      <div className='status-details'>
         <p onClick={() => setModal(!modal)}>
           <span>{likesCount}</span> likes
         </p>
       </div>
-      <div className="status-details">
-        <div className="tweet-buttons">
-          <button className="tweet-btn reply" onClick={props.onReplyClick}>
-            <i className="far fa-comment-dots"></i>
+      <div className='status-details'>
+        <div className='tweet-buttons'>
+          <button className='tweet-btn reply' onClick={props.onReplyClick}>
+            <i className='far fa-comment-dots'></i>
           </button>
           <button
-            className="tweet-btn heart"
+            className='tweet-btn heart'
             onClick={
               liked
                 ? () => {
@@ -90,29 +91,29 @@ function Status(props) {
                       hearts.push(USER_ID);
                       actions.like(id);
                     } else {
-                      alert("Please login first!");
+                      alert('Please login first!');
                     }
                   }
             }
           >
             {liked ? (
-              <i className="fas fa-heart" style={{ color: "red" }}></i>
+              <i className='fas fa-heart' style={{ color: 'red' }}></i>
             ) : (
-              <i className="far fa-heart"></i>
+              <i className='far fa-heart'></i>
             )}
           </button>
 
           <button
-            className="tweet-btn share"
+            className='tweet-btn share'
             onClick={() => {
               navigator.clipboard
                 .writeText(`${window.location.hostname}/status/${id}`)
                 .then(() => {
-                  notify("Link copied..!");
+                  notify('Link copied..!');
                 });
             }}
           >
-            <i className="fa fa-share"></i>
+            <BiShare className='fa fa-share' />
           </button>
         </div>
       </div>

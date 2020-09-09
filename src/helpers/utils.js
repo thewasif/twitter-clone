@@ -3,7 +3,7 @@ export const redirectTo = (url) => {
 };
 
 export const formattedDate = (str) => {
-  let dateString = String(new Date(str)).split(" ");
+  let dateString = String(new Date(str)).split(' ');
   let month = dateString[1],
     date = dateString[2],
     year = dateString[3],
@@ -17,13 +17,15 @@ export const formattedDate = (str) => {
   };
 };
 
-export const USER_ID = localStorage.getItem("logged_in_user_id");
-export const JWT_TOKEN = JSON.parse(localStorage.getItem("JWT_TOKEN"));
-export const SERVER = "https://twitter-api-clone-1.herokuapp.com";
+export const USER_ID = localStorage.getItem('logged_in_user_id');
+export const JWT_TOKEN = JSON.parse(localStorage.getItem('JWT_TOKEN'));
+export const SERVER = 'https://twitter-api-clone-1.herokuapp.com';
+
+export const defaultPicture = require('../images/default-profile.png');
 
 export const flexCenter = {
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
 };
